@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PriceHunter - מציאת המחיר הטוב ביותר{% endblock %}</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="מערכת השוואת מחירים ישראלית - מוצא את המחיר הטוב ביותר בכל החנויות המקוונות">
+    <meta name="keywords" content="השוואת מחירים, מחירים, חנויות, KSP, Bug, זאפ, קניות">
+    <meta name="author" content="PriceHunter Team">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <h1 class="logo">
+                    <a href="{{ url_for('home') }}">🔍 PriceHunter</a>
+                </h1>
+                <p class="tagline">מוצא את המחיר הטוב ביותר בכל החנויות</p>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- הצגת שגיאות אם יש -->
+            {% if error %}
+            <div class="alert alert-error">
+                <span class="alert-icon">⚠️</span>
+                <span class="alert-message">{{ error }}</span>
+            </div>
+            {% endif %}
+
+            <!-- תוכן העמוד -->
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>PriceHunter</h4>
+                    <p>השוואת מחירים חכמה ומהירה</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>קישורים</h4>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('home') }}">עמוד הבית</a></li>
+                        <li><a href="{{ url_for('about') }}">אודות</a></li>
+                        <li><a href="{{ url_for('health_check') }}">סטטוס מערכת</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>החנויות שלנו</h4>
+                    <div class="store-badges">
+                        <span class="store-badge">KSP</span>
+                        <span class="store-badge">Bug</span>
+                        <span class="store-badge">זאפ</span>
+                        <span class="store-badge">Ivory</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 PriceHunter - מציאת המחיר הטוב ביותר</p>
+                <p class="footer-note">שירות ללא מטרות רווח לקהילה הישראלית</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay" style="display: none;">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <h3>מחפש את המחיר הטוב ביותר...</h3>
+            <p>סורק את כל החנויות עבורך</p>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
