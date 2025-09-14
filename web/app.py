@@ -10,13 +10,6 @@ Flask Web Application - השרת הראשי של PriceHunter
 3. משתמש ב-PriceFinder לחיפוש במחירים
 4. מחזיר דפי HTML יפים עם תוצאות
 5. מספק API ל-JavaScript
-
-Routes (נתיבים) שהשרת מכיר:
-- GET /                    ← עמוד הבית
-- GET /search?q=iPhone     ← עמוד תוצאות
-- POST /api/search         ← API לחיפוש
-- GET /api/health          ← בדיקת תקינות
-- GET /api/stores/status   ← סטטוס חנויות
 """
 
 import logging
@@ -46,26 +39,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-def create_app():
-    """
-    יצירת אפליקציית Flask
-    
-    למה פונקציה נפרדת?
-    - קל לבדיקות
-    - אפשר ליצור כמה אפליקציות
-    - הגדרות גמישות
-    """
-    # יצירת אפליקציית Flask
-    app = Flask(__name__)
-    
-    # הגדרות האפליקציה
-    app.config['SECRET_KEY'] = 'price-hunter-secret-key-change-in-production'
-    app.config['JSON_AS_ASCII'] = False  # תמיכה בעברית ב-JSON
-    
-    return app
-
-# יצירת האפליקציה
-app = create_app()
+# יצירת אפליקציית Flask
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'price-hunter-secret-key-change-in-production'
+app.config['JSON_AS_ASCII'] = False  # תמיכה בעברית ב-JSON
 
 # אתחול מנוע החיפוש
 logger.info("🔍 מאתחל את PriceFinder...")
@@ -80,89 +57,128 @@ except Exception as e:
 
 @app.route('/')
 def index():
-    """
-    עמוד הבית - מה שהמשתמש רואה כשנכנס לאתר
-    
-    Returns:
-        דף HTML של עמוד הבית
-    """
+    """עמוד הבית - מה שהמשתמש רואה כשנכנס לאתר"""
     logger.info("🏠 משתמש נכנס לעמוד הבית")
     
-    # בהמשך נוסיף קובץ templates/index.html
-    # כרגע נחזיר הודעה פשוטה
-    return """
-    <!DOCTYPE html>
-    <html lang="he" dir="rtl">
-    <head>
-        <meta charset="UTF-8">
-        <title>PriceHunter - מציאת המחיר הטוב ביותר</title>
-        <style>
-            body { 
-                font-family: Arial, sans-serif; 
-                text-align: center; 
-                padding: 50px;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
-                min-height: 100vh;
-            }
-            .container {
-                background: rgba(255,255,255,0.1);
-                padding: 40px;
-                border-radius: 20px;
-                max-width: 600px;
-                margin: 0 auto;
-            }
-            input {
-                padding: 15px;
-                font-size: 16px;
-                border: none;
-                border-radius: 25px;
-                width: 300px;
-                text-align: center;
-            }
-            button {
-                padding: 15px 30px;
-                font-size: 16px;
-                background: #28a745;
-                color: white;
-                border: none;
-                border-radius: 25px;
-                cursor: pointer;
-                margin: 10px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>🔍 PriceHunter</h1>
-            <p>מוצא את המחיר הטוב ביותר בכל החנויות</p>
-            
+    return '''
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PriceHunter - מציאת המחיר הטוב ביותר</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        .search-form {
+            margin: 30px 0;
+        }
+        input[type="text"] {
+            padding: 15px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            width: 350px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .stores {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+        }
+        .stores h3 {
+            margin-bottom: 15px;
+        }
+        .store-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .store-item {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 PriceHunter</h1>
+        <p>מוצא את המחיר הטוב ביותר בכל החנויות</p>
+        
+        <div class="search-form">
             <form action="/search" method="get">
-                <input type="text" name="q" placeholder="מה אתה מחפש? (iPhone, MacBook...)" required>
-                <br><br>
+                <input type="text" 
+                       name="q" 
+                       placeholder="מה אתה מחפש? (iPhone, MacBook, אוזניות...)" 
+                       required>
+                <br>
                 <button type="submit">🔍 חפש עכשיו</button>
             </form>
-            
-            <div style="margin-top: 30px;">
-                <h3>החנויות שאנחנו סורקים:</h3>
-                <p>KSP | Bug | זאפ | Ivory</p>
+        </div>
+        
+        <div class="stores">
+            <h3>החנויות שאנחנו סורקים:</h3>
+            <div class="store-list">
+                <div class="store-item">KSP</div>
+                <div class="store-item">Bug</div>
+                <div class="store-item">זאפ</div>
+                <div class="store-item">Ivory</div>
             </div>
         </div>
-    </body>
-    </html>
-    """
+    </div>
+</body>
+</html>
+    '''
 
 @app.route('/search')
 def search_page():
-    """
-    עמוד תוצאות חיפוש
-    
-    Query Parameters:
-        q: מה לחפש (חובה)
-        
-    Returns:
-        דף HTML עם תוצאות החיפוש
-    """
+    """עמוד תוצאות חיפוש"""
     query = request.args.get('q', '').strip()
     
     if not query:
@@ -172,11 +188,20 @@ def search_page():
     logger.info(f"🔍 חיפוש דף עבור: '{query}'")
     
     if not price_finder:
-        return """
-        <h1>❌ שגיאה</h1>
-        <p>מערכת החיפוש לא זמינה כרגע</p>
-        <a href="/">חזור לעמוד הבית</a>
-        """
+        return '''
+        <!DOCTYPE html>
+        <html lang="he" dir="rtl">
+        <head>
+            <meta charset="UTF-8">
+            <title>שגיאה | PriceHunter</title>
+        </head>
+        <body style="font-family: Arial; text-align: center; padding: 50px; background: #f44336; color: white;">
+            <h1>❌ שגיאה</h1>
+            <p>מערכת החיפוש לא זמינה כרגע</p>
+            <a href="/" style="color: white;">חזור לעמוד הבית</a>
+        </body>
+        </html>
+        '''
     
     try:
         # ביצוע החיפוש
@@ -184,33 +209,29 @@ def search_page():
         results = price_finder.search_all_stores(query, max_results_per_store=5)
         
         # בניית HTML עם התוצאות
-        html_results = build_results_html(query, results)
-        return html_results
+        return build_results_html(query, results)
         
     except Exception as e:
         logger.error(f"❌ שגיאה בחיפוש: {e}")
-        return f"""
-        <h1>❌ שגיאה בחיפוש</h1>
-        <p>אירעה שגיאה בחיפוש עבור "{query}"</p>
-        <p>שגיאה: {str(e)}</p>
-        <a href="/">חזור לעמוד הבית</a>
-        """
+        return f'''
+        <!DOCTYPE html>
+        <html lang="he" dir="rtl">
+        <head>
+            <meta charset="UTF-8">
+            <title>שגיאה בחיפוש | PriceHunter</title>
+        </head>
+        <body style="font-family: Arial; text-align: center; padding: 50px; background: #f44336; color: white;">
+            <h1>❌ שגיאה בחיפוש</h1>
+            <p>אירעה שגיאה בחיפוש עבור "{query}"</p>
+            <p>שגיאה: {str(e)}</p>
+            <a href="/" style="color: white;">חזור לעמוד הבית</a>
+        </body>
+        </html>
+        '''
 
 @app.route('/api/search', methods=['POST'])
 def api_search():
-    """
-    API לחיפוש מוצרים - עבור JavaScript
-    
-    Request Body (JSON):
-        {
-            "query": "iPhone 15",
-            "max_results": 5,
-            "stores": ["ksp", "bug"] // אופציונלי
-        }
-        
-    Returns:
-        JSON עם התוצאות
-    """
+    """API לחיפוש מוצרים - עבור JavaScript"""
     if not price_finder:
         return jsonify({
             'success': False,
@@ -261,49 +282,13 @@ def api_search():
             'error': 'שגיאה בביצוע החיפוש'
         }), 500
 
-@app.route('/api/stores/status')
-def api_stores_status():
-    """
-    בדיקת סטטוס כל החנויות
-    
-    Returns:
-        JSON עם סטטוס כל חנות
-    """
-    if not price_finder:
-        return jsonify({
-            'success': False,
-            'error': 'מערכת החיפוש לא זמינה'
-        }), 503
-    
-    try:
-        logger.info("🏥 בודק סטטוס חנויות")
-        status = price_finder.get_store_status()
-        
-        return jsonify({
-            'success': True,
-            'stores': status,
-            'timestamp': datetime.now().isoformat()
-        })
-        
-    except Exception as e:
-        logger.error(f"❌ שגיאה בבדיקת סטטוס: {e}")
-        return jsonify({
-            'success': False,
-            'error': 'שגיאה בבדיקת סטטוס החנויות'
-        }), 500
-
 @app.route('/api/health')
 def health_check():
-    """
-    בדיקת תקינות המערכת - עבור ניטור
-    
-    Returns:
-        JSON עם מידע על תקינות המערכת
-    """
+    """בדיקת תקינות המערכת"""
     status = {
         'status': 'healthy',
         'timestamp': datetime.now().isoformat(),
-        'version': Config.VERSION,
+        'version': '1.0.0',
         'price_finder_available': price_finder is not None,
         'active_scrapers': len(price_finder.scrapers) if price_finder else 0
     }
@@ -313,134 +298,176 @@ def health_check():
 # ===== פונקציות עזר =====
 
 def build_results_html(query, results):
-    """
-    בונה HTML עם תוצאות החיפוש
+    """בונה HTML עם תוצאות החיפוש"""
     
-    Args:
-        query: מה חיפשנו
-        results: תוצאות מ-PriceFinder
+    # תחילת HTML
+    html = f'''
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>תוצאות עבור: {query} | PriceHunter</title>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }}
+        .container {{
+            max-width: 1000px;
+            margin: 0 auto;
+        }}
+        .header {{
+            text-align: center;
+            margin-bottom: 30px;
+        }}
+        .back-btn {{
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: background 0.3s;
+        }}
+        .back-btn:hover {{
+            background: rgba(255,255,255,0.3);
+        }}
+        .search-info {{
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }}
+        .product-card {{
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.3s;
+        }}
+        .product-card:hover {{
+            transform: translateY(-5px);
+        }}
+        .product-info {{
+            flex: 1;
+        }}
+        .product-name {{
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }}
+        .store-info {{
+            color: #666;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }}
+        .price {{
+            font-size: 2em;
+            font-weight: bold;
+            color: #e74c3c;
+            text-align: left;
+        }}
+        .best-deal {{
+            border: 3px solid #28a745;
+            position: relative;
+        }}
+        .best-deal::before {{
+            content: "🏆 המחיר הטוב ביותר";
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }}
+        .no-results {{
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }}
+        .no-results h3 {{
+            font-size: 2em;
+            margin-bottom: 15px;
+        }}
+        .savings-info {{
+            background: rgba(40, 167, 69, 0.2);
+            border: 2px solid #28a745;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }}
+        .error-info {{
+            background: rgba(220, 53, 69, 0.2);
+            border: 2px solid #dc3545;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 PriceHunter</h1>
+            <a href="/" class="back-btn">🏠 עמוד הבית</a>
+        </div>
         
-    Returns:
-        HTML string
-    """
-    html = f"""
-    <!DOCTYPE html>
-    <html lang="he" dir="rtl">
-    <head>
-        <meta charset="UTF-8">
-        <title>תוצאות עבור: {query} | PriceHunter</title>
-        <style>
-            body {{ 
-                font-family: Arial, sans-serif;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
-                margin: 0;
-                padding: 20px;
-            }}
-            .container {{
-                max-width: 1000px;
-                margin: 0 auto;
-            }}
-            .header {{
-                text-align: center;
-                margin-bottom: 30px;
-            }}
-            .search-info {{
-                background: rgba(255,255,255,0.1);
-                padding: 20px;
-                border-radius: 15px;
-                margin-bottom: 20px;
-                text-align: center;
-            }}
-            .product-card {{
-                background: rgba(255,255,255,0.95);
-                color: #333;
-                margin: 15px 0;
-                padding: 20px;
-                border-radius: 15px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }}
-            .product-info {{
-                flex: 1;
-            }}
-            .product-name {{
-                font-size: 1.2em;
-                font-weight: bold;
-                margin-bottom: 5px;
-            }}
-            .store-info {{
-                color: #666;
-                margin-bottom: 5px;
-            }}
-            .price {{
-                font-size: 1.5em;
-                font-weight: bold;
-                color: #e74c3c;
-            }}
-            .best-deal {{
-                border: 3px solid #28a745;
-                position: relative;
-            }}
-            .best-deal::before {{
-                content: "🏆 המחיר הטוב ביותר";
-                position: absolute;
-                top: -10px;
-                right: 20px;
-                background: #28a745;
-                color: white;
-                padding: 5px 15px;
-                border-radius: 15px;
-                font-size: 0.9em;
-            }}
-            .no-results {{
-                text-align: center;
-                padding: 50px;
-            }}
-            .back-btn {{
-                background: rgba(255,255,255,0.2);
-                color: white;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 25px;
-                cursor: pointer;
-                margin: 20px;
-                text-decoration: none;
-                display: inline-block;
-            }}
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="header">
-                <h1>🔍 PriceHunter</h1>
-                <a href="/" class="back-btn">🏠 עמוד הבית</a>
-            </div>
-            
-            <div class="search-info">
-                <h2>תוצאות עבור: "{query}"</h2>
-                <p>נמצאו {results['total_products']} מוצרים ב-{results['search_time']} שניות</p>
-                <p>נבדקו: {', '.join(results['stores_searched'])}</p>
-            </div>
-    """
+        <div class="search-info">
+            <h2>תוצאות עבור: "{query}"</h2>
+            <p>נמצאו {results['total_products']} מוצרים ב-{results['search_time']} שניות</p>
+            <p>נבדקו החנויות: {', '.join(results['stores_searched'])}</p>
+        </div>
+    '''
+    
+    # אם יש שגיאות - הצג אותן
+    if results.get('errors'):
+        html += '<div class="error-info"><h4>⚠️ התרחשו בעיות:</h4><ul>'
+        for error in results['errors']:
+            html += f'<li>{error}</li>'
+        html += '</ul></div>'
     
     # הוספת התוצאות
     if results['total_products'] == 0:
-        html += """
+        html += '''
             <div class="no-results">
                 <h3>😔 לא נמצאו תוצאות</h3>
-                <p>נסה מילות חיפוש אחרות</p>
+                <p>נסה מילות חיפוש אחרות או פשוטות יותר</p>
+                <p><strong>טיפים לחיפוש טוב יותר:</strong></p>
+                <ul style="list-style: none; padding: 0;">
+                    <li>✓ נסה רק את שם המוצר: "iPhone" במקום "iPhone 15 Pro Max"</li>
+                    <li>✓ השתמש במילים באנגלית: "MacBook" במקום "מקבוק"</li>
+                    <li>✓ בדוק את הכתיב</li>
+                </ul>
             </div>
-        """
+        '''
     else:
-        # הוספת כל מוצר
-        best_price = min(p['price'] for p in results['products']) if results['products'] else 0
+        # מציאת המחיר הטוב ביותר
+        best_price = min(p['price'] for p in results['products'])
         
+        # הוספת כל מוצר
         for product in results['products']:
-            is_best = product['price'] == best_price
+            is_best = (product['price'] == best_price)
             
-            html += f"""
+            html += f'''
                 <div class="product-card {'best-deal' if is_best else ''}">
                     <div class="product-info">
                         <div class="product-name">{product['name']}</div>
@@ -448,24 +475,26 @@ def build_results_html(query, results):
                     </div>
                     <div class="price">₪{product['price']:,.0f}</div>
                 </div>
-            """
+            '''
         
         # הוספת מידע על חיסכון
         if results.get('best_deal') and results['best_deal'].get('savings'):
             savings = results['best_deal']['savings']
-            html += f"""
-                <div class="search-info">
-                    <h3>💰 חיסכון</h3>
-                    <p>המחיר הטוב ביותר חוסך לך ₪{savings:,.0f}!</p>
+            savings_percent = results['best_deal'].get('savings_percent', 0)
+            html += f'''
+                <div class="savings-info">
+                    <h3>💰 חיסכון מעולה!</h3>
+                    <p>המחיר הטוב ביותר חוסך לך <strong>₪{savings:,.0f}</strong></p>
+                    <p>זה <strong>{savings_percent}%</strong> פחות מהחנות הכי יקרה!</p>
                 </div>
-            """
+            '''
     
     # סגירת HTML
-    html += """
+    html += '''
         </div>
     </body>
     </html>
-    """
+    '''
     
     return html
 
@@ -474,21 +503,33 @@ def build_results_html(query, results):
 @app.errorhandler(404)
 def not_found(error):
     """עמוד לא נמצא"""
-    return """
-    <h1>🔍 עמוד לא נמצא</h1>
-    <p>הדף שחיפשת לא קיים</p>
-    <a href="/">חזור לעמוד הבית</a>
-    """, 404
+    return '''
+    <!DOCTYPE html>
+    <html lang="he" dir="rtl">
+    <head><meta charset="UTF-8"><title>עמוד לא נמצא</title></head>
+    <body style="font-family: Arial; text-align: center; padding: 50px;">
+        <h1>🔍 עמוד לא נמצא</h1>
+        <p>הדף שחיפשת לא קיים</p>
+        <a href="/">חזור לעמוד הבית</a>
+    </body>
+    </html>
+    ''', 404
 
 @app.errorhandler(500)
 def internal_error(error):
     """שגיאת שרת"""
     logger.error(f"שגיאת שרת: {error}")
-    return """
-    <h1>❌ שגיאת שרת</h1>
-    <p>אירעה שגיאה במערכת</p>
-    <a href="/">חזור לעמוד הבית</a>
-    """, 500
+    return '''
+    <!DOCTYPE html>
+    <html lang="he" dir="rtl">
+    <head><meta charset="UTF-8"><title>שגיאת שרת</title></head>
+    <body style="font-family: Arial; text-align: center; padding: 50px; background: #f44336; color: white;">
+        <h1>❌ שגיאת שרת</h1>
+        <p>אירעה שגיאה במערכת</p>
+        <a href="/" style="color: white;">חזור לעמוד הבית</a>
+    </body>
+    </html>
+    ''', 500
 
 # ===== הפעלת השרת =====
 
@@ -499,18 +540,13 @@ if __name__ == '__main__':
 
 🌐 אתר זמין על: http://127.0.0.1:5000
 🔍 חנויות זמינות: {len(price_finder.scrapers) if price_finder else 0}
-⚡ מצב debug: {Config.DEBUG}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 לעצירה: Ctrl+C
     """)
     
     try:
-        app.run(
-            host='127.0.0.1',
-            port=5000,
-            debug=Config.DEBUG
-        )
+        app.run(host='127.0.0.1', port=5000, debug=True)
     except KeyboardInterrupt:
         logger.info("👋 שרת נעצר")
     except Exception as e:
