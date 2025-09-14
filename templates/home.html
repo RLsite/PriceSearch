@@ -1,0 +1,282 @@
+{% extends "base.html" %}
+
+{% block title %}PriceHunter - מוצא את המחיר הטוב ביותר{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-card">
+        <h2 class="hero-title">מה אתה מחפש היום?</h2>
+        <p class="hero-subtitle">
+            נסרוק את כל החנויות הגדולות ונמצא לך את המחיר הטוב ביותר
+        </p>
+        
+        <!-- Search Form -->
+        <form class="search-form" id="mainSearchForm" action="{{ url_for('search') }}" method="get">
+            <div class="search-input-group">
+                <input 
+                    type="text" 
+                    id="searchInput"
+                    name="q"
+                    class="search-input" 
+                    placeholder="לדוגמה: iPhone 15, MacBook Air, AirPods Pro..."
+                    required
+                    autocomplete="off"
+                    autofocus
+                >
+                <button type="submit" class="search-button" id="searchButton">
+                    <span class="button-text">🔍 חפש עכשיו</span>
+                    <span class="button-loading" style="display: none;">
+                        <span class="mini-spinner"></span> מחפש...
+                    </span>
+                </button>
+            </div>
+            
+            <!-- Quick Search Tags -->
+            <div class="quick-search">
+                <h4>חיפושים פופולריים:</h4>
+                <div class="search-tags">
+                    <button type="button" class="tag" onclick="quickSearch('iPhone 15')">iPhone 15</button>
+                    <button type="button" class="tag" onclick="quickSearch('MacBook Air')">MacBook Air</button>
+                    <button type="button" class="tag" onclick="quickSearch('AirPods Pro')">AirPods Pro</button>
+                    <button type="button" class="tag" onclick="quickSearch('Samsung Galaxy')">Samsung Galaxy</button>
+                    <button type="button" class="tag" onclick="quickSearch('iPad')">iPad</button>
+                    <button type="button" class="tag" onclick="quickSearch('PlayStation 5')">PlayStation 5</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="stats-card">
+        <h3 class="section-title">למה PriceHunter?</h3>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-icon">🏪</div>
+                <div class="stat-number">{{ stats.active_stores }}+</div>
+                <div class="stat-label">חנויות מקוונות</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-icon">⚡</div>
+                <div class="stat-number">&lt;10</div>
+                <div class="stat-label">שניות חיפוש</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-icon">💰</div>
+                <div class="stat-number">₪0</div>
+                <div class="stat-label">עלות השירות</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-icon">📈</div>
+                <div class="stat-number">{{ stats.average_savings }}%</div>
+                <div class="stat-label">חיסכון ממוצע</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="features-card">
+        <h3 class="section-title">איך זה עובד?</h3>
+        
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">🔍</div>
+                <h4 class="feature-title">1. חפש מוצר</h4>
+                <p class="feature-description">
+                    הכנס את שם המוצר שאתה מחפש - פשוט וקצר
+                </p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">⚡</div>
+                <h4 class="feature-title">2. אנחנו סורקים</h4>
+                <p class="feature-description">
+                    המערכת בודקת בכל החנויות במקביל תוך שניות
+                </p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">🏆</div>
+                <h4 class="feature-title">3. מקבל תוצאות</h4>
+                <p class="feature-description">
+                    רואה את כל המחירים ממוינים מהזול ביותר
+                </p>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">🛒</div>
+                <h4 class="feature-title">4. קונה חכם!</h4>
+                <p class="feature-description">
+                    לוחץ ועובר לחנות עם המחיר הטוב ביותר
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stores Section -->
+<section class="stores-section">
+    <div class="stores-card">
+        <h3 class="section-title">החנויות שאנחנו סורקים</h3>
+        <p class="section-subtitle">
+            אנחנו בודקים במקביל בכל החנויות הגדולות כדי למצוא לכם את המחיר הטוב ביותר
+        </p>
+        
+        <div class="stores-grid" id="storesGrid">
+            <!-- החנויות יטענו דינמית -->
+            <div class="store-item">
+                <div class="store-logo ksp">K</div>
+                <div class="store-details">
+                    <h4 class="store-name">KSP</h4>
+                    <p class="store-description">מחשבים ואלקטרוניקה</p>
+                    <span class="store-status loading">🔄 בודק...</span>
+                </div>
+            </div>
+            
+            <div class="store-item">
+                <div class="store-logo bug">B</div>
+                <div class="store-details">
+                    <h4 class="store-name">Bug</h4>
+                    <p class="store-description">טכנולוגיה ופלאפונים</p>
+                    <span class="store-status coming-soon">🔄 בקרוב</span>
+                </div>
+            </div>
+            
+            <div class="store-item">
+                <div class="store-logo zap">Z</div>
+                <div class="store-details">
+                    <h4 class="store-name">זאפ</h4>
+                    <p class="store-description">השוואת מחירים</p>
+                    <span class="store-status coming-soon">🔄 בקרוב</span>
+                </div>
+            </div>
+            
+            <div class="store-item">
+                <div class="store-logo ivory">I</div>
+                <div class="store-details">
+                    <h4 class="store-name">Ivory</h4>
+                    <p class="store-description">אלקטרוניקה ומוצרי צריכה</p>
+                    <span class="store-status coming-soon">🔄 בקרוב</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="more-stores">
+            <p>💡 חנויות נוספות מתווספות כל הזמן!</p>
+        </div>
+    </div>
+</section>
+
+<!-- Benefits Section -->
+<section class="benefits-section">
+    <div class="benefits-card">
+        <h3 class="section-title">למה לבחור בנו?</h3>
+        
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <div class="benefit-icon">🆓</div>
+                <h4>לחלוטין חינם</h4>
+                <p>שירות מלא ללא עלות, ללא פרסומות מטרידות</p>
+            </div>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon">🇮🇱</div>
+                <h4>מותאם לישראל</h4>
+                <p>החנויות הישראליות הגדולות, מחירים בשקלים, ממשק בעברית</p>
+            </div>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon">⚡</div>
+                <h4>מידע עדכני</h4>
+                <p>מחירים בזמן אמת עם מידע על זמינות המוצר</p>
+            </div>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon">💻</div>
+                <h4>נוח לשימוש</h4>
+                <p>ממשק פשוט ואינטואיטיבי, עובד מכל מכשיר</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="cta-card">
+        <h3 class="cta-title">מוכן להתחיל לחסוך כסף?</h3>
+        <p class="cta-description">
+            הצטרף לאלפי ישראלים שכבר משתמשים ב-PriceHunter למציאת המחירים הטובים ביותר
+        </p>
+        
+        <button class="cta-button" onclick="focusSearchInput()">
+            🚀 בוא נתחיל לחפש!
+        </button>
+        
+        <div class="cta-features">
+            <span class="cta-feature">✅ חינם לחלוטין</span>
+            <span class="cta-feature">✅ ללא הרשמה</span>
+            <span class="cta-feature">✅ תוצאות מיידיות</span>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// פונקציות עזר לעמוד הבית
+function quickSearch(query) {
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.value = query;
+        document.getElementById('mainSearchForm').submit();
+    }
+}
+
+function focusSearchInput() {
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        searchInput.focus();
+    }
+}
+
+// טעינת סטטוס החנויות
+document.addEventListener('DOMContentLoaded', function() {
+    loadStoresStatus();
+});
+
+function loadStoresStatus() {
+    fetch('/api/stores')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updateStoresDisplay(data.stores);
+            }
+        })
+        .catch(error => {
+            console.log('Failed to load stores status:', error);
+        });
+}
+
+function updateStoresDisplay(stores) {
+    // עדכון סטטוס החנויות בזמן אמת
+    for (const [storeName, storeData] of Object.entries(stores)) {
+        const storeElement = document.querySelector(`.store-item .store-logo.${storeName}`);
+        if (storeElement) {
+            const statusElement = storeElement.parentNode.querySelector('.store-status');
+            if (statusElement) {
+                statusElement.textContent = storeData.available ? '✅ פעיל' : '❌ לא זמין';
+                statusElement.className = `store-status ${storeData.available ? 'active' : 'inactive'}`;
+            }
+        }
+    }
+}
+</script>
+{% endblock %}
