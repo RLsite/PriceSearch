@@ -1,0 +1,249 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title or "שגיאה" }} | PriceHunter{% endblock %}
+
+{% block content %}
+<section class="error-section">
+    <div class="error-card">
+        <!-- Error Icon -->
+        <div class="error-icon">
+            {% if code == 404 %}
+                🔍
+            {% elif code == 500 %}
+                🔧
+            {% elif code == 503 %}
+                🚧
+            {% else %}
+                ⚠️
+            {% endif %}
+        </div>
+        
+        <!-- Error Content -->
+        <div class="error-content">
+            <h2 class="error-title">
+                {{ title or "אירעה שגיאה" }}
+            </h2>
+            
+            <p class="error-message">
+                {{ message or "משהו השתבש, אנא נסה שוב מאוחר יותר" }}
+            </p>
+            
+            {% if code %}
+            <p class="error-code">קוד שגיאה: {{ code }}</p>
+            {% endif %}
+            
+            {% if details %}
+            <details class="error-details">
+                <summary>פרטים טכניים</summary>
+                <pre class="error-details-content">{{ details }}</pre>
+            </details>
+            {% endif %}
+            
+            {% if query %}
+            <div class="failed-search-info">
+                <p>החיפוש שנכשל: <strong>"{{ query }}"</strong></p>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Error Actions -->
+        <div class="error-actions">
+            <a href="{{ url_for('home') }}" class="btn btn-primary">
+                🏠 חזרה לעמוד הבית
+            </a>
+            
+            {% if query %}
+            <button class="btn btn-secondary" onclick="retrySearch('{{ query }}')">
+                🔄 נסה שוב
+            </button>
+            {% else %}
+            <button class="btn btn-secondary" onclick="history.back()">
+                ← חזור לעמוד הקודם
+            </button>
+            {% endif %}
+        </div>
+        
+        <!-- Help Section -->
+        <div class="error-help">
+            <h4>💡 מה אפשר לעשות?</h4>
+            
+            {% if code == 404 %}
+            <ul class="help-list">
+                <li>בדוק שהכתובת נכונה</li>
+                <li>נסה לחזור לעמוד הבית ולחפש מחדש</li>
+                <li>אולי הדף שחיפשת לא קיים יותר</li>
+            </ul>
+            {% elif code == 500 %}
+            <ul class="help-list">
+                <li>נסה לרענן את הדף</li>
+                <li>חכה כמה דקות ונסה שוב</li>
+                <li>אם הבעיה נמשכת, אנא דווח לנו</li>
+            </ul>
+            {% elif code == 503 %}
+            <ul class="help-list">
+                <li>המערכת נמצאת בתחזוקה</li>
+                <li>נסה שוב בעוד כמה דקות</li>
+                <li>אנחנו עובדים על פתרון הבעיה</li>
+            </ul>
+            {% else %}
+            <ul class="help-list">
+                <li>נסה לרענן את הדף</li>
+                <li>בדוק את החיבור לאינטרנט</li>
+                <li>נסה חיפוש אחר או פשוט יותר</li>
+                <li>חזור לעמוד הבית והתחל מחדש</li>
+            </ul>
+            {% endif %}
+        </div>
+        
+        <!-- Quick Search -->
+        {% if not query %}
+        <div class="error-search">
+            <h4>או חפש משהו אחר:</h4>
+            <form action="{{ url_for('search') }}" method="get" class="error-search-form">
+                <div class="search-group">
+                    <input 
+                        type="text" 
+                        name="q" 
+                        class="error-search-input"
+                        placeholder="מה אתה מחפש?"
+                        autofocus
+                    >
+                    <button type="submit" class="error-search-button">
+                        🔍 חפש
+                    </button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+        
+        <!-- Popular Searches -->
+        <div class="popular-searches">
+            <h4>חיפושים פופולריים:</h4>
+            <div class="popular-tags">
+                <a href="{{ url_for('search', q='iPhone') }}" class="popular-tag">iPhone</a>
+                <a href="{{ url_for('search', q='MacBook') }}" class="popular-tag">MacBook</a>
+                <a href="{{ url_for('search', q='AirPods') }}" class="popular-tag">AirPods</a>
+                <a href="{{ url_for('search', q='Samsung Galaxy') }}" class="popular-tag">Samsung Galaxy</a>
+                <a href="{{ url_for('search', q='אוזניות') }}" class="popular-tag">אוזניות</a>
+                <a href="{{ url_for('search', q='מחשב נייד') }}" class="popular-tag">מחשב נייד</a>
+            </div>
+        </div>
+        
+        <!-- Contact Info -->
+        <div class="error-contact">
+            <h4>עדיין צריך עזרה?</h4>
+            <p>
+                אם הבעיה נמשכת, תוכל לנסות:
+            </p>
+            <ul class="contact-options">
+                <li>לרענן את הדף בעוד כמה דקות</li>
+                <li>לבדוק שהאינטרנט שלך עובד</li>
+                <li>לנסות מדפדפן אחר</li>
+                <li>לחזור מאוחר יותר</li>
+            </ul>
+        </div>
+        
+        <!-- System Status -->
+        <div class="system-status">
+            <a href="{{ url_for('health_check') }}" class="status-link">
+                🔧 בדוק סטטוס המערכת
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function retrySearch(query) {
+    if (query) {
+        window.location.href = `{{ url_for('search') }}?q=${encodeURIComponent(query)}`;
+    }
+}
+
+// הוספת אפקט אנימציה לעמוד השגיאה
+document.addEventListener('DOMContentLoaded', function() {
+    const errorCard = document.querySelector('.error-card');
+    if (errorCard) {
+        errorCard.style.opacity = '0';
+        errorCard.style.transform = 'translateY(-20px)';
+        
+        setTimeout(() => {
+            errorCard.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            errorCard.style.opacity = '1';
+            errorCard.style.transform = 'translateY(0)';
+        }, 100);
+    }
+    
+    // Focus על שדה החיפוש אם יש
+    const searchInput = document.querySelector('.error-search-input');
+    if (searchInput) {
+        setTimeout(() => searchInput.focus(), 500);
+    }
+    
+    // אוטו-רענון לשגיאות שרת אם המשתמש רוצה
+    if ({{ code or 0 }} >= 500) {
+        showAutoRefreshOption();
+    }
+});
+
+function showAutoRefreshOption() {
+    const refreshButton = document.createElement('button');
+    refreshButton.textContent = '🔄 רענן אוטומטי כל 30 שניות';
+    refreshButton.className = 'btn btn-outline auto-refresh-btn';
+    refreshButton.style.marginTop = '20px';
+    
+    let autoRefreshInterval;
+    
+    refreshButton.addEventListener('click', function() {
+        if (autoRefreshInterval) {
+            // עצור רענון אוטומטי
+            clearInterval(autoRefreshInterval);
+            autoRefreshInterval = null;
+            this.textContent = '🔄 רענן אוטומטי כל 30 שניות';
+        } else {
+            // התחל רענון אוטומטי
+            let countdown = 30;
+            this.textContent = `⏱️ רענון בעוד ${countdown} שניות (לחץ לעצור)`;
+            
+            autoRefreshInterval = setInterval(() => {
+                countdown--;
+                this.textContent = `⏱️ רענון בעוד ${countdown} שניות (לחץ לעצור)`;
+                
+                if (countdown <= 0) {
+                    location.reload();
+                }
+            }, 1000);
+        }
+    });
+    
+    const errorActions = document.querySelector('.error-actions');
+    if (errorActions) {
+        errorActions.appendChild(refreshButton);
+    }
+}
+
+// הוספת keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+    // H = Home
+    if (e.key === 'h' || e.key === 'H') {
+        if (!e.target.matches('input, textarea')) {
+            window.location.href = '{{ url_for("home") }}';
+        }
+    }
+    
+    // R = Reload
+    if (e.key === 'r' || e.key === 'R') {
+        if (!e.target.matches('input, textarea') && e.ctrlKey) {
+            e.preventDefault();
+            location.reload();
+        }
+    }
+    
+    // Escape = Go back
+    if (e.key === 'Escape') {
+        history.back();
+    }
+});
+</script>
+{% endblock %}
