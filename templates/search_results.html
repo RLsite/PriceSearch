@@ -1,0 +1,300 @@
+{% extends "base.html" %}
+
+{% block title %}תוצאות עבור: {{ query }} | PriceHunter{% endblock %}
+
+{% block content %}
+<!-- Search Header -->
+<section class="search-header">
+    <div class="search-info-card">
+        <div class="search-navigation">
+            <a href="{{ url_for('home') }}" class="back-button">
+                ← חזרה לעמוד הבית
+            </a>
+        </div>
+        
+        <h2 class="search-title">תוצאות עבור: "{{ query }}"</h2>
+        
+        <div class="search-stats">
+            {% if has_results %}
+                <p class="results-summary">
+                    <span class="highlight">{{ results.total_products }}</span> מוצרים נמצאו
+                    ב-<span class="highlight">{{ "%.2f"|format(search_time) }}</span> שניות
+                    מתוך <span class="highlight">{{ stores_count }}</span> חנויות
+                </p>
+                
+                {% if results.errors %}
+                <div class="search-warnings">
+                    <span class="warning-icon">⚠️</span>
+                    <span>בעיות בחלק מהחנויות ({{ results.errors|length }})</span>
+                    <details class="error-details">
+                        <summary>פרטים</summary>
+                        <ul>
+                            {% for error in results.errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </details>
+                </div>
+                {% endif %}
+            {% else %}
+                <p class="no-results-summary">
+                    לא נמצאו תוצאות ב-<span class="highlight">{{ "%.2f"|format(search_time) }}</span> שניות
+                    מתוך {{ stores_count }} חנויות
+                </p>
+            {% endif %}
+        </div>
+
+        <!-- New Search Form -->
+        <form class="inline-search-form" action="{{ url_for('search') }}" method="get">
+            <div class="inline-search-group">
+                <input 
+                    type="text" 
+                    name="q" 
+                    class="inline-search-input"
+                    value="{{ query }}"
+                    placeholder="חיפוש חדש..."
+                >
+                <button type="submit" class="inline-search-button">🔍</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+{% if has_results %}
+<!-- Best Deal Alert -->
+{% if results.best_deal and results.best_deal.savings %}
+<section class="best-deal-section">
+    <div class="best-deal-alert">
+        <div class="best-deal-icon">🏆</div>
+        <div class="best-deal-content">
+            <h3>עסקה מעולה נמצאה!</h3>
+            <p>
+                המחיר הטוב ביותר ב-{{ results.best_deal.store }}:
+                <strong>₪{{ "%.0f"|format(results.best_deal.price) }}</strong>
+            </p>
+            <p class="savings-info">
+                חוסך לך <strong>₪{{ "%.0f"|format(results.best_deal.savings) }}</strong>
+                ({{ results.best_deal.savings_percent }}% מהמחיר הגבוה ביותר)
+            </p>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Products Results -->
+<section class="products-section">
+    <div class="products-container">
+        {% for product in results.products %}
+        <div class="product-card {% if loop.first and results.best_deal %}best-deal{% endif %}">
+            {% if loop.first and results.best_deal %}
+            <div class="best-deal-badge">🏆 המחיר הטוב ביותר</div>
+            {% endif %}
+            
+            <div class="product-content">
+                <!-- Product Image -->
+                <div class="product-image">
+                    {% if product.image_url %}
+                    <img src="{{ product.image_url }}" alt="{{ product.name }}" loading="lazy">
+                    {% else %}
+                    <div class="placeholder-image">
+                        <span class="image-icon">📱</span>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <!-- Product Details -->
+                <div class="product-details">
+                    <h3 class="product-name">{{ product.name }}</h3>
+                    
+                    <div class="store-info">
+                        <div class="store-badge">
+                            <span class="store-logo">{{ product.store_logo }}</span>
+                            <span class="store-name">{{ product.store }}</span>
+                        </div>
+                        
+                        <div class="availability-badge availability-{{ product.availability|lower|replace(' ', '-') }}">
+                            {% if product.availability == "זמין" %}
+                            ✅ זמין
+                            {% elif "אזל" in product.availability %}
+                            ❌ אזל מהמלאי
+                            {% elif "הזמנה" in product.availability %}
+                            📦 הזמנה מראש
+                            {% else %}
+                            ℹ️ {{ product.availability }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="price-section">
+                        <div class="current-price">₪{{ "%.0f"|format(product.price) }}</div>
+                        
+                        {% if results.best_deal and product.price > results.best_deal.price %}
+                        <div class="price-difference">
+                            +₪{{ "%.0f"|format(product.price - results.best_deal.price) }}
+                            מהמחיר הטוב ביותר
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Product Actions -->
+                <div class="product-actions">
+                    {% if product.url %}
+                    <a href="{{ product.url }}" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="btn btn-primary buy-button">
+                        🛒 קנה עכשיו
+                    </a>
+                    {% endif %}
+                    
+                    <button class="btn btn-secondary share-button"
+                            onclick="shareProduct('{{ product.name }}', {{ product.price }}, '{{ product.store }}')">
+                        📤 שתף
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Product Meta -->
+            <div class="product-meta">
+                <small class="last-updated">
+                    עודכן לאחרונה: {{ moment(product.last_updated).fromNow() if product.last_updated else "זה עתה" }}
+                </small>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% else %}
+<!-- No Results -->
+<section class="no-results-section">
+    <div class="no-results-card">
+        <div class="no-results-icon">🔍</div>
+        <h3 class="no-results-title">לא נמצאו תוצאות עבור "{{ query }}"</h3>
+        <p class="no-results-message">נסה מילות חיפוש אחרות או פשוטות יותר</p>
+        
+        <div class="search-suggestions">
+            <h4>💡 טיפים לחיפוש טוב יותר:</h4>
+            <ul class="suggestions-list">
+                <li>נסה רק את שם המוצר: "iPhone" במקום "iPhone 15 Pro Max"</li>
+                <li>השתמש במילים באנגלית: "MacBook" במקום "מקבוק"</li>
+                <li>בדוק את הכתיב - אולי יש טעות קטנה</li>
+                <li>נסה מילים כלליות יותר: "אוזניות" במקום "AirPods Pro Max"</li>
+            </ul>
+        </div>
+        
+        <div class="suggested-searches">
+            <h4>חיפושים פופולריים:</h4>
+            <div class="suggestion-tags">
+                <a href="{{ url_for('search', q='iPhone') }}" class="suggestion-tag">iPhone</a>
+                <a href="{{ url_for('search', q='MacBook') }}" class="suggestion-tag">MacBook</a>
+                <a href="{{ url_for('search', q='אוזניות') }}" class="suggestion-tag">אוזניות</a>
+                <a href="{{ url_for('search', q='מחשב נייד') }}" class="suggestion-tag">מחשב נייד</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Related Searches -->
+{% if has_results %}
+<section class="related-searches-section">
+    <div class="related-searches-card">
+        <h4>חיפושים קשורים:</h4>
+        <div class="related-tags">
+            <!-- נוכל להוסיף לוגיקה לחיפושים קשורים -->
+            <a href="{{ url_for('search', q=query + ' reviews') }}" class="related-tag">{{ query }} ביקורות</a>
+            <a href="{{ url_for('search', q=query + ' מחיר') }}" class="related-tag">{{ query }} מחיר</a>
+            <a href="{{ url_for('search', q=query + ' זול') }}" class="related-tag">{{ query }} זול</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// JavaScript לדף תוצאות
+document.addEventListener('DOMContentLoaded', function() {
+    // הוספת אנימציות לכרטיסי מוצרים
+    animateProductCards();
+    
+    // מעקב על לחיצות על כפתורי קנייה
+    trackPurchaseClicks();
+    
+    // עדכון זמני עדכון
+    updateTimestamps();
+});
+
+function animateProductCards() {
+    const cards = document.querySelectorAll('.product-card');
+    cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
+}
+
+function trackPurchaseClicks() {
+    const buyButtons = document.querySelectorAll('.buy-button');
+    buyButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // יכול להוסיף Google Analytics או מעקב אחר
+            console.log('Purchase click tracked:', this.href);
+        });
+    });
+}
+
+function shareProduct(name, price, store) {
+    const text = `מצאתי את ${name} ב-${store} במחיר ₪${price.toLocaleString('he-IL')}`;
+    const url = window.location.href;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: 'PriceHunter - מחיר מעולה!',
+            text: text,
+            url: url
+        }).catch(console.error);
+    } else {
+        // Fallback - copy to clipboard
+        copyToClipboard(`${text}\n${url}`);
+        showNotification('הקישור הועתק!', 'success');
+    }
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).catch(() => {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+    });
+}
+
+function showNotification(message, type = 'info') {
+    // יכול להשתמש ב-toast notifications
+    alert(message); // זמנית
+}
+
+function updateTimestamps() {
+    // עדכון זמני "עודכן לאחרונה" כל דקה
+    setInterval(() => {
+        const timestamps = document.querySelectorAll('.last-updated');
+        timestamps.forEach(elem => {
+            // לוגיקה לעדכון זמנים
+        });
+    }, 60000);
+}
+</script>
+{% endblock %}
