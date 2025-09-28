@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>טופס בדיקת צנטריפוגה מקוררת</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100svh; /* שימוש ב-svh במקום vh לתמיכה ב-iOS */
+            height: 100svh;
+            overflow-x: hidden;
+            touch-action: manipulation; /* מונע zoom ב-iOS */
+            -webkit-text-size-adjust: 100%; /* מונע שינוי גופן ב-iOS */
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* תיקון לבעיות iOS 26 viewport */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                position: relative;
+                overflow-x: hidden;
+            }
+        }
+        
+        .signature-canvas {
+            cursor: crosshair;
+            touch-action: none !important;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-drag: none;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            will-change: transform;
+        }
+        
+        /* Clalit Colors - שמירה על הצבעים המקוריים */
+        :root {
+            --clalit-blue: #00a0d1;
+            --clalit-blue-dark: #0082a8;
+            --clalit-green: #7cb342;
+            --clalit-green-dark: #689f38;
+            --clalit-blue-light: #e3f4f9;
+            --clalit-green-light: #f1f8e9;
+        }
+        
+        /* עיצוב חי ודינמי */
+        .main-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 160, 209, 0.15);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .main-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 70px rgba(0, 160, 209, 0.2);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 160, 209, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(0, 160, 209, 0.6); }
+        }
+        
+        /* Header מעוצב */
+        .clalit-header {
+            background: linear-gradient(135deg, var(--clalit-blue) 0%, var(--clalit-green) 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 4s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .clalit-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .logo-container {
+            background: white;
+            border-radius: 15px;
+            padding: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .logo-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        /* לוגו טקסט במקום תמונה חיצונית */
+        .clalit-logo-text {
+            text-align: center;
+            color: var(--clalit-blue);
+            font-weight: bold;
+            line-height: 1.2;
+        }
+        
+        .logo-line1 {
+            font-size: 18px;
+            color: var(--clalit-blue);
+        }
+        
+        .logo-line2 {
+            font-size: 12px;
+            color: var(--clalit-green);
+        }
+        
+        .header-title {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        /* כרטיסים דינמיים */
+        .info-card {
+            background: linear-gradient(135deg, rgba(0, 160, 209, 0.05) 0%, rgba(124, 179, 66, 0.05) 100%);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--clalit-blue), var(--clalit-green));
+            border-radius: 15px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .info-card:hover::before {
+            opacity: 1;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 160, 209, 0.2);
+        }
+        
+        /* טבלאות מעוצבות */
+        .enhanced-table {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            background: white;
+        }
+        
+        .enhanced-table thead tr {
+            background: linear-gradient(135deg, var(--clalit-blue-light) 0%, var(--clalit-green-light) 100%);
+        }
+        
+        .enhanced-table tbody tr {
+            transition: all 0.2s ease;
+        }
+        
+        .enhanced-table tbody tr:hover {
+            background: linear-gradient(135deg, rgba(0, 160, 209, 0.08) 0%, rgba(124, 179, 66, 0.08) 100%);
+            transform: scale(1.01);
+        }
+        
+        /* כפתורים מעוצבים */
+        .btn-clalit-blue {
+            background: linear-gradient(135deg, var(--clalit-blue) 0%, var(--clalit-blue-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-clalit-blue::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-clalit-blue:hover::before {
+            left: 100%;
+        }
+        
+        .btn-clalit-blue:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 160, 209, 0.4);
+        }
+        
+        .btn-clalit-green {
+            background: linear-gradient(135deg, var(--clalit-green) 0%, var(--clalit-green-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-clalit-green:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(124, 179, 66, 0.4);
+        }
+        
+        /* שדות קלט מעוצבים */
+        .clalit-input {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        }
+        
+        .clalit-input:focus {
+            border-color: var(--clalit-blue);
+            box-shadow: 0 0 0 4px rgba(0, 160, 209, 0.1);
+            transform: scale(1.02);
+            background: white;
+        }
+        
+        /* תיבות סימון מעוצבות */
+        .enhanced-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--clalit-green);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .enhanced-checkbox:checked {
+            background: linear-gradient(135deg, var(--clalit-green) 0%, var(--clalit-green-dark) 100%);
+            border-color: var(--clalit-green);
+            animation: checkPulse 0.5s ease;
+        }
+        
+        @keyframes checkPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        /* כותרות מעוצבות */
+        .section-title {
+            background: linear-gradient(135deg, var(--clalit-green) 0%, var(--clalit-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(135deg, var(--clalit-green) 0%, var(--clalit-blue) 100%);
+            transition: width 0.5s ease;
+        }
+        
+        .section-title:hover::after {
+            width: 100%;
+        }
+        
+        /* ארי חתימה מעוצב */
+        .signature-area {
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            border: 2px dashed var(--clalit-blue);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .signature-area:hover {
+            border-color: var(--clalit-green);
+            background: linear-gradient(135deg, var(--clalit-blue-light) 0%, var(--clalit-green-light) 100%);
+        }
+        
+        /* אנימציות נוספות */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .bounce-in {
+            animation: bounceIn 0.8s ease-out;
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            70% { transform: scale(0.9); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        /* רספונסיביות משופרת למובייל */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .main-container {
+                margin: 0;
+                border-radius: 15px;
+                box-shadow: 0 10px 25px rgba(0, 160, 209, 0.1);
+            }
+            
+            .clalit-header {
+                padding: 15px;
+            }
+            
+            .header-grid {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .clalit-header h1 {
+                font-size: 22px !important;
+                line-height: 1.3;
+                margin-bottom: 10px;
+            }
+            
+            .clalit-header p {
+                font-size: 14px;
+            }
+            
+            .logo-container img {
+                height: 35px;
+                max-width: 150px;
+            }
+            
+            .p-8 {
+                padding: 15px;
+            }
+            
+            .space-y-8 > * + * {
+                margin-top: 20px;
+            }
+            
+            /* התאמת גריד למובייל */
+            .grid-cols-4 {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            
+            .grid-cols-3 {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .grid-cols-1 {
+                grid-template-columns: 1fr;
+            }
+            
+            /* שדות קלט במובייל */
+            .clalit-input {
+                font-size: 16px;
+                padding: 15px 12px;
+                min-height: 48px;
+            }
+            
+            /* טבלאות במובייל */
+            .enhanced-table {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                border-radius: 10px;
+            }
+            
+            .enhanced-table table {
+                min-width: 100%;
+                font-size: 12px;
+            }
+            
+            .enhanced-table th,
+            .enhanced-table td {
+                padding: 8px 4px;
+                min-width: 60px;
+                white-space: nowrap;
+            }
+            
+            .enhanced-table th {
+                font-size: 11px;
+                font-weight: bold;
+            }
+            
+            /* כפתורים במובייל */
+            .btn-clalit-blue,
+            .btn-clalit-green {
+                font-size: 16px;
+                padding: 15px 20px;
+                min-height: 48px;
+                touch-action: manipulation;
+            }
+            
+            /* תיבות סימון גדולות יותר */
+            .enhanced-checkbox {
+                width: 24px;
+                height: 24px;
+                min-width: 24px;
+                min-height: 24px;
+            }
+            
+            /* כותרות קטעים */
+            .section-title {
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+            
+            /* אזור חתימה */
+            .signature-area {
+                padding: 15px;
+            }
+            
+            #signature-canvas {
+                width: 100%;
+                height: 120px;
+                max-width: 100%;
+            }
+            
+            /* כפתור הדפסה */
+            .print-button {
+                top: 10px;
+                left: 10px;
+                padding: 12px 18px;
+                font-size: 14px;
+            }
+            
+            /* התאמת פרטי הטופס */
+            .clalit-header .space-y-2 {
+                font-size: 12px;
+            }
+            
+            .clalit-header .flex.items-center.gap-2 {
+                flex-direction: column;
+                gap: 5px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* מסכים קטנים מאוד */
+            .clalit-header h1 {
+                font-size: 18px !important;
+            }
+            
+            .clalit-header p {
+                font-size: 12px;
+            }
+            
+            .grid-cols-4,
+            .grid-cols-3,
+            .grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .enhanced-table {
+                font-size: 10px;
+            }
+            
+            .enhanced-table th,
+            .enhanced-table td {
+                padding: 6px 3px;
+                font-size: 10px;
+            }
+            
+            .section-title {
+                font-size: 16px;
+            }
+            
+            .clalit-input {
+                font-size: 16px;
+                padding: 12px 10px;
+            }
+            
+            /* הסתרת אלמנטים שלא חיוניים במסכים קטנים */
+            .floating-icon {
+                display: none;
+            }
+            
+            .print-button {
+                padding: 10px 15px;
+                font-size: 12px;
+            }
+            
+            .print-button i {
+                width: 16px;
+                height: 16px;
+            }
+        }
+        
+        /* גלילה אופקית חלקה לטבלאות */
+        .table-scroll {
+            overflow-x: auto;
+            overflow-y: visible;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--clalit-blue) #f1f1f1;
+        }
+        
+        .table-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .table-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .table-scroll::-webkit-scrollbar-thumb {
+            background: var(--clalit-blue);
+            border-radius: 10px;
+        }
+        
+        .table-scroll::-webkit-scrollbar-thumb:hover {
+            background: var(--clalit-blue-dark);
+        }
+        
+        /* אפקטים נוספים */
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-left: 8px;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-ok .status-indicator {
+            background: var(--clalit-green);
+        }
+        
+        .status-error .status-indicator {
+            background: #ef4444;
+        }
+        
+        .floating-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* הודעת מצב לנדסקייפ */
+        .landscape-warning {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 160, 209, 0.95);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .landscape-warning h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .landscape-warning p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            max-width: 300px;
+        }
+        
+        .landscape-warning .phone-icon {
+            font-size: 48px;
+            margin: 20px;
+            animation: rotatePhone 2s ease-in-out infinite;
+        }
+        
+        @keyframes rotatePhone {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(90deg); }
+        }
+        
+        .landscape-warning button {
+            background: var(--clalit-green);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .landscape-warning button:hover {
+            background: var(--clalit-green-dark);
+            transform: translateY(-2px);
+        }
+        
+        /* הסתרת ההודעה במצב לנדסקייפ או דסקטופ */
+        @media (orientation: landscape), (min-width: 768px) {
+            .landscape-warning {
+                display: none !important;
+            }
+        }
+        
+        /* עיצוב להדפסה - התאמה לדף A4 */
+        @media print {
+            @page {
+                size: A4;
+                margin: 15mm;
+            }
+            
+            body {
+                background: white !important;
+                font-size: 11px !important;
+                line-height: 1.3 !important;
+                color: black !important;
+            }
+            
+            .main-container {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                max-width: none !important;
+                background: white !important;
+            }
+            
+            .clalit-header {
+                background: linear-gradient(135deg, var(--clalit-blue) 0%, var(--clalit-green) 100%) !important;
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                padding: 15px !important;
+                margin-bottom: 10px !important;
+            }
+            
+            .clalit-header h1 {
+                font-size: 18px !important;
+                margin-bottom: 5px !important;
+            }
+            
+            .clalit-header p {
+                font-size: 12px !important;
+            }
+            
+            .header-grid {
+                flex-direction: row !important;
+                align-items: center !important;
+            }
+            
+            .logo-container {
+                box-shadow: none !important;
+                padding: 8px !important;
+            }
+            
+            .logo-container img {
+                height: 40px !important;
+            }
+            
+            .info-card {
+                background: white !important;
+                border: 1px solid #ccc !important;
+                border-radius: 8px !important;
+                padding: 12px !important;
+                margin-bottom: 10px !important;
+                box-shadow: none !important;
+            }
+            
+            .section-title {
+                font-size: 14px !important;
+                color: var(--clalit-green) !important;
+                -webkit-print-color-adjust: exact !important;
+                margin-bottom: 8px !important;
+            }
+            
+            .enhanced-table {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                margin-bottom: 10px !important;
+            }
+            
+            .enhanced-table table {
+                font-size: 10px !important;
+                border-collapse: collapse !important;
+            }
+            
+            .enhanced-table th,
+            .enhanced-table td {
+                padding: 4px !important;
+                border: 1px solid #666 !important;
+            }
+            
+            .enhanced-table thead tr {
+                background: var(--clalit-blue-light) !important;
+                -webkit-print-color-adjust: exact !important;
+            }
+            
+            .clalit-input {
+                border: 1px solid #999 !important;
+                padding: 3px 6px !important;
+                font-size: 10px !important;
+                background: white !important;
+            }
+            
+            .enhanced-checkbox {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            
+            /* הסתרת אלמנטים שלא נחוצים להדפסה */
+            .print-hide,
+            button:not(.print-show),
+            .btn-clalit-blue,
+            .btn-clalit-green,
+            .signature-area button,
+            #signature-pad,
+            #signature-button,
+            .floating-icon,
+            [data-lucide] {
+                display: none !important;
+            }
+            
+            /* הצגת החתימה בהדפסה */
+            #signature-display {
+                display: block !important;
+                background: white !important;
+                border: 1px solid #ccc !important;
+                padding: 8px !important;
+                margin-top: 10px !important;
+            }
+            
+            #signature-image {
+                max-width: 200px !important;
+                height: auto !important;
+                border: 1px solid #999 !important;
+            }
+            
+            /* התאמת טקסט להדפסה */
+            .signature-area h3 {
+                font-size: 12px !important;
+                margin-bottom: 5px !important;
+            }
+            
+            /* דחיסת רווחים */
+            .space-y-8 > * + * {
+                margin-top: 8px !important;
+            }
+            
+            .space-y-3 > * + * {
+                margin-top: 3px !important;
+            }
+            
+            .p-8 {
+                padding: 10px !important;
+            }
+            
+            .p-6 {
+                padding: 8px !important;
+            }
+            
+            .p-4 {
+                padding: 4px !important;
+            }
+            
+            .p-3 {
+                padding: 3px !important;
+            }
+            
+            .mb-4 {
+                margin-bottom: 6px !important;
+            }
+            
+            .mb-3 {
+                margin-bottom: 4px !important;
+            }
+            
+            .gap-4 {
+                gap: 6px !important;
+            }
+            
+            .gap-3 {
+                gap: 4px !important;
+            }
+            
+            /* התאמת grid להדפסה */
+            .grid-cols-4 {
+                grid-template-columns: repeat(4, 1fr) !important;
+            }
+            
+            .grid-cols-3 {
+                grid-template-columns: repeat(3, 1fr) !important;
+            }
+            
+            /* מניעת שבירת עמודים באמצע אלמנטים */
+            .info-card,
+            .enhanced-table {
+                page-break-inside: avoid !important;
+            }
+            
+            /* הדפסת צבעי רקע */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+        }
+        
+        /* כפתור הדפסה */
+        .print-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, var(--clalit-blue) 0%, var(--clalit-green) 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 15px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0, 160, 209, 0.3);
+            transition: all 0.3s ease;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .print-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 160, 209, 0.4);
+        }
+        
+        .print-button i {
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 p-6">
+    <!-- הודעת מצב לנדסקייפ -->
+    <div id="landscape-warning" class="landscape-warning" style="display: none;">
+        <h2>לחוויה מיטבית</h2>
+        <div class="phone-icon">📱</div>
+        <p>מומלץ לסובב את המכשיר למצב לנדסקייפ (רוחב) לצפייה נוחה יותר בטופס ובטבלאות</p>
+        <button onclick="dismissLandscapeWarning()">המשך בכל מקרה</button>
+    </div>
+
+    <!-- כפתור הדפסה -->
+    <button onclick="printForm()" class="print-button">
+        <i data-lucide="printer" class="w-5 h-5"></i>
+        שלח להדפסה
+    </button>
+
+    <div class="max-w-6xl mx-auto main-container">
+        <div class="clalit-header text-white p-8">
+            <div class="flex items-center justify-between w-full header-grid">
+                <!-- לוגו - הוחלף בטקסט עם לוגו CSS במקום תמונה חיצונית -->
+                <div class="flex-shrink-0">
+                    <div class="logo-container">
+                        <div class="clalit-logo-text">
+                            <div class="logo-line1">כללית</div>
+                            <div class="logo-line2">השירותים הרפואיים</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- כותרת מרכזית -->
+                <div class="flex-grow text-center mx-8">
+                    <h1 class="text-4xl font-bold mb-3 header-title">טופס בדיקת צנטריפוגה מקוררת</h1>
+                    <p class="text-blue-100 text-lg font-medium">טופס מס' 9245-0 - רשימת תיוג מח' שירות</p>
+                    <div class="mt-2 status-indicator glow-effect"></div>
+                </div>
+
+                <!-- פרטי הטופס -->
+                <div class="flex-shrink-0 text-left">
+                    <div class="space-y-2 text-sm bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="calendar" class="w-4 h-4 floating-icon"></i>
+                            <span class="font-semibold">תאריך תוקף:</span>
+                            <span>03/05/2023</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="user-check" class="w-4 h-4 floating-icon"></i>
+                            <span class="font-semibold">הוכן ע"י:</span>
+                            <span>הראל לוי</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="check-circle" class="w-4 h-4 floating-icon"></i>
+                            <span class="font-semibold">אושר ע"י:</span>
+                            <span>צבי מרקוביץ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-8 space-y-8">
+            <!-- פרטי המכשיר -->
+            <div class="info-card fade-in">
+                <h2 class="section-title flex items-center">
+                    <i data-lucide="info" class="w-6 h-6 ml-2 floating-icon"></i>
+                    פרטי המכשיר
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <input type="text" id="inventory-number" placeholder="מס. אינוונטר" class="clalit-input">
+                    <input type="text" id="institution" placeholder="מוסד" class="clalit-input">
+                    <input type="text" id="department" placeholder="מחלקה" class="clalit-input">
+                    <input type="text" id="device-model" placeholder="דגם המכשיר" class="clalit-input">
+                </div>
+            </div>
+
+            <!-- ציוד נדרש לביקורת -->
+            <div class="bounce-in">
+                <h2 class="section-title">1. ציוד נדרש לביקורת</h2>
+                
+                <div class="table-scroll enhanced-table">
+                    <table class="w-full">
+                        <thead>
+                            <tr>
+                                <th class="p-4 text-center">בוצע</th>
+                                <th class="p-4">מכשיר</th>
+                                <th class="p-4">דגם</th>
+                                <th class="p-4">מספר המכשיר</th>
+                                <th class="p-4">תאריך כיול</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="p-4 text-center">
+                                    <input type="checkbox" class="enhanced-checkbox" data-id="1">
+                                </td>
+                                <td class="p-4 font-medium">מד סל"ד</td>
+                                <td class="p-4">TACHOMETER DT-2236</td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-2">
+                                        <input type="text" placeholder="12345" class="clalit-input w-20 text-center" data-id="1">
+                                        <span class="font-bold text-gray-700">HR</span>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <input type="date" class="clalit-input w-full" data-id="1">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 text-center">
+                                    <input type="checkbox" class="enhanced-checkbox" data-id="2">
+                                </td>
+                                <td class="p-4 font-medium">מכשיר (מולטי) לבדיקת מערכת חשמל</td>
+                                <td class="p-4">Rigel Safetest 60</td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-2">
+                                        <input type="text" placeholder="12345" class="clalit-input w-20 text-center" data-id="2">
+                                        <span class="font-bold text-gray-700">HR</span>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <input type="date" class="clalit-input w-full" data-id="2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 text-center">
+                                    <input type="checkbox" class="enhanced-checkbox" data-id="3">
+                                </td>
+                                <td class="p-4 font-medium">מד טמפרטורה</td>
+                                <td class="p-4">FLUKE</td>
+                                <td class="p-4">
+                                    <div class="flex items-center gap-2">
+                                        <input type="text" placeholder="12345" class="clalit-input w-20 text-center" data-id="3">
+                                        <span class="font-bold text-gray-700">HR</span>
+                                    </div>
+                                </td>
+                                <td class="p-4">
+                                    <input type="date" class="clalit-input w-full" data-id="3">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ניקוי המכשיר -->
+            <div class="fade-in">
+                <div class="flex items-center justify-start flex-wrap gap-4">
+                    <h2 class="section-title mb-0">2. ניקוי המכשיר</h2>
+                    <div class="flex gap-6">
+                        <label class="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-all">
+                            <input type="checkbox" class="enhanced-checkbox" data-id="1">
+                            <span class="font-medium">ניקוי חיצוני</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-all">
+                            <input type="checkbox" class="enhanced-checkbox" data-id="2">
+                            <span class="font-medium">ניקוי פנימי</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- בדיקה תקינות ויזואלית וטיפול -->
+            <div class="bounce-in">
+                <h2 class="section-title">3. בדיקה תקינות ויזואלית וטיפול</h2>
+                
+                <div class="table-scroll enhanced-table">
+                    <table class="w-full">
+                        <thead>
+                            <tr>
+                                <th class="p-3">פריט</th>
+                                <th class="p-3">תקין</th>
+                                <th class="p-3">הערות</th>
+                                <th class="p-3">פריט</th>
+                                <th class="p-3">תקין</th>
+                                <th class="p-3">הערות</th>
+                            </tr>
+                        </thead>
+                        <tbody id="visual-checks-table">
+                            <!-- תתווסף ב-JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- בדיקה פונקציונלית -->
+            <div class="fade-in">
+                <h2 class="section-title">4. בדיקה פונקציונלית</h2>
+                <div class="table-scroll enhanced-table">
+                <div class="table-scroll enhanced-table">
+                    <table class="w-full">
+                        <thead>
+                            <tr>
+                                <th class="p-3">ערך נבדק</th>
+                                <th class="p-3">יחידה</th>
+                                <th class="p-3">MIN</th>
+                                <th class="p-3">MAX</th>
+                                <th class="p-3">ערך נצפה</th>
+                                <th class="p-3">סטייה</th>
+                                <th class="p-3">הערות</th>
+                            </tr>
+                        </thead>
+                        <tbody id="functional-tests">
+                            <!-- תתווסף ב-JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- סטטוס סופי -->
+            <div class="info-card">
+                <div class="flex items-center justify-start flex-wrap gap-6 mb-4">
+                    <h2 class="section-title mb-0">6. הערות כלליות</h2>
+                    <div class="flex gap-6">
+                        <label class="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-green-50 transition-all">
+                            <input type="radio" name="deviceStatus" value="true" id="device-ok" class="w-5 h-5" style="accent-color: var(--clalit-green);">
+                            <span class="font-medium text-green-700">המכשיר תקין</span>
+                            <span class="status-indicator bg-green-500"></span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer p-3 rounded-lg hover:bg-red-50 transition-all">
+                            <input type="radio" name="deviceStatus" value="false" id="device-not-ok" class="w-5 h-5" style="accent-color: #ef4444;">
+                            <span class="font-medium text-red-600">המכשיר לא תקין</span>
+                            <span class="status-indicator bg-red-500"></span>
+                        </label>
+                    </div>
+                </div>
+                <textarea id="final-notes" placeholder="הערות נוספות..." class="w-full clalit-input h-24"></textarea>
+            </div>
+
+            <!-- פרטי מבצע -->
+            <div class="bounce-in">
+                <h2 class="section-title">7. פרטי מבצע</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <input type="text" id="employee-id" placeholder="מס' עובד" class="clalit-input">
+                    <input type="text" id="technician-name" placeholder="שם מהנדס שרות" class="clalit-input">
+                    <input type="date" id="technician-date" class="clalit-input">
+                </div>
+                
+                <!-- חתימה דיגיטלית עם fallback -->
+                <div class="signature-area">
+                    <h3 class="text-lg font-medium mb-4 flex items-center">
+                        <i data-lucide="pen-tool" class="w-5 h-5 ml-2 floating-icon"></i>
+                        חתימה דיגיטלית
+                    </h3>
+                    
+                    <div id="signature-button" class="block">
+                        <div class="flex flex-col gap-3">
+                            <button onclick="showSignaturePad()" class="btn-clalit-blue flex items-center justify-center gap-3">
+                                <i data-lucide="pen-tool" class="w-5 h-5"></i>
+                                חתום על המסך
+                            </button>
+                            <div class="text-center text-sm text-gray-600">או</div>
+                            <label class="btn-clalit-green flex items-center justify-center gap-3 cursor-pointer">
+                                <i data-lucide="upload" class="w-5 h-5"></i>
+                                העלה תמונת חתימה
+                                <input type="file" accept="image/*" onchange="uploadSignature(this)" class="hidden">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="signature-display" class="space-y-3 hidden">
+                        <div class="bg-white border-2 border-gray-200 rounded-lg p-4">
+                            <p class="text-sm text-gray-600 mb-2">חתימה שמורה:</p>
+                            <img id="signature-image" alt="חתימה" class="max-w-full h-20 border bg-white rounded-lg">
+                        </div>
+                        <div class="flex gap-3">
+                            <button onclick="showSignaturePad()" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg transition-all">
+                                ערוך חתימה
+                            </button>
+                            <button onclick="clearSavedSignature()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-all">
+                                מחק חתימה
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="signature-pad" class="bg-white border-2 border-dashed border-gray-300 rounded-lg p-4 hidden">
+                        <p class="text-sm text-gray-600 mb-3" id="signature-instructions">
+                            חתום באצבע על המסך
+                        </p>
+                        <div class="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-3 mb-4">
+                            <canvas id="signature-canvas" width="500" height="150" class="w-full h-32 signature-canvas"></canvas>
+                        </div>
+                        <div class="flex gap-3">
+                            <button id="save-signature" onclick="saveSignature()" disabled class="btn-clalit-green flex items-center gap-2 opacity-50">
+                                <i data-lucide="check" class="w-4 h-4"></i>
+                                שמור חתימה
+                            </button>
+                            <button onclick="forceEnableSave()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all">
+                                <i data-lucide="tool" class="w-4 h-4"></i>
+                                אפשר שמירה
+                            </button>
+                            <button onclick="clearSignature()" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all">
+                                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                                נקה
+                            </button>
+                            <button onclick="hideSignaturePad()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-all">
+                                ביטול
+                            </button>
+                        </div>
+                        
+                        <!-- הודעת debug -->
+                        <div id="debug-message" class="mt-3 p-2 bg-blue-100 text-blue-800 text-xs rounded hidden">
+                            Debug: מכשיר זוהה כ-<span id="device-type"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // משתני נתונים
+        let deviceInfo = {
+            inventoryNumber: "",
+            institution: "",
+            department: "",
+            deviceModel: ""
+        };
+
+        let visualChecks = [
+            "תקע כוח", "כבל חשמל", "ברגי פילטר", "פיוזים", "גוף מרכיב",
+            "מפסקים / אמצעי בקרה", "מנוע, רוטור, מעצור", "משאבה (רק בצנטריפוגה שוטפת)",
+            "בדיקת התראות", "סימנים קוליים", "מדבקות", "אביזרים",
+            "תקינות מנגנון נעילה ופתיחה", "סוללת גיבוי", "תצוגה",
+            "שימון לפי הגדרות היצרן", "הוחלפו פחמים, מעצורים, אטמים לפי הצורך"
+        ];
+
+        let functionalTests = [
+            { test: "התנגדות ארקה", unit: "Ω", min: "0", max: "0.3", notes: "גדול מ 0" },
+            { test: "זרם זליגה לגוף", unit: "µA", min: "0", max: "3500", notes: "גדול במיקרו אמפר" },
+            { test: "דיוק בזמן", unit: "S", min: "-30", max: "+30", notes: "באמצעות טיימר טלפון סלולארי" },
+            { test: "דיוק במהירות", unit: "סל\"ד", min: "-100", max: "+100", notes: "±10 סל\"ד" },
+            { test: "דיוק בטמפרטורה", unit: "°C", min: "-3", max: "+3", notes: " באמצעות FLUKE" }
+        ];
+
+        // משתני חתימה
+        let canvas, ctx;
+        let isDrawing = false;
+        let hasSignature = false;
+
+        // אתחול הדף עם debug
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM טעון');
+            lucide.createIcons();
+            generateVisualChecks();
+            generateFunctionalTests();
+            initializeEventListeners();
+            addAnimations();
+            
+            // בדיקה מיידית של orientation עם delay
+            setTimeout(function() {
+                console.log('בודק orientation...');
+                checkOrientation();
+            }, 1000);
+        });
+
+        // בדיקת מצב מסך עם debug נרחב
+        function checkOrientation() {
+            console.log('checkOrientation הופעלה');
+            
+            // זיהוי מכשיר נייד עם debug
+            const userAgent = navigator.userAgent;
+            const isMobileUA = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+            const isAppleDevice = /iPad|iPhone|iPod/.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            const hasTouchSupport = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            
+            console.log('User Agent:', userAgent);
+            console.log('isMobileUA:', isMobileUA);
+            console.log('isAppleDevice:', isAppleDevice);
+            console.log('hasTouchSupport:', hasTouchSupport);
+            
+            const isMobile = isMobileUA || isAppleDevice || hasTouchSupport;
+            
+            const isPortrait = window.innerHeight > window.innerWidth;
+            const isNarrowScreen = window.innerWidth < 768;
+            
+            console.log('isMobile:', isMobile);
+            console.log('isPortrait:', isPortrait);
+            console.log('isNarrowScreen:', isNarrowScreen);
+            console.log('מחשורי מסך:', window.innerWidth, 'x', window.innerHeight);
+            
+            const dismissed = sessionStorage.getItem('landscape-warning-dismissed') || window.landscapeWarningDismissed;
+            console.log('dismissed:', dismissed);
+            
+            const warning = document.getElementById('landscape-warning');
+            
+            // תנאי להצגת הודעה
+            if (isMobile && isPortrait && isNarrowScreen && !dismissed) {
+                console.log('מציג הודעת לנדסקייפ');
+                warning.style.display = 'flex';
+                warning.style.visibility = 'visible';
+                warning.style.opacity = '1';
+                warning.style.zIndex = '9999';
+            } else {
+                console.log('מסתיר הודעת לנדסקייפ');
+                warning.style.display = 'none';
+            }
+        }
+
+        // הסתרת הודעת לנדסקייפ עם debug
+        function dismissLandscapeWarning() {
+            console.log('dismissLandscapeWarning הופעלה');
+            const warning = document.getElementById('landscape-warning');
+            warning.style.display = 'none';
+            
+            try {
+                sessionStorage.setItem('landscape-warning-dismissed', 'true');
+                console.log('sessionStorage נשמר');
+            } catch(e) {
+                console.log('sessionStorage נכשל, משתמש ב-window fallback');
+                window.landscapeWarningDismissed = true;
+            }
+        }
+
+        // מאזין לשינוי כיוון המסך - משופר ל-iOS
+        window.addEventListener('orientationchange', function() {
+            setTimeout(function() {
+                checkOrientation();
+            }, 300); // השהיה ארוכה יותר ל-iOS
+        });
+
+        window.addEventListener('resize', function() {
+            // בדיקה אם המשתמש עדיין לא סירב להודעה
+            const dismissed = sessionStorage.getItem('landscape-warning-dismissed') || window.landscapeWarningDismissed;
+            if (!dismissed) {
+                setTimeout(checkOrientation, 100);
+            }
+        });
+
+        // פונקציה לזיהוי מכשיר נייד
+        function isMobileDevice() {
+            return /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                   /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) ||
+                   'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        }
+
+        function addAnimations() {
+            // הוספת אנימציות לאלמנטים בעת גלילה
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.6s ease-out';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.info-card, .enhanced-table').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        function generateVisualChecks() {
+            const tbody = document.getElementById('visual-checks-table');
+            
+            for (let i = 0; i < visualChecks.length; i += 2) {
+                const tr = document.createElement('tr');
+                
+                const check1 = visualChecks[i];
+                tr.innerHTML += `
+                    <td class="p-3 font-medium">${check1}</td>
+                    <td class="p-3 text-center">
+                        <input type="checkbox" class="enhanced-checkbox" data-index="${i}">
+                    </td>
+                    <td class="p-3">
+                        <input type="text" class="clalit-input w-full" data-index="${i}" placeholder="הערות...">
+                    </td>
+                `;
+                
+                if (i + 1 < visualChecks.length) {
+                    const check2 = visualChecks[i + 1];
+                    tr.innerHTML += `
+                        <td class="p-3 font-medium">${check2}</td>
+                        <td class="p-3 text-center">
+                            <input type="checkbox" class="enhanced-checkbox" data-index="${i + 1}">
+                        </td>
+                        <td class="p-3">
+                            <input type="text" class="clalit-input w-full" data-index="${i + 1}" placeholder="הערות...">
+                        </td>
+                    `;
+                } else {
+                    tr.innerHTML += `
+                        <td class="p-3"></td>
+                        <td class="p-3"></td>
+                        <td class="p-3"></td>
+                    `;
+                }
+                
+                tbody.appendChild(tr);
+            }
+        }
+
+        function generateFunctionalTests() {
+            const tbody = document.getElementById('functional-tests');
+            functionalTests.forEach((test, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="p-3 font-medium">${test.test}</td>
+                    <td class="p-3 text-center font-bold">${test.unit}</td>
+                    <td class="p-3 text-center">${test.min}</td>
+                    <td class="p-3 text-center">${test.max}</td>
+                    <td class="p-3">
+                        <input type="text" class="clalit-input w-full" data-index="${index}" placeholder="ערך נמדד">
+                    </td>
+                    <td class="p-3">
+                        <input type="text" class="clalit-input w-full" data-index="${index}" placeholder="סטייה">
+                    </td>
+                    <td class="p-3 text-sm text-gray-600">${test.notes}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function initializeEventListeners() {
+            // מאזינים לאירועים
+        }
+
+        // פונקציות חתימה
+        function showSignaturePad() {
+            document.getElementById('signature-button').classList.add('hidden');
+            document.getElementById('signature-display').classList.add('hidden');
+            document.getElementById('signature-pad').classList.remove('hidden');
+            
+            canvas = document.getElementById('signature-canvas');
+            ctx = canvas.getContext('2d');
+            
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 2;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hasSignature = false;
+            updateSaveButton();
+            
+            // אירועי עכבר
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+            
+            // אירועי מגע
+            canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+            canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+            canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
+        }
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            if (e.touches.length === 1) {
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent('mousemove', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                canvas.dispatchEvent(mouseEvent);
+            }
+        }
+
+        function handleTouchEnd(e) {
+            e.preventDefault();
+            const mouseEvent = new MouseEvent('mouseup', {});
+            canvas.dispatchEvent(mouseEvent);
+        }
+
+        function hideSignaturePad() {
+            document.getElementById('signature-pad').classList.add('hidden');
+            if (document.getElementById('signature-image').src) {
+                document.getElementById('signature-display').classList.remove('hidden');
+            } else {
+                document.getElementById('signature-button').classList.remove('hidden');
+            }
+        }
+
+        function getCanvasCoordinates(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            
+            return {
+                x: (e.clientX - rect.left) * scaleX,
+                y: (e.clientY - rect.top) * scaleY
+            };
+        }
+
+        function startDrawing(e) {
+            e.preventDefault();
+            isDrawing = true;
+            const coords = getCanvasCoordinates(e);
+            ctx.beginPath();
+            ctx.moveTo(coords.x, coords.y);
+        }
+
+        function draw(e) {
+            e.preventDefault();
+            if (!isDrawing) return;
+            
+            const coords = getCanvasCoordinates(e);
+            ctx.lineTo(coords.x, coords.y);
+            ctx.stroke();
+            hasSignature = true;
+            updateSaveButton();
+        }
+
+        function stopDrawing(e) {
+            e.preventDefault();
+            isDrawing = false;
+        }
+
+        function clearSignature() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            hasSignature = false;
+            updateSaveButton();
+        }
+
+        function updateSaveButton() {
+            const saveBtn = document.getElementById('save-signature');
+            if (hasSignature) {
+                saveBtn.disabled = false;
+                saveBtn.className = 'btn-clalit-green flex items-center gap-2';
+            } else {
+                saveBtn.disabled = true;
+                saveBtn.className = 'btn-clalit-green flex items-center gap-2 opacity-50';
+            }
+        }
+
+        function saveSignature() {
+            if (hasSignature) {
+                const signatureData = canvas.toDataURL('image/png', 1.0);
+                document.getElementById('signature-image').src = signatureData;
+                document.getElementById('signature-pad').classList.add('hidden');
+                document.getElementById('signature-display').classList.remove('hidden');
+            }
+        }
+
+        function clearSavedSignature() {
+            document.getElementById('signature-image').src = '';
+            document.getElementById('signature-display').classList.add('hidden');
+            document.getElementById('signature-button').classList.remove('hidden');
+        }
+
+        // פונקציית הדפסה
+        function printForm() {
+            // ודא שהחתימה מוצגת אם קיימת
+            const signatureImage = document.getElementById('signature-image');
+            const signatureDisplay = document.getElementById('signature-display');
+            
+            if (signatureImage.src && signatureImage.src !== window.location.href) {
+                signatureDisplay.classList.remove('hidden');
+                signatureDisplay.classList.add('print-show');
+            }
+            
+            // הסתר אלמנטים שלא נחוצים להדפסה
+            const elementsToHide = document.querySelectorAll('.print-hide, #signature-pad, #signature-button');
+            elementsToHide.forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // הצג הודעה לפני ההדפסה
+            const printMessage = document.createElement('div');
+            printMessage.innerHTML = 'מכין את הטופס להדפסה...';
+            printMessage.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:20px;border-radius:10px;box-shadow:0 10px 25px rgba(0,0,0,0.3);z-index:9999;font-size:16px;';
+            document.body.appendChild(printMessage);
+            
+            // המתן קצת ואז הדפס
+            setTimeout(() => {
+                document.body.removeChild(printMessage);
+                window.print();
+                
+                // החזר את האלמנטים אחרי ההדפסה
+                setTimeout(() => {
+                    elementsToHide.forEach(el => {
+                        el.style.display = '';
+                    });
+                }, 500);
+            }, 500);
+        }
+    </script>
+</body>
+</html>
