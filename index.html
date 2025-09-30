@@ -636,41 +636,88 @@
         
         @media print {
             @page {
-                size: A4;
-                margin: 20mm 15mm;
+                size: A4 portrait;
+                margin: 15mm 20mm;
+            }
+            
+            * {
+                box-sizing: border-box;
             }
             
             body {
                 background: white !important;
-                font-size: 11px !important;
-                line-height: 1.3 !important;
+                font-size: 10px !important;
+                line-height: 1.2 !important;
                 color: black !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
             
-            /* כותרת עליונה בכל דף */
+            .main-container {
+                display: table;
+                width: 100%;
+                border-spacing: 0;
+            }
+            
             .clalit-header:first-of-type {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                z-index: 1000;
+                display: table-header-group;
+                page-break-inside: avoid;
             }
             
-            /* כותרת תחתונה בכל דף */
             .clalit-header:last-of-type {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                z-index: 1000;
+                display: table-footer-group;
+                page-break-inside: avoid;
             }
             
-            /* ריווח לתוכן כדי שלא יכסה את הכותרות */
             .main-container > div:nth-child(2) {
-                margin-top: 120px !important;
-                margin-bottom: 80px !important;
+                display: table-row-group;
             }
             
+            /* מניעת שבירת עמוד בתוך סעיפים */
+            .info-card,
+            .enhanced-table,
+            .bounce-in,
+            .fade-in {
+                page-break-inside: avoid;
+            }
+            
+            .clalit-header {
+                background: linear-gradient(135deg, var(--clalit-blue) 0%, var(--clalit-green) 100%) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            
+            .clalit-header h1 {
+                font-size: 16px !important;
+                margin-bottom: 3px !important;
+                line-height: 1.2 !important;
+            }
+            
+            .clalit-header p {
+                font-size: 11px !important;
+                margin: 0 !important;
+            }
+            
+            .header-grid {
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important;
+                gap: 10px !important;
+            }
+            
+            .logo-container {
+                box-shadow: none !important;
+                padding: 8px !important;
+                flex-shrink: 0 !important;
+            }
+            
+            .logo-container img {
+                height: 50px !important;
+                max-height: 50px !important;
+            }
+            
+            /* התוכן הראשי */
             .main-container {
                 box-shadow: none !important;
                 border-radius: 0 !important;
@@ -678,86 +725,102 @@
                 padding: 0 !important;
                 max-width: none !important;
                 background: white !important;
+                position: relative;
             }
             
-            .clalit-header {
-                background: linear-gradient(135deg, var(--clalit-blue) 0%, var(--clalit-green) 100%) !important;
-                -webkit-print-color-adjust: exact !important;
-                color-adjust: exact !important;
-                padding: 15px !important;
-                margin-bottom: 10px !important;
+            .main-container > div:nth-child(2) {
+                margin-top: 0 !important;
+                margin-bottom: 0 !important;
+                padding-top: 5mm !important;
+                padding-bottom: 5mm !important;
             }
             
-            .clalit-header h1 {
-                font-size: 18px !important;
-                margin-bottom: 5px !important;
+            /* עיצוב כותרת תחתונה */
+            .clalit-header:last-of-type {
+                font-size: 11px !important;
             }
             
-            .clalit-header p {
-                font-size: 12px !important;
-            }
-            
-            .header-grid {
-                flex-direction: row !important;
+            .clalit-header:last-of-type .flex {
+                justify-content: space-between !important;
                 align-items: center !important;
             }
             
-            .logo-container {
-                box-shadow: none !important;
-                padding: 8px !important;
+            .clalit-header:last-of-type .text-sm {
+                font-size: 11px !important;
             }
             
-            .logo-container img {
-                height: 40px !important;
+            .clalit-header:last-of-type p {
+                font-size: 11px !important;
+                line-height: 1.4 !important;
+                margin: 2px 0 !important;
+            }
+            
+            .clalit-header:last-of-type .font-semibold,
+            .clalit-header:last-of-type .font-bold {
+                font-weight: bold !important;
+            }
+            
+            .clalit-header:last-of-type .text-lg {
+                font-size: 13px !important;
             }
             
             .info-card {
                 background: white !important;
                 border: 1px solid #ccc !important;
-                border-radius: 8px !important;
-                padding: 12px !important;
-                margin-bottom: 10px !important;
+                border-radius: 5px !important;
+                padding: 8px !important;
+                margin-bottom: 8px !important;
                 box-shadow: none !important;
+                page-break-inside: avoid;
             }
             
             .section-title {
-                font-size: 14px !important;
+                font-size: 12px !important;
                 color: var(--clalit-green) !important;
                 -webkit-print-color-adjust: exact !important;
-                margin-bottom: 8px !important;
+                print-color-adjust: exact !important;
+                margin-bottom: 5px !important;
             }
             
             .enhanced-table {
                 box-shadow: none !important;
                 border-radius: 0 !important;
-                margin-bottom: 10px !important;
+                margin-bottom: 8px !important;
+                page-break-inside: auto;
             }
             
             .enhanced-table table {
-                font-size: 10px !important;
+                font-size: 9px !important;
                 border-collapse: collapse !important;
             }
             
             .enhanced-table th,
             .enhanced-table td {
-                padding: 4px !important;
+                padding: 3px !important;
                 border: 1px solid #666 !important;
             }
             
             .enhanced-table thead tr {
                 background: var(--clalit-blue-light) !important;
                 -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
             
             .clalit-input {
                 border: 1px solid #999 !important;
-                padding: 3px 6px !important;
-                font-size: 10px !important;
+                padding: 2px 4px !important;
+                font-size: 9px !important;
                 background: white !important;
+            }
+            
+            label {
+                font-size: 9px !important;
+                margin-bottom: 2px !important;
             }
             
             .enhanced-checkbox {
                 -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
                 color-adjust: exact !important;
             }
             
@@ -773,7 +836,14 @@
             .floating-icon,
             [data-lucide],
             #additional-technician-checkbox,
-            label[for="additional-technician-checkbox"] {
+            label[for="additional-technician-checkbox"],
+            .print-button,
+            .fade-in:has(#additional-technician-checkbox) {
+                display: none !important;
+            }
+            
+            /* הסתר טכנאי נוסף אם לא מסומן */
+            #additional-technician-section.print-hide-section {
                 display: none !important;
             }
             
@@ -782,36 +852,36 @@
                 display: block !important;
                 background: white !important;
                 border: 1px solid #ccc !important;
-                padding: 8px !important;
-                margin-top: 10px !important;
+                padding: 5px !important;
+                margin-top: 5px !important;
             }
             
             #signature-image,
             #signature-image-2 {
-                max-width: 200px !important;
+                max-width: 150px !important;
                 height: auto !important;
                 border: 1px solid #999 !important;
             }
             
             .signature-area h3 {
-                font-size: 12px !important;
-                margin-bottom: 5px !important;
+                font-size: 11px !important;
+                margin-bottom: 3px !important;
             }
             
             .space-y-8 > * + * {
-                margin-top: 8px !important;
+                margin-top: 6px !important;
             }
             
             .space-y-3 > * + * {
-                margin-top: 3px !important;
+                margin-top: 2px !important;
             }
             
             .p-8 {
-                padding: 10px !important;
+                padding: 8px !important;
             }
             
             .p-6 {
-                padding: 8px !important;
+                padding: 6px !important;
             }
             
             .p-4 {
@@ -823,19 +893,19 @@
             }
             
             .mb-4 {
-                margin-bottom: 6px !important;
-            }
-            
-            .mb-3 {
                 margin-bottom: 4px !important;
             }
             
+            .mb-3 {
+                margin-bottom: 3px !important;
+            }
+            
             .gap-4 {
-                gap: 6px !important;
+                gap: 4px !important;
             }
             
             .gap-3 {
-                gap: 4px !important;
+                gap: 3px !important;
             }
             
             .grid-cols-4 {
@@ -846,13 +916,9 @@
                 grid-template-columns: repeat(3, 1fr) !important;
             }
             
-            .info-card,
-            .enhanced-table {
-                page-break-inside: avoid !important;
-            }
-            
             * {
                 -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
                 color-adjust: exact !important;
             }
         }
@@ -886,11 +952,11 @@
     </style>
 </head>
 <body class="bg-gradient-to-br from-gray-50 to-gray-100 p-6">
-    <!-- הודעת מצב לנדסקייפ -->
+    <!-- הודעת מצב לנדסקייף -->
     <div id="landscape-warning" class="landscape-warning" style="display: none;">
         <h2>לחווית מיטבית</h2>
         <div class="phone-icon">📱</div>
-        <p>מומלץ לסובב את המכשיר למצב לנדסקייפ (רוחב) לצפייה נוחה יותר בטופס ובטבלאות</p>
+        <p>מומלץ לסובב את המכשיר למצב לנדסקייף (רוחב) לצפייה נוחה יותר בטופס ובטבלאות</p>
         <button onclick="dismissLandscapeWarning()">המשך בכל מקרה</button>
     </div>
 
@@ -906,7 +972,7 @@
                 <!-- לוגו -->
                 <div class="flex-shrink-0">
                     <div class="logo-container">
-                        <img src="https://cbm.org.il/app/uploads/2025/02/cropped-logo-1-222x0-c-default.png" alt="כללית - השירותים הרפואיים" class="h-12">
+                        <img src="https://cbm.org.il/app/uploads/2025/02/cropped-logo-1-222x0-c-default.png" alt="כללית הנדסה רפואית " class="h-16">
                     </div>
                 </div>
 
@@ -935,7 +1001,7 @@
                             <span class="font-semibold">אושר ע"י:</span>
                             <span>דוד ויצמן</span>
                         </div>
-						 <div class="flex items-center gap-2">
+                         <div class="flex items-center gap-2">
                             <i data-lucide="check-circle" class="w-4 h-4 floating-icon"></i>
                             <span class="font-semibold">דיגיטציה ע"י:</span>
                             <span>הראל לוי</span>
@@ -953,10 +1019,22 @@
                     פרטי המכשיר
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <input type="text" id="inventory-number" placeholder="מס. אינוונטר" class="clalit-input">
-                    <input type="text" id="institution" placeholder="מוסד" class="clalit-input">
-                    <input type="text" id="department" placeholder="מחלקה" class="clalit-input">
-                    <input type="text" id="device-model" placeholder="דגם המכשיר" class="clalit-input">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-gray-700">מס. אינוונטר</label>
+                        <input type="text" id="inventory-number" placeholder="מס. אינוונטר" class="clalit-input">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-gray-700">מוסד</label>
+                        <input type="text" id="institution" placeholder="מוסד" class="clalit-input">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-gray-700">מחלקה</label>
+                        <input type="text" id="department" placeholder="מחלקה" class="clalit-input">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2 text-gray-700">דגם המכשיר</label>
+                        <input type="text" id="device-model" placeholder="דגם המכשיר" class="clalit-input">
+                    </div>
                 </div>
             </div>
 
@@ -1182,17 +1260,12 @@
                                 ביטול
                             </button>
                         </div>
-                        
-                        <!-- הודעת debug -->
-                        <div id="debug-message" class="mt-3 p-2 bg-blue-100 text-blue-800 text-xs rounded hidden">
-                            Debug: מכשיר זוהה כ-<span id="device-type"></span>
-                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- טכנאי נוסף -->
-            <div class="fade-in">
+            <div class="fade-in" id="add-technician-wrapper">
                 <label class="flex items-center gap-3 cursor-pointer p-4 rounded-lg hover:bg-blue-50 transition-all border-2 border-dashed border-gray-300">
                     <input type="checkbox" id="additional-technician-checkbox" class="enhanced-checkbox" onchange="toggleAdditionalTechnician()">
                     <span class="font-medium text-lg">הוסף טכנאי נוסף</span>
@@ -1273,35 +1346,35 @@
                     </div>
                 </div>
             </div>
-
+        </div>
 
         <!-- Footer -->
-        <div class="clalit-header text-white p-6 mt-6">
-            <div class="flex items-center justify-between w-full flex-wrap gap-4">
+        <div class="clalit-header text-white p-8 mt-6">
+            <div class="flex items-center justify-between w-full flex-wrap gap-6">
                 <!-- כתובת -->
                 <div class="flex-1 text-right min-w-[200px]">
-                    <div class="text-sm">
-                        <p class="font-semibold">רח' חיי נתניהו 47, מבנה מס' 4, אור יהודה 60200</p>
-						<p>
-						 <p><span class="font-semibold">מזכון למכתבים:</span> ת.ד .730, אור יהודה</p>
+                    <div class="text-base">
+                        <p class="font-bold text-lg mb-1"> רחוב יוני נתניהו 1ג' מבנה מספר 4 </p>
+                        <p class="font-semibold">אור יהודה 60200</p>
+                        <p class="mt-2"><span class="font-semibold">מען למכתבים:</span> ת.ד .730, אור יהודה</p>
                     </div>
                 </div>
 
                 <!-- פרטי התקשרות -->
                 <div class="flex-1 text-center min-w-[250px]">
-                    <div class="space-y-1 text-sm">
-					
-					<p><span class="font-bold">טל:</span> 03-5389555</p>
-						<p>
-						 <p><span class="font-bold">פקס:</span> 03-5335921</p>
-					                       </div>
+                    <div class="space-y-2 text-base">
+                        <p class="text-xl font-bold">*5515 מוקד שרות ארצי</p>
+                        <p class="mt-3"><span class="font-bold">טל:</span> 03-5389555</p>
+                        <p><span class="font-bold">פקס:</span> 03-5335921</p>
+                    </div>
                 </div>
 
-                <!-- מוקד ואתר -->
+                <!-- אתר -->
                 <div class="flex-1 text-left min-w-[200px]">
-                    <div class="text-sm space-y-1">
-                        <p class="font-bold text-lg">*5515 מוקד שרות ארצי</p>
-                        <p class="font-semibold">www.cbm.org.il</p>
+                    <div class="text-base space-y-2">
+                        <p class="font-bold text-2xl">כללית</p>
+                        <p class="font-bold text-lg">הנדסה רפואית </p>
+                        <p class="font-semibold text-lg mt-2">www.cbm.org.il</p>
                     </div>
                 </div>
             </div>
@@ -1322,11 +1395,11 @@
             "מפסקים / אמצעי בקרה", "מנוע, רוטור, מעצור", "משאבה (רק בצנטריפוגה שוטפת)",
             "בדיקת התראות", "סימנים קוליים", "מדבקות", "אביזרים",
             "תקינות מנגנון נעילה ופתיחה", "סוללת גיבוי", "תצוגה",
-            "שימון לפי הגדרות היצרן", "הוחלפו פחמים, מעצורים, אטמים לפי הצורך"
+            "שימון לפי הבדרות היצרן", "הוחלפו פחמים, מעצורים, אטמים לפי הצורך"
         ];
 
         let functionalTests = [
-            { test: "התנגדות ארקה", unit: "Ω", min: "0", max: "0.3", notes: "גדול מ 0" },
+            { test: "התנגדות ארקה", unit: "Ω", min: "0", max: "0.3", notes: "גדול ם 0" },
             { test: "זרם זליגה לגוף", unit: "µA", min: "0", max: "3500", notes: "גדול במיקרו אמפר" },
             { test: "דיוק בזמן", unit: "S", min: "-30", max: "+30", notes: "באמצעות טיימר טלפון סלולרי" },
             { test: "דיוק במהירות", unit: "סל\"ד", min: "-100", max: "+100", notes: "±10 סל\"ד" },
@@ -1391,18 +1464,18 @@
             
             // תנאי להצגת הודעה
             if (isMobile && isPortrait && isNarrowScreen && !dismissed) {
-                console.log('מציג הודעת לנדסקייפ');
+                console.log('מציג הודעת לנדסקייף');
                 warning.style.display = 'flex';
                 warning.style.visibility = 'visible';
                 warning.style.opacity = '1';
                 warning.style.zIndex = '9999';
             } else {
-                console.log('מסתיר הודעת לנדסקייפ');
+                console.log('מסתיר הודעת לנדסקייף');
                 warning.style.display = 'none';
             }
         }
 
-        // הסתרת הודעת לנדסקייפ עם debug
+        // הסתרת הודעת לנדסקייף עם debug
         function dismissLandscapeWarning() {
             console.log('dismissLandscapeWarning הופעלה');
             const warning = document.getElementById('landscape-warning');
@@ -1517,7 +1590,7 @@
         }
 
         function initializeEventListeners() {
-            // מאזינים לאירועים
+            // מאזינים לאירועי
         }
 
         // פונקציות חתימה - טכנאי ראשי
@@ -1839,36 +1912,30 @@
             }
         }
 
-        // פונקציה להצגה/הסתרה של טבלת מק"טים
-        function toggleCatalogTable() {
-            const container = document.getElementById('catalog-table-container');
-            const toggleText = document.getElementById('catalog-toggle-text');
-            
-            if (container.classList.contains('hidden')) {
-                container.classList.remove('hidden');
-                toggleText.textContent = 'הסתר טבלה';
-            } else {
-                container.classList.add('hidden');
-                toggleText.textContent = 'הצג טבלה';
-            }
-        }
-
-        // פונקציה להצגה/הסתרה של טבלת מק"טים 9245
-        function toggleCatalogTable2() {
-            const container = document.getElementById('catalog-table-container-2');
-            const toggleText = document.getElementById('catalog-toggle-text-2');
-            
-            if (container.classList.contains('hidden')) {
-                container.classList.remove('hidden');
-                toggleText.textContent = 'הסתר טבלה';
-            } else {
-                container.classList.add('hidden');
-                toggleText.textContent = 'הצג טבלה';
-            }
-        }
-
         // פונקציית הדפסה עם בדיקת שדות חובה
         function printForm() {
+            // בדוק אם טכנאי נוסף מסומן
+            const additionalTechnicianChecked = document.getElementById('additional-technician-checkbox').checked;
+            
+            // הוסף spacer בהתאם לכמות התוכן
+            const contentDiv = document.querySelector('.main-container > div:nth-child(2)');
+            const spacer = document.createElement('div');
+            spacer.id = 'print-spacer';
+            
+            // בלי טכנאי נוסף - צריך spacer גדול יותר
+            // עם טכנאי נוסף - צריך spacer קטן יותר
+            const spacerHeight = additionalTechnicianChecked ? '69mm' : '139mm';
+            spacer.style.cssText = `margin-bottom: ${spacerHeight}; page-break-inside: avoid;`;
+            contentDiv.appendChild(spacer);
+            const additionalTechnicianSection = document.getElementById('additional-technician-section');
+            
+            // אם לא מסומן - הוסף class שיסתיר בהדפסה
+            if (!additionalTechnicianChecked) {
+                additionalTechnicianSection.classList.add('print-hide-section');
+            } else {
+                additionalTechnicianSection.classList.remove('print-hide-section');
+            }
+            
             const missingFields = [];
             
             // בדיקת פרטי המכשיר
@@ -1935,7 +2002,6 @@
             if (!hasSignature) missingFields.push('חתימה דיגיטלית');
             
             // בדיקת טכנאי נוסף אם מסומן
-            const additionalTechnicianChecked = document.getElementById('additional-technician-checkbox').checked;
             if (additionalTechnicianChecked) {
                 const employeeId2 = document.getElementById('employee-id-2').value.trim();
                 const technicianName2 = document.getElementById('technician-name-2').value.trim();
@@ -1999,6 +2065,9 @@
                     elementsToHide.forEach(el => {
                         el.style.display = '';
                     });
+                    // הסר את ה-spacer
+                    const spacer = document.getElementById('print-spacer');
+                    if (spacer) spacer.remove();
                 }, 500);
             }, 500);
         }
