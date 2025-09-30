@@ -921,6 +921,72 @@
                 print-color-adjust: exact !important;
                 color-adjust: exact !important;
             }
+            
+            /* התאמה למכשירים ניידים בהדפסה */
+            @media print and (max-width: 768px) {
+                body {
+                    font-size: 8px !important;
+                }
+                
+                .clalit-header h1 {
+                    font-size: 12px !important;
+                }
+                
+                .clalit-header p {
+                    font-size: 8px !important;
+                }
+                
+                .logo-container img {
+                    height: 30px !important;
+                }
+                
+                .enhanced-table table {
+                    font-size: 7px !important;
+                }
+                
+                .enhanced-table th,
+                .enhanced-table td {
+                    padding: 2px !important;
+                }
+                
+                .clalit-input {
+                    font-size: 7px !important;
+                    padding: 1px 2px !important;
+                }
+                
+                label {
+                    font-size: 7px !important;
+                }
+                
+                .section-title {
+                    font-size: 10px !important;
+                }
+                
+                .p-8 {
+                    padding: 4px !important;
+                }
+                
+                .space-y-8 > * + * {
+                    margin-top: 4px !important;
+                }
+                
+                .info-card {
+                    padding: 4px !important;
+                    margin-bottom: 4px !important;
+                }
+                
+                .clalit-header:last-of-type {
+                    font-size: 8px !important;
+                }
+                
+                .clalit-header:last-of-type p {
+                    font-size: 8px !important;
+                }
+                
+                .clalit-header:last-of-type .text-lg {
+                    font-size: 9px !important;
+                }
+            }
         }
         
         .print-button {
@@ -965,6 +1031,18 @@
         <i data-lucide="printer" class="w-5 h-5"></i>
         שלח להדפסה
     </button>
+    
+    <!-- כפתורי שמירה וטעינה -->
+    <div style="position: fixed; top: 20px; right: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 15px;">
+        <button onclick="saveDraft()" class="print-button" style="background: linear-gradient(135deg, #7cb342 0%, #689f38 100%); position: relative; margin: 0;">
+            <i data-lucide="save" class="w-5 h-5"></i>
+            שמור טיוטה
+        </button>
+        <button onclick="loadDraft()" class="print-button" style="background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%); position: relative; margin: 0;">
+            <i data-lucide="upload" class="w-5 h-5"></i>
+            טען טיוטה
+        </button>
+    </div>
 
     <div class="max-w-6xl mx-auto main-container">
         <div class="clalit-header text-white p-8">
@@ -972,7 +1050,7 @@
                 <!-- לוגו -->
                 <div class="flex-shrink-0">
                     <div class="logo-container">
-                        <img src="https://cbm.org.il/app/uploads/2025/02/cropped-logo-1-222x0-c-default.png" alt="כללית הנדסה רפואית " class="h-16">
+                        <img src="https://cbm.org.il/app/uploads/2025/02/cropped-logo-1-222x0-c-default.png" alt="כללית - השירותים הרפואיי" class="h-16">
                     </div>
                 </div>
 
@@ -1354,9 +1432,9 @@
                 <!-- כתובת -->
                 <div class="flex-1 text-right min-w-[200px]">
                     <div class="text-base">
-                        <p class="font-bold text-lg mb-1"> רחוב יוני נתניהו 1ג' מבנה מספר 4 </p>
+                        <p class="font-bold text-lg mb-1">רח' חיי נתניהו 47, מבנה מס' 4</p>
                         <p class="font-semibold">אור יהודה 60200</p>
-                        <p class="mt-2"><span class="font-semibold">מען למכתבים:</span> ת.ד .730, אור יהודה</p>
+                        <p class="mt-2"><span class="font-semibold">מזכון למכתבי:</span> ת.ד .730, אור יהודה</p>
                     </div>
                 </div>
 
@@ -1373,7 +1451,7 @@
                 <div class="flex-1 text-left min-w-[200px]">
                     <div class="text-base space-y-2">
                         <p class="font-bold text-2xl">כללית</p>
-                        <p class="font-bold text-lg">הנדסה רפואית </p>
+                        <p class="font-bold text-lg">השירותים הרפואיים</p>
                         <p class="font-semibold text-lg mt-2">www.cbm.org.il</p>
                     </div>
                 </div>
@@ -1909,6 +1987,201 @@
                     document.getElementById('signature-display-2').classList.remove('hidden');
                 };
                 reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // פונקציות שמירה וטעינת טיוטה
+        function saveDraft() {
+            try {
+                const draftData = {
+                    // פרטי המכשיר
+                    inventoryNumber: document.getElementById('inventory-number').value,
+                    institution: document.getElementById('institution').value,
+                    department: document.getElementById('department').value,
+                    deviceModel: document.getElementById('device-model').value,
+                    
+                    // ציוד נדרש לביקורת
+                    equipment: [],
+                    
+                    // ניקוי המכשיר
+                    cleaning: {
+                        external: false,
+                        internal: false
+                    },
+                    
+                    // בדיקה ויזואלית
+                    visualChecks: [],
+                    
+                    // בדיקה פונקציונלית
+                    functionalTests: [],
+                    
+                    // סטטוס סופי
+                    deviceStatus: null,
+                    finalNotes: document.getElementById('final-notes').value,
+                    
+                    // פרטי מבצע ראשי
+                    technician: {
+                        employeeId: document.getElementById('employee-id').value,
+                        name: document.getElementById('technician-name').value,
+                        date: document.getElementById('technician-date').value,
+                        signature: document.getElementById('signature-image').src
+                    },
+                    
+                    // טכנאי נוסף
+                    additionalTechnician: {
+                        enabled: document.getElementById('additional-technician-checkbox').checked,
+                        employeeId: document.getElementById('employee-id-2').value,
+                        name: document.getElementById('technician-name-2').value,
+                        date: document.getElementById('technician-date-2').value,
+                        signature: document.getElementById('signature-image-2').src
+                    }
+                };
+                
+                // ציוד נדרש לביקורת
+                const equipmentChecks = document.querySelectorAll('table tbody tr input[type="checkbox"]');
+                const equipmentInputs = document.querySelectorAll('table tbody tr input[type="text"][placeholder*="12345"]');
+                const equipmentDates = document.querySelectorAll('table tbody tr input[type="date"]');
+                
+                for (let i = 0; i < 3; i++) {
+                    draftData.equipment.push({
+                        checked: equipmentChecks[i]?.checked || false,
+                        number: equipmentInputs[i]?.value || '',
+                        date: equipmentDates[i]?.value || ''
+                    });
+                }
+                
+                // ניקוי המכשיר
+                const cleaningChecks = document.querySelectorAll('input[type="checkbox"][data-id]');
+                draftData.cleaning.external = cleaningChecks[3]?.checked || false;
+                draftData.cleaning.internal = cleaningChecks[4]?.checked || false;
+                
+                // בדיקה ויזואלית
+                const visualCheckboxes = document.querySelectorAll('#visual-checks-table input[type="checkbox"]');
+                const visualInputs = document.querySelectorAll('#visual-checks-table input[type="text"]');
+                
+                visualCheckboxes.forEach((checkbox, index) => {
+                    draftData.visualChecks.push({
+                        checked: checkbox.checked,
+                        notes: visualInputs[index]?.value || ''
+                    });
+                });
+                
+                // בדיקה פונקציונלית
+                const functionalInputs = document.querySelectorAll('#functional-tests input[type="text"]');
+                
+                for (let i = 0; i < functionalInputs.length; i += 2) {
+                    draftData.functionalTests.push({
+                        value: functionalInputs[i]?.value || '',
+                        deviation: functionalInputs[i + 1]?.value || ''
+                    });
+                }
+                
+                // סטטוס סופי
+                const statusRadio = document.querySelector('input[name="deviceStatus"]:checked');
+                draftData.deviceStatus = statusRadio?.value || null;
+                
+                // שמירה ב-localStorage
+                localStorage.setItem('centrifuge-draft', JSON.stringify(draftData));
+                
+                // הודעת הצלחה
+                alert('✅ הטיוטה נשמרה בהצלחה!');
+                
+            } catch (error) {
+                console.error('שגיאה בשמירת טיוטה:', error);
+                alert('❌ שגיאה: לא ניתן לשמור טיוטה. localStorage אינו זמין.');
+            }
+        }
+
+        function loadDraft() {
+            try {
+                const savedDraft = localStorage.getItem('centrifuge-draft');
+                
+                if (!savedDraft) {
+                    alert('⚠️ לא נמצאה טיוטה שמורה');
+                    return;
+                }
+                
+                const draftData = JSON.parse(savedDraft);
+                
+                // טעינת פרטי המכשיר
+                document.getElementById('inventory-number').value = draftData.inventoryNumber || '';
+                document.getElementById('institution').value = draftData.institution || '';
+                document.getElementById('department').value = draftData.department || '';
+                document.getElementById('device-model').value = draftData.deviceModel || '';
+                
+                // טעינת ציוד נדרש לביקורת
+                const equipmentChecks = document.querySelectorAll('table tbody tr input[type="checkbox"]');
+                const equipmentInputs = document.querySelectorAll('table tbody tr input[type="text"][placeholder*="12345"]');
+                const equipmentDates = document.querySelectorAll('table tbody tr input[type="date"]');
+                
+                draftData.equipment.forEach((item, index) => {
+                    if (equipmentChecks[index]) equipmentChecks[index].checked = item.checked;
+                    if (equipmentInputs[index]) equipmentInputs[index].value = item.number;
+                    if (equipmentDates[index]) equipmentDates[index].value = item.date;
+                });
+                
+                // טעינת ניקוי המכשיר
+                const cleaningChecks = document.querySelectorAll('input[type="checkbox"][data-id]');
+                if (cleaningChecks[3]) cleaningChecks[3].checked = draftData.cleaning.external;
+                if (cleaningChecks[4]) cleaningChecks[4].checked = draftData.cleaning.internal;
+                
+                // טעינת בדיקה ויזואלית
+                const visualCheckboxes = document.querySelectorAll('#visual-checks-table input[type="checkbox"]');
+                const visualInputs = document.querySelectorAll('#visual-checks-table input[type="text"]');
+                
+                draftData.visualChecks.forEach((item, index) => {
+                    if (visualCheckboxes[index]) visualCheckboxes[index].checked = item.checked;
+                    if (visualInputs[index]) visualInputs[index].value = item.notes;
+                });
+                
+                // טעינת בדיקה פונקציונלית
+                const functionalInputs = document.querySelectorAll('#functional-tests input[type="text"]');
+                
+                draftData.functionalTests.forEach((item, index) => {
+                    if (functionalInputs[index * 2]) functionalInputs[index * 2].value = item.value;
+                    if (functionalInputs[index * 2 + 1]) functionalInputs[index * 2 + 1].value = item.deviation;
+                });
+                
+                // טעינת סטטוס סופי
+                if (draftData.deviceStatus) {
+                    const statusRadio = document.querySelector(`input[name="deviceStatus"][value="${draftData.deviceStatus}"]`);
+                    if (statusRadio) statusRadio.checked = true;
+                }
+                document.getElementById('final-notes').value = draftData.finalNotes || '';
+                
+                // טעינת פרטי מבצע ראשי
+                document.getElementById('employee-id').value = draftData.technician.employeeId || '';
+                document.getElementById('technician-name').value = draftData.technician.name || '';
+                document.getElementById('technician-date').value = draftData.technician.date || '';
+                
+                if (draftData.technician.signature && draftData.technician.signature !== window.location.href) {
+                    document.getElementById('signature-image').src = draftData.technician.signature;
+                    document.getElementById('signature-button').classList.add('hidden');
+                    document.getElementById('signature-display').classList.remove('hidden');
+                }
+                
+                // טעינת טכנאי נוסף
+                if (draftData.additionalTechnician.enabled) {
+                    document.getElementById('additional-technician-checkbox').checked = true;
+                    toggleAdditionalTechnician();
+                    
+                    document.getElementById('employee-id-2').value = draftData.additionalTechnician.employeeId || '';
+                    document.getElementById('technician-name-2').value = draftData.additionalTechnician.name || '';
+                    document.getElementById('technician-date-2').value = draftData.additionalTechnician.date || '';
+                    
+                    if (draftData.additionalTechnician.signature && draftData.additionalTechnician.signature !== window.location.href) {
+                        document.getElementById('signature-image-2').src = draftData.additionalTechnician.signature;
+                        document.getElementById('signature-button-2').classList.add('hidden');
+                        document.getElementById('signature-display-2').classList.remove('hidden');
+                    }
+                }
+                
+                // הודעת הצלחה
+                alert('✅ הטיוטה נטענה בהצלחה!');
+                
+            } catch (error) {
+                console.error('שגיאה בטעינת טיוטה:', error);
+                alert('❌ שגיאה: לא ניתן לטעון טיוטה');
             }
         }
 
