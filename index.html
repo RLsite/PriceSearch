@@ -510,13 +510,33 @@
             }
             
             .print-button {
-                padding: 10px 15px;
-                font-size: 12px;
+                padding: 8px 12px !important;
+                font-size: 11px !important;
+                border-radius: 8px !important;
+                top: 10px !important;
             }
             
             .print-button i {
-                width: 16px;
-                height: 16px;
+                width: 14px !important;
+                height: 14px !important;
+            }
+            
+            /* כפתורים בצד ימין */
+            div[style*="right: 20px"] {
+                top: 10px !important;
+                right: 10px !important;
+                gap: 8px !important;
+            }
+            
+            div[style*="right: 20px"] button {
+                padding: 8px 12px !important;
+                font-size: 11px !important;
+                border-radius: 8px !important;
+            }
+            
+            div[style*="right: 20px"] button i {
+                width: 14px !important;
+                height: 14px !important;
             }
         }
         
@@ -1026,21 +1046,18 @@
         <button onclick="dismissLandscapeWarning()">המשך בכל מקרה</button>
     </div>
 
-    <!-- כפתור הדפסה -->
-    <button onclick="printForm()" class="print-button">
-        <i data-lucide="printer" class="w-5 h-5"></i>
-        שלח להדפסה
-    </button>
-    
-    <!-- כפתורי שמירה וטעינה -->
-    <div style="position: fixed; top: 20px; right: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 15px;">
-        <button onclick="saveDraft()" class="print-button" style="background: linear-gradient(135deg, #7cb342 0%, #689f38 100%); position: relative; margin: 0;">
-            <i data-lucide="save" class="w-5 h-5"></i>
-            שמור טיוטה
+    <!-- כפתורים ממורכזים למעלה -->
+    <div style="position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 1000; display: flex; flex-direction: row; gap: 15px; align-items: center;">
+       
+		
+		<button onclick="saveDraft()" title="שלח להדפסה" style="background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%); color: white; border: none; border-radius: 15px; box-shadow: 0 10px 25px rgba(124, 179, 66, 0.3); transition: all 0.3s ease; animation: float 3s ease-in-out infinite; cursor: pointer; position: relative; margin: 0; padding: 10px; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
+            <i data-lucide="printer" style="width: 22px; height: 22px; margin: 0;"></i>
+				      </button>
+		        <button onclick="saveDraft()" title="שמור טיוטה" style="background: linear-gradient(135deg, #7cb342 0%, #689f38 100%); color: white; border: none; border-radius: 15px; box-shadow: 0 10px 25px rgba(124, 179, 66, 0.3); transition: all 0.3s ease; animation: float 3s ease-in-out infinite; cursor: pointer; position: relative; margin: 0; padding: 10px; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
+            <i data-lucide="save" style="width: 22px; height: 22px; margin: 0;"></i>
         </button>
-        <button onclick="loadDraft()" class="print-button" style="background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%); position: relative; margin: 0;">
-            <i data-lucide="upload" class="w-5 h-5"></i>
-            טען טיוטה
+        <button onclick="loadDraft()" title="טען טיוטה" style="background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%); color: white; border: none; border-radius: 15px; box-shadow: 0 10px 25px rgba(255, 152, 0, 0.3); transition: all 0.3s ease; animation: float 3s ease-in-out infinite; cursor: pointer; position: relative; margin: 0; padding: 10px; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
+            <i data-lucide="upload" style="width: 22px; height: 22px; margin: 0;"></i>
         </button>
     </div>
 
