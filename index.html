@@ -13,17 +13,16 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            min-height: 100svh; /* שימוש ב-svh במקום vh לתמיכה ב-iOS */
+            min-height: 100svh;
             height: 100svh;
             overflow-x: hidden;
-            touch-action: manipulation; /* מונע zoom ב-iOS */
-            -webkit-text-size-adjust: 100%; /* מונע שינוי גופן ב-iOS */
+            touch-action: manipulation;
+            -webkit-text-size-adjust: 100%;
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
         
-        /* תיקון לבעיות iOS 26 viewport */
         @supports (-webkit-touch-callout: none) {
             body {
                 position: relative;
@@ -45,7 +44,6 @@
             will-change: transform;
         }
         
-        /* Clalit Colors - שמירה על הצבעים המקוריים */
         :root {
             --clalit-blue: #00a0d1;
             --clalit-blue-dark: #0082a8;
@@ -55,7 +53,6 @@
             --clalit-green-light: #f1f8e9;
         }
         
-        /* עיצוב חי ודינמי */
         .main-container {
             background: white;
             border-radius: 20px;
@@ -101,7 +98,6 @@
             50% { box-shadow: 0 0 40px rgba(0, 160, 209, 0.6); }
         }
         
-        /* Header מעוצב */
         .clalit-header {
             background: linear-gradient(135deg, var(--clalit-blue) 0%, var(--clalit-green) 100%);
             background-size: 200% 200%;
@@ -140,30 +136,11 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
         
-        /* לוגו טקסט במקום תמונה חיצונית */
-        .clalit-logo-text {
-            text-align: center;
-            color: var(--clalit-blue);
-            font-weight: bold;
-            line-height: 1.2;
-        }
-        
-        .logo-line1 {
-            font-size: 18px;
-            color: var(--clalit-blue);
-        }
-        
-        .logo-line2 {
-            font-size: 12px;
-            color: var(--clalit-green);
-        }
-        
         .header-title {
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             animation: pulse 2s ease-in-out infinite;
         }
         
-        /* כרטיסים דינמיים */
         .info-card {
             background: linear-gradient(135deg, rgba(0, 160, 209, 0.05) 0%, rgba(124, 179, 66, 0.05) 100%);
             border: 2px solid transparent;
@@ -198,7 +175,6 @@
             box-shadow: 0 15px 35px rgba(0, 160, 209, 0.2);
         }
         
-        /* טבלאות מעוצבות */
         .enhanced-table {
             border-radius: 15px;
             overflow: hidden;
@@ -219,7 +195,6 @@
             transform: scale(1.01);
         }
         
-        /* כפתורים מעוצבים */
         .btn-clalit-blue {
             background: linear-gradient(135deg, var(--clalit-blue) 0%, var(--clalit-blue-dark) 100%);
             color: white;
@@ -265,7 +240,6 @@
             box-shadow: 0 10px 25px rgba(124, 179, 66, 0.4);
         }
         
-        /* שדות קלט מעוצבים */
         .clalit-input {
             border: 2px solid #e2e8f0;
             border-radius: 12px;
@@ -281,7 +255,6 @@
             background: white;
         }
         
-        /* תיבות סימון מעוצבות */
         .enhanced-checkbox {
             width: 20px;
             height: 20px;
@@ -303,7 +276,6 @@
             100% { transform: scale(1); }
         }
         
-        /* כותרות מעוצבות */
         .section-title {
             background: linear-gradient(135deg, var(--clalit-green) 0%, var(--clalit-blue) 100%);
             -webkit-background-clip: text;
@@ -330,7 +302,6 @@
             width: 100%;
         }
         
-        /* ארי חתימה מעוצב */
         .signature-area {
             background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
             border: 2px dashed var(--clalit-blue);
@@ -344,7 +315,6 @@
             background: linear-gradient(135deg, var(--clalit-blue-light) 0%, var(--clalit-green-light) 100%);
         }
         
-        /* אנימציות נוספות */
         .fade-in {
             animation: fadeIn 0.6s ease-out;
         }
@@ -365,7 +335,6 @@
             100% { transform: scale(1); opacity: 1; }
         }
         
-        /* רספונסיביות משופרת למובייל */
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -410,7 +379,6 @@
                 margin-top: 20px;
             }
             
-            /* התאמת גריד למובייל */
             .grid-cols-4 {
                 grid-template-columns: 1fr 1fr;
                 gap: 10px;
@@ -425,14 +393,12 @@
                 grid-template-columns: 1fr;
             }
             
-            /* שדות קלט במובייל */
             .clalit-input {
                 font-size: 16px;
                 padding: 15px 12px;
                 min-height: 48px;
             }
             
-            /* טבלאות במובייל */
             .enhanced-table {
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
@@ -456,7 +422,6 @@
                 font-weight: bold;
             }
             
-            /* כפתורים במובייל */
             .btn-clalit-blue,
             .btn-clalit-green {
                 font-size: 16px;
@@ -465,7 +430,6 @@
                 touch-action: manipulation;
             }
             
-            /* תיבות סימון גדולות יותר */
             .enhanced-checkbox {
                 width: 24px;
                 height: 24px;
@@ -473,24 +437,22 @@
                 min-height: 24px;
             }
             
-            /* כותרות קטעים */
             .section-title {
                 font-size: 18px;
                 margin-bottom: 15px;
             }
             
-            /* אזור חתימה */
             .signature-area {
                 padding: 15px;
             }
             
-            #signature-canvas {
+            #signature-canvas,
+            #signature-canvas-2 {
                 width: 100%;
                 height: 120px;
                 max-width: 100%;
             }
             
-            /* כפתור הדפסה */
             .print-button {
                 top: 10px;
                 left: 10px;
@@ -498,7 +460,6 @@
                 font-size: 14px;
             }
             
-            /* התאמת פרטי הטופס */
             .clalit-header .space-y-2 {
                 font-size: 12px;
             }
@@ -511,7 +472,6 @@
         }
         
         @media (max-width: 480px) {
-            /* מסכים קטנים מאוד */
             .clalit-header h1 {
                 font-size: 18px !important;
             }
@@ -545,7 +505,6 @@
                 padding: 12px 10px;
             }
             
-            /* הסתרת אלמנטים שלא חיוניים במסכים קטנים */
             .floating-icon {
                 display: none;
             }
@@ -561,7 +520,6 @@
             }
         }
         
-        /* גלילה אופקית חלקה לטבלאות */
         .table-scroll {
             overflow-x: auto;
             overflow-y: visible;
@@ -588,7 +546,6 @@
             background: var(--clalit-blue-dark);
         }
         
-        /* אפקטים נוספים */
         .status-indicator {
             display: inline-block;
             width: 12px;
@@ -610,7 +567,6 @@
             animation: float 3s ease-in-out infinite;
         }
         
-        /* הודעת מצב לנדסקייפ */
         .landscape-warning {
             position: fixed;
             top: 0;
@@ -672,18 +628,16 @@
             transform: translateY(-2px);
         }
         
-        /* הסתרת ההודעה במצב לנדסקייפ או דסקטופ */
         @media (orientation: landscape), (min-width: 768px) {
             .landscape-warning {
                 display: none !important;
             }
         }
         
-        /* עיצוב להדפסה - התאמה לדף A4 */
         @media print {
             @page {
                 size: A4;
-                margin: 15mm;
+                margin: 20mm 15mm;
             }
             
             body {
@@ -691,6 +645,30 @@
                 font-size: 11px !important;
                 line-height: 1.3 !important;
                 color: black !important;
+            }
+            
+            /* כותרת עליונה בכל דף */
+            .clalit-header:first-of-type {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+            }
+            
+            /* כותרת תחתונה בכל דף */
+            .clalit-header:last-of-type {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+            }
+            
+            /* ריווח לתוכן כדי שלא יכסה את הכותרות */
+            .main-container > div:nth-child(2) {
+                margin-top: 120px !important;
+                margin-bottom: 80px !important;
             }
             
             .main-container {
@@ -783,21 +761,24 @@
                 color-adjust: exact !important;
             }
             
-            /* הסתרת אלמנטים שלא נחוצים להדפסה */
             .print-hide,
             button:not(.print-show),
             .btn-clalit-blue,
             .btn-clalit-green,
             .signature-area button,
             #signature-pad,
+            #signature-pad-2,
             #signature-button,
+            #signature-button-2,
             .floating-icon,
-            [data-lucide] {
+            [data-lucide],
+            #additional-technician-checkbox,
+            label[for="additional-technician-checkbox"] {
                 display: none !important;
             }
             
-            /* הצגת החתימה בהדפסה */
-            #signature-display {
+            #signature-display,
+            #signature-display-2 {
                 display: block !important;
                 background: white !important;
                 border: 1px solid #ccc !important;
@@ -805,19 +786,18 @@
                 margin-top: 10px !important;
             }
             
-            #signature-image {
+            #signature-image,
+            #signature-image-2 {
                 max-width: 200px !important;
                 height: auto !important;
                 border: 1px solid #999 !important;
             }
             
-            /* התאמת טקסט להדפסה */
             .signature-area h3 {
                 font-size: 12px !important;
                 margin-bottom: 5px !important;
             }
             
-            /* דחיסת רווחים */
             .space-y-8 > * + * {
                 margin-top: 8px !important;
             }
@@ -858,7 +838,6 @@
                 gap: 4px !important;
             }
             
-            /* התאמת grid להדפסה */
             .grid-cols-4 {
                 grid-template-columns: repeat(4, 1fr) !important;
             }
@@ -867,20 +846,17 @@
                 grid-template-columns: repeat(3, 1fr) !important;
             }
             
-            /* מניעת שבירת עמודים באמצע אלמנטים */
             .info-card,
             .enhanced-table {
                 page-break-inside: avoid !important;
             }
             
-            /* הדפסת צבעי רקע */
             * {
                 -webkit-print-color-adjust: exact !important;
                 color-adjust: exact !important;
             }
         }
         
-        /* כפתור הדפסה */
         .print-button {
             position: fixed;
             top: 20px;
@@ -912,7 +888,7 @@
 <body class="bg-gradient-to-br from-gray-50 to-gray-100 p-6">
     <!-- הודעת מצב לנדסקייפ -->
     <div id="landscape-warning" class="landscape-warning" style="display: none;">
-        <h2>לחוויה מיטבית</h2>
+        <h2>לחווית מיטבית</h2>
         <div class="phone-icon">📱</div>
         <p>מומלץ לסובב את המכשיר למצב לנדסקייפ (רוחב) לצפייה נוחה יותר בטופס ובטבלאות</p>
         <button onclick="dismissLandscapeWarning()">המשך בכל מקרה</button>
@@ -927,13 +903,10 @@
     <div class="max-w-6xl mx-auto main-container">
         <div class="clalit-header text-white p-8">
             <div class="flex items-center justify-between w-full header-grid">
-                <!-- לוגו - הוחלף בטקסט עם לוגו CSS במקום תמונה חיצונית -->
+                <!-- לוגו -->
                 <div class="flex-shrink-0">
                     <div class="logo-container">
-                        <div class="clalit-logo-text">
-                            <div class="logo-line1">כללית</div>
-                            <div class="logo-line2">השירותים הרפואיים</div>
-                        </div>
+                        <img src="https://cbm.org.il/app/uploads/2025/02/cropped-logo-1-222x0-c-default.png" alt="כללית - השירותים הרפואיים" class="h-12">
                     </div>
                 </div>
 
@@ -955,12 +928,17 @@
                         <div class="flex items-center gap-2">
                             <i data-lucide="user-check" class="w-4 h-4 floating-icon"></i>
                             <span class="font-semibold">הוכן ע"י:</span>
-                            <span>הראל לוי</span>
+                            <span>צבי מרקוביץ</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <i data-lucide="check-circle" class="w-4 h-4 floating-icon"></i>
                             <span class="font-semibold">אושר ע"י:</span>
-                            <span>צבי מרקוביץ</span>
+                            <span>דוד ויצמן</span>
+                        </div>
+						 <div class="flex items-center gap-2">
+                            <i data-lucide="check-circle" class="w-4 h-4 floating-icon"></i>
+                            <span class="font-semibold">דיגיטציה ע"י:</span>
+                            <span>הראל לוי</span>
                         </div>
                     </div>
                 </div>
@@ -1085,7 +1063,7 @@
                             </tr>
                         </thead>
                         <tbody id="visual-checks-table">
-                            <!-- תתווסף ב-JavaScript -->
+                            <!-- יתווסף ב-JavaScript -->
                         </tbody>
                     </table>
                 </div>
@@ -1094,7 +1072,6 @@
             <!-- בדיקה פונקציונלית -->
             <div class="fade-in">
                 <h2 class="section-title">4. בדיקה פונקציונלית</h2>
-                <div class="table-scroll enhanced-table">
                 <div class="table-scroll enhanced-table">
                     <table class="w-full">
                         <thead>
@@ -1109,7 +1086,7 @@
                             </tr>
                         </thead>
                         <tbody id="functional-tests">
-                            <!-- תתווסף ב-JavaScript -->
+                            <!-- יתווסף ב-JavaScript -->
                         </tbody>
                     </table>
                 </div>
@@ -1137,7 +1114,7 @@
 
             <!-- פרטי מבצע -->
             <div class="bounce-in">
-                <h2 class="section-title">7. פרטי מבצע</h2>
+                <h2 class="section-title">7. פרטי מבצע ראשי</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <input type="text" id="employee-id" placeholder="מס' עובד" class="clalit-input">
                     <input type="text" id="technician-name" placeholder="שם מהנדס שרות" class="clalit-input">
@@ -1213,6 +1190,121 @@
                     </div>
                 </div>
             </div>
+
+            <!-- טכנאי נוסף -->
+            <div class="fade-in">
+                <label class="flex items-center gap-3 cursor-pointer p-4 rounded-lg hover:bg-blue-50 transition-all border-2 border-dashed border-gray-300">
+                    <input type="checkbox" id="additional-technician-checkbox" class="enhanced-checkbox" onchange="toggleAdditionalTechnician()">
+                    <span class="font-medium text-lg">הוסף טכנאי נוסף</span>
+                    <i data-lucide="user-plus" class="w-5 h-5 ml-2 floating-icon"></i>
+                </label>
+            </div>
+
+            <!-- פרטי טכנאי נוסף - מוסתר בהתחלה -->
+            <div id="additional-technician-section" class="hidden bounce-in">
+                <h2 class="section-title">8. פרטי טכנאי נוסף</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <input type="text" id="employee-id-2" placeholder="מס' עובד" class="clalit-input">
+                    <input type="text" id="technician-name-2" placeholder="שם מהנדס שרות" class="clalit-input">
+                    <input type="date" id="technician-date-2" class="clalit-input">
+                </div>
+                
+                <!-- חתימה דיגיטלית טכנאי נוסף -->
+                <div class="signature-area">
+                    <h3 class="text-lg font-medium mb-4 flex items-center">
+                        <i data-lucide="pen-tool" class="w-5 h-5 ml-2 floating-icon"></i>
+                        חתימה דיגיטלית - טכנאי נוסף
+                    </h3>
+                    
+                    <div id="signature-button-2" class="block">
+                        <div class="flex flex-col gap-3">
+                            <button onclick="showSignaturePad2()" class="btn-clalit-blue flex items-center justify-center gap-3">
+                                <i data-lucide="pen-tool" class="w-5 h-5"></i>
+                                חתום על המסך
+                            </button>
+                            <div class="text-center text-sm text-gray-600">או</div>
+                            <label class="btn-clalit-green flex items-center justify-center gap-3 cursor-pointer">
+                                <i data-lucide="upload" class="w-5 h-5"></i>
+                                העלה תמונת חתימה
+                                <input type="file" accept="image/*" onchange="uploadSignature2(this)" class="hidden">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="signature-display-2" class="space-y-3 hidden">
+                        <div class="bg-white border-2 border-gray-200 rounded-lg p-4">
+                            <p class="text-sm text-gray-600 mb-2">חתימה שמורה:</p>
+                            <img id="signature-image-2" alt="חתימה" class="max-w-full h-20 border bg-white rounded-lg">
+                        </div>
+                        <div class="flex gap-3">
+                            <button onclick="showSignaturePad2()" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg transition-all">
+                                ערוך חתימה
+                            </button>
+                            <button onclick="clearSavedSignature2()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-all">
+                                מחק חתימה
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="signature-pad-2" class="bg-white border-2 border-dashed border-gray-300 rounded-lg p-4 hidden">
+                        <p class="text-sm text-gray-600 mb-3" id="signature-instructions-2">
+                            חתום באצבע על המסך
+                        </p>
+                        <div class="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-3 mb-4">
+                            <canvas id="signature-canvas-2" width="500" height="150" class="w-full h-32 signature-canvas"></canvas>
+                        </div>
+                        <div class="flex gap-3">
+                            <button id="save-signature-2" onclick="saveSignature2()" disabled class="btn-clalit-green flex items-center gap-2 opacity-50">
+                                <i data-lucide="check" class="w-4 h-4"></i>
+                                שמור חתימה
+                            </button>
+                            <button onclick="forceEnableSave2()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all">
+                                <i data-lucide="tool" class="w-4 h-4"></i>
+                                אפשר שמירה
+                            </button>
+                            <button onclick="clearSignature2()" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-all">
+                                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                                נקה
+                            </button>
+                            <button onclick="hideSignaturePad2()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-all">
+                                ביטול
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        <!-- Footer -->
+        <div class="clalit-header text-white p-6 mt-6">
+            <div class="flex items-center justify-between w-full flex-wrap gap-4">
+                <!-- כתובת -->
+                <div class="flex-1 text-right min-w-[200px]">
+                    <div class="text-sm">
+                        <p class="font-semibold">רח' חיי נתניהו 47, מבנה מס' 4, אור יהודה 60200</p>
+						<p>
+						 <p><span class="font-semibold">מזכון למכתבים:</span> ת.ד .730, אור יהודה</p>
+                    </div>
+                </div>
+
+                <!-- פרטי התקשרות -->
+                <div class="flex-1 text-center min-w-[250px]">
+                    <div class="space-y-1 text-sm">
+					
+					<p><span class="font-bold">טל:</span> 03-5389555</p>
+						<p>
+						 <p><span class="font-bold">פקס:</span> 03-5335921</p>
+					                       </div>
+                </div>
+
+                <!-- מוקד ואתר -->
+                <div class="flex-1 text-left min-w-[200px]">
+                    <div class="text-sm space-y-1">
+                        <p class="font-bold text-lg">*5515 מוקד שרות ארצי</p>
+                        <p class="font-semibold">www.cbm.org.il</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1236,7 +1328,7 @@
         let functionalTests = [
             { test: "התנגדות ארקה", unit: "Ω", min: "0", max: "0.3", notes: "גדול מ 0" },
             { test: "זרם זליגה לגוף", unit: "µA", min: "0", max: "3500", notes: "גדול במיקרו אמפר" },
-            { test: "דיוק בזמן", unit: "S", min: "-30", max: "+30", notes: "באמצעות טיימר טלפון סלולארי" },
+            { test: "דיוק בזמן", unit: "S", min: "-30", max: "+30", notes: "באמצעות טיימר טלפון סלולרי" },
             { test: "דיוק במהירות", unit: "סל\"ד", min: "-100", max: "+100", notes: "±10 סל\"ד" },
             { test: "דיוק בטמפרטורה", unit: "°C", min: "-3", max: "+3", notes: " באמצעות FLUKE" }
         ];
@@ -1245,8 +1337,13 @@
         let canvas, ctx;
         let isDrawing = false;
         let hasSignature = false;
+        
+        // משתני חתימה - טכנאי נוסף
+        let canvas2, ctx2;
+        let isDrawing2 = false;
+        let hasSignature2 = false;
 
-        // אתחול הדף עם debug
+        // אתחול דף עם debug
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM טעון');
             lucide.createIcons();
@@ -1423,7 +1520,7 @@
             // מאזינים לאירועים
         }
 
-        // פונקציות חתימה
+        // פונקציות חתימה - טכנאי ראשי
         function showSignaturePad() {
             document.getElementById('signature-button').classList.add('hidden');
             document.getElementById('signature-display').classList.add('hidden');
@@ -1557,19 +1654,331 @@
             document.getElementById('signature-button').classList.remove('hidden');
         }
 
-        // פונקציית הדפסה
-        function printForm() {
-            // ודא שהחתימה מוצגת אם קיימת
-            const signatureImage = document.getElementById('signature-image');
-            const signatureDisplay = document.getElementById('signature-display');
+        function forceEnableSave() {
+            hasSignature = true;
+            updateSaveButton();
+        }
+
+        function uploadSignature(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('signature-image').src = e.target.result;
+                    document.getElementById('signature-button').classList.add('hidden');
+                    document.getElementById('signature-display').classList.remove('hidden');
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // פונקציות טכנאי נוסף
+        function toggleAdditionalTechnician() {
+            const checkbox = document.getElementById('additional-technician-checkbox');
+            const section = document.getElementById('additional-technician-section');
             
-            if (signatureImage.src && signatureImage.src !== window.location.href) {
-                signatureDisplay.classList.remove('hidden');
-                signatureDisplay.classList.add('print-show');
+            if (checkbox.checked) {
+                section.classList.remove('hidden');
+                lucide.createIcons();
+            } else {
+                section.classList.add('hidden');
+                // ניקוי השדות כשמסירים את הטכנאי הנוסף
+                document.getElementById('employee-id-2').value = '';
+                document.getElementById('technician-name-2').value = '';
+                document.getElementById('technician-date-2').value = '';
+                clearSavedSignature2();
+            }
+        }
+
+        function showSignaturePad2() {
+            document.getElementById('signature-button-2').classList.add('hidden');
+            document.getElementById('signature-display-2').classList.add('hidden');
+            document.getElementById('signature-pad-2').classList.remove('hidden');
+            
+            canvas2 = document.getElementById('signature-canvas-2');
+            ctx2 = canvas2.getContext('2d');
+            
+            ctx2.lineCap = 'round';
+            ctx2.lineJoin = 'round';
+            ctx2.strokeStyle = '#000';
+            ctx2.lineWidth = 2;
+            
+            ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+            hasSignature2 = false;
+            updateSaveButton2();
+            
+            // אירועי עכבר
+            canvas2.addEventListener('mousedown', startDrawing2);
+            canvas2.addEventListener('mousemove', draw2);
+            canvas2.addEventListener('mouseup', stopDrawing2);
+            canvas2.addEventListener('mouseout', stopDrawing2);
+            
+            // אירועי מגע
+            canvas2.addEventListener('touchstart', handleTouchStart2, { passive: false });
+            canvas2.addEventListener('touchmove', handleTouchMove2, { passive: false });
+            canvas2.addEventListener('touchend', handleTouchEnd2, { passive: false });
+        }
+
+        function handleTouchStart2(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas2.dispatchEvent(mouseEvent);
+        }
+
+        function handleTouchMove2(e) {
+            e.preventDefault();
+            if (e.touches.length === 1) {
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent('mousemove', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                canvas2.dispatchEvent(mouseEvent);
+            }
+        }
+
+        function handleTouchEnd2(e) {
+            e.preventDefault();
+            const mouseEvent = new MouseEvent('mouseup', {});
+            canvas2.dispatchEvent(mouseEvent);
+        }
+
+        function hideSignaturePad2() {
+            document.getElementById('signature-pad-2').classList.add('hidden');
+            if (document.getElementById('signature-image-2').src) {
+                document.getElementById('signature-display-2').classList.remove('hidden');
+            } else {
+                document.getElementById('signature-button-2').classList.remove('hidden');
+            }
+        }
+
+        function getCanvasCoordinates2(e) {
+            const rect = canvas2.getBoundingClientRect();
+            const scaleX = canvas2.width / rect.width;
+            const scaleY = canvas2.height / rect.height;
+            
+            return {
+                x: (e.clientX - rect.left) * scaleX,
+                y: (e.clientY - rect.top) * scaleY
+            };
+        }
+
+        function startDrawing2(e) {
+            e.preventDefault();
+            isDrawing2 = true;
+            const coords = getCanvasCoordinates2(e);
+            ctx2.beginPath();
+            ctx2.moveTo(coords.x, coords.y);
+        }
+
+        function draw2(e) {
+            e.preventDefault();
+            if (!isDrawing2) return;
+            
+            const coords = getCanvasCoordinates2(e);
+            ctx2.lineTo(coords.x, coords.y);
+            ctx2.stroke();
+            hasSignature2 = true;
+            updateSaveButton2();
+        }
+
+        function stopDrawing2(e) {
+            e.preventDefault();
+            isDrawing2 = false;
+        }
+
+        function clearSignature2() {
+            ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+            hasSignature2 = false;
+            updateSaveButton2();
+        }
+
+        function updateSaveButton2() {
+            const saveBtn = document.getElementById('save-signature-2');
+            if (hasSignature2) {
+                saveBtn.disabled = false;
+                saveBtn.className = 'btn-clalit-green flex items-center gap-2';
+            } else {
+                saveBtn.disabled = true;
+                saveBtn.className = 'btn-clalit-green flex items-center gap-2 opacity-50';
+            }
+        }
+
+        function saveSignature2() {
+            if (hasSignature2) {
+                const signatureData = canvas2.toDataURL('image/png', 1.0);
+                document.getElementById('signature-image-2').src = signatureData;
+                document.getElementById('signature-pad-2').classList.add('hidden');
+                document.getElementById('signature-display-2').classList.remove('hidden');
+            }
+        }
+
+        function clearSavedSignature2() {
+            document.getElementById('signature-image-2').src = '';
+            document.getElementById('signature-display-2').classList.add('hidden');
+            document.getElementById('signature-button-2').classList.remove('hidden');
+        }
+
+        function forceEnableSave2() {
+            hasSignature2 = true;
+            updateSaveButton2();
+        }
+
+        function uploadSignature2(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('signature-image-2').src = e.target.result;
+                    document.getElementById('signature-button-2').classList.add('hidden');
+                    document.getElementById('signature-display-2').classList.remove('hidden');
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // פונקציה להצגה/הסתרה של טבלת מק"טים
+        function toggleCatalogTable() {
+            const container = document.getElementById('catalog-table-container');
+            const toggleText = document.getElementById('catalog-toggle-text');
+            
+            if (container.classList.contains('hidden')) {
+                container.classList.remove('hidden');
+                toggleText.textContent = 'הסתר טבלה';
+            } else {
+                container.classList.add('hidden');
+                toggleText.textContent = 'הצג טבלה';
+            }
+        }
+
+        // פונקציה להצגה/הסתרה של טבלת מק"טים 9245
+        function toggleCatalogTable2() {
+            const container = document.getElementById('catalog-table-container-2');
+            const toggleText = document.getElementById('catalog-toggle-text-2');
+            
+            if (container.classList.contains('hidden')) {
+                container.classList.remove('hidden');
+                toggleText.textContent = 'הסתר טבלה';
+            } else {
+                container.classList.add('hidden');
+                toggleText.textContent = 'הצג טבלה';
+            }
+        }
+
+        // פונקציית הדפסה עם בדיקת שדות חובה
+        function printForm() {
+            const missingFields = [];
+            
+            // בדיקת פרטי המכשיר
+            const inventoryNumber = document.getElementById('inventory-number').value.trim();
+            const institution = document.getElementById('institution').value.trim();
+            const department = document.getElementById('department').value.trim();
+            const deviceModel = document.getElementById('device-model').value.trim();
+            
+            if (!inventoryNumber) missingFields.push('מס\' אינוונטר');
+            if (!institution) missingFields.push('מוסד');
+            if (!department) missingFields.push('מחלקה');
+            if (!deviceModel) missingFields.push('דגם המכשיר');
+            
+            // בדיקת ציוד נדרש לביקורת - לפחות אחד צריך להיות מסומן ומלא
+            const equipmentChecks = document.querySelectorAll('table tbody tr input[type="checkbox"]');
+            const equipmentInputs = document.querySelectorAll('table tbody tr input[type="text"][placeholder*="12345"]');
+            const equipmentDates = document.querySelectorAll('table tbody tr input[type="date"]');
+            
+            let hasEquipmentChecked = false;
+            for (let i = 0; i < 3; i++) {
+                if (equipmentChecks[i].checked) {
+                    hasEquipmentChecked = true;
+                    const deviceNum = equipmentInputs[i]?.value.trim();
+                    const deviceDate = equipmentDates[i]?.value.trim();
+                    
+                    if (!deviceNum) missingFields.push(`מספר מכשיר בשורה ${i + 1} של ציוד נדרש`);
+                    if (!deviceDate) missingFields.push(`תאריך כיול בשורה ${i + 1} של ציוד נדרש`);
+                }
+            }
+            
+            if (!hasEquipmentChecked) missingFields.push('יש לבחור לפחות ציוד אחד בסעיף "ציוד נדרש לביקורת"');
+            
+            // בדיקת ניקוי המכשיר
+            const cleaningChecks = document.querySelectorAll('input[type="checkbox"][data-id="1"], input[type="checkbox"][data-id="2"]');
+            const hasCleaningChecked = Array.from(cleaningChecks).slice(3, 5).some(cb => cb.checked);
+            if (!hasCleaningChecked) missingFields.push('יש לבחור לפחות סוג ניקוי אחד');
+            
+            // בדיקת בדיקות פונקציונליות - ערכים נמדדים
+            const functionalInputs = document.querySelectorAll('#functional-tests input[type="text"][placeholder="ערך נמדד"]');
+            let hasFunctionalTests = false;
+            functionalInputs.forEach((input, index) => {
+                if (input.value.trim()) {
+                    hasFunctionalTests = true;
+                }
+            });
+            if (!hasFunctionalTests) missingFields.push('יש למלא לפחות בדיקה פונקציונלית אחת');
+            
+            // בדיקת סטטוס סופי
+            const deviceStatus = document.querySelector('input[name="deviceStatus"]:checked');
+            if (!deviceStatus) missingFields.push('יש לבחור האם המכשיר תקין או לא תקין');
+            
+            // בדיקת פרטי מבצע
+            const employeeId = document.getElementById('employee-id').value.trim();
+            const technicianName = document.getElementById('technician-name').value.trim();
+            const technicianDate = document.getElementById('technician-date').value.trim();
+            
+            if (!employeeId) missingFields.push('מס\' עובד');
+            if (!technicianName) missingFields.push('שם מהנדס שרות');
+            if (!technicianDate) missingFields.push('תאריך ביצוע');
+            
+            // בדיקת חתימה
+            const signatureImage = document.getElementById('signature-image');
+            const hasSignature = signatureImage.src && signatureImage.src !== window.location.href;
+            if (!hasSignature) missingFields.push('חתימה דיגיטלית');
+            
+            // בדיקת טכנאי נוסף אם מסומן
+            const additionalTechnicianChecked = document.getElementById('additional-technician-checkbox').checked;
+            if (additionalTechnicianChecked) {
+                const employeeId2 = document.getElementById('employee-id-2').value.trim();
+                const technicianName2 = document.getElementById('technician-name-2').value.trim();
+                const technicianDate2 = document.getElementById('technician-date-2').value.trim();
+                
+                if (!employeeId2) missingFields.push('מס\' עובד - טכנאי נוסף');
+                if (!technicianName2) missingFields.push('שם מהנדס שרות - טכנאי נוסף');
+                if (!technicianDate2) missingFields.push('תאריך ביצוע - טכנאי נוסף');
+                
+                // בדיקת חתימת טכנאי נוסף
+                const signatureImage2 = document.getElementById('signature-image-2');
+                const hasSignature2 = signatureImage2.src && signatureImage2.src !== window.location.href;
+                if (!hasSignature2) missingFields.push('חתימה דיגיטלית - טכנאי נוסף');
+            }
+            
+            // אם יש שדות חסרים - הצג הודעה
+            if (missingFields.length > 0) {
+                let message = '⚠️ חסרים השדות הבאים:\n\n';
+                missingFields.forEach((field, index) => {
+                    message += `${index + 1}. ${field}\n`;
+                });
+                message += '\nהאם ברצונך להמשיך להדפסה בכל זאת?';
+                
+                // אם המשתמש לוחץ "ביטול" - עצור את ההדפסה
+                if (!confirm(message)) {
+                    return;
+                }
+            }
+            
+            // אם הכל תקין - המשך להדפסה
+            const signatureDisplay = document.getElementById('signature-display');
+            signatureDisplay.classList.remove('hidden');
+            signatureDisplay.classList.add('print-show');
+            
+            // הצג גם חתימת טכנאי נוסף אם קיימת
+            if (additionalTechnicianChecked) {
+                const signatureDisplay2 = document.getElementById('signature-display-2');
+                signatureDisplay2.classList.remove('hidden');
+                signatureDisplay2.classList.add('print-show');
             }
             
             // הסתר אלמנטים שלא נחוצים להדפסה
-            const elementsToHide = document.querySelectorAll('.print-hide, #signature-pad, #signature-button');
+            const elementsToHide = document.querySelectorAll('.print-hide, #signature-pad, #signature-pad-2, #signature-button, #signature-button-2');
             elementsToHide.forEach(el => {
                 el.style.display = 'none';
             });
