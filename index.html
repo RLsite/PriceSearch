@@ -521,7 +521,6 @@
                 height: 14px !important;
             }
             
-            /* כפתורים בצד ימין */
             div[style*="right: 20px"] {
                 top: 10px !important;
                 right: 10px !important;
@@ -657,7 +656,7 @@
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 15mm 20mm;
+                margin: 10mm 12mm;
             }
             
             * {
@@ -666,8 +665,8 @@
             
             body {
                 background: white !important;
-                font-size: 10px !important;
-                line-height: 1.2 !important;
+                font-size: 9.5px !important;
+                line-height: 1.15 !important;
                 color: black !important;
                 margin: 0 !important;
                 padding: 0 !important;
@@ -693,7 +692,6 @@
                 display: table-row-group;
             }
             
-            /* מניעת שבירת עמוד בתוך סעיפים */
             .info-card,
             .enhanced-table,
             .bounce-in,
@@ -706,16 +704,17 @@
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
                 color-adjust: exact !important;
+                padding: 4mm !important;
             }
             
             .clalit-header h1 {
-                font-size: 16px !important;
-                margin-bottom: 3px !important;
-                line-height: 1.2 !important;
+                font-size: 14px !important;
+                margin-bottom: 2px !important;
+                line-height: 1.15 !important;
             }
             
             .clalit-header p {
-                font-size: 11px !important;
+                font-size: 10px !important;
                 margin: 0 !important;
             }
             
@@ -723,21 +722,20 @@
                 display: flex !important;
                 flex-direction: row !important;
                 align-items: center !important;
-                gap: 10px !important;
+                gap: 8px !important;
             }
             
             .logo-container {
                 box-shadow: none !important;
-                padding: 8px !important;
+                padding: 6px !important;
                 flex-shrink: 0 !important;
             }
             
             .logo-container img {
-                height: 50px !important;
-                max-height: 50px !important;
+                height: 40px !important;
+                max-height: 40px !important;
             }
             
-            /* התוכן הראשי */
             .main-container {
                 box-shadow: none !important;
                 border-radius: 0 !important;
@@ -751,13 +749,13 @@
             .main-container > div:nth-child(2) {
                 margin-top: 0 !important;
                 margin-bottom: 0 !important;
-                padding-top: 5mm !important;
-                padding-bottom: 5mm !important;
+                padding-top: 3mm !important;
+                padding-bottom: 3mm !important;
             }
             
-            /* עיצוב כותרת תחתונה */
             .clalit-header:last-of-type {
-                font-size: 11px !important;
+                font-size: 9px !important;
+                padding: 3mm !important;
             }
             
             .clalit-header:last-of-type .flex {
@@ -766,13 +764,13 @@
             }
             
             .clalit-header:last-of-type .text-sm {
-                font-size: 11px !important;
+                font-size: 9px !important;
             }
             
             .clalit-header:last-of-type p {
-                font-size: 11px !important;
-                line-height: 1.4 !important;
-                margin: 2px 0 !important;
+                font-size: 9px !important;
+                line-height: 1.3 !important;
+                margin: 1px 0 !important;
             }
             
             .clalit-header:last-of-type .font-semibold,
@@ -781,42 +779,42 @@
             }
             
             .clalit-header:last-of-type .text-lg {
-                font-size: 13px !important;
+                font-size: 11px !important;
             }
             
             .info-card {
                 background: white !important;
                 border: 1px solid #ccc !important;
-                border-radius: 5px !important;
-                padding: 8px !important;
-                margin-bottom: 8px !important;
+                border-radius: 3px !important;
+                padding: 4px !important;
+                margin-bottom: 4px !important;
                 box-shadow: none !important;
                 page-break-inside: avoid;
             }
             
             .section-title {
-                font-size: 12px !important;
+                font-size: 11px !important;
                 color: var(--clalit-green) !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
-                margin-bottom: 5px !important;
+                margin-bottom: 3px !important;
             }
             
             .enhanced-table {
                 box-shadow: none !important;
                 border-radius: 0 !important;
-                margin-bottom: 8px !important;
+                margin-bottom: 4px !important;
                 page-break-inside: auto;
             }
             
             .enhanced-table table {
-                font-size: 9px !important;
+                font-size: 8px !important;
                 border-collapse: collapse !important;
             }
             
             .enhanced-table th,
             .enhanced-table td {
-                padding: 3px !important;
+                padding: 2px !important;
                 border: 1px solid #666 !important;
             }
             
@@ -828,14 +826,14 @@
             
             .clalit-input {
                 border: 1px solid #999 !important;
-                padding: 2px 4px !important;
-                font-size: 9px !important;
+                padding: 1px 3px !important;
+                font-size: 8px !important;
                 background: white !important;
             }
             
             label {
-                font-size: 9px !important;
-                margin-bottom: 2px !important;
+                font-size: 8px !important;
+                margin-bottom: 1px !important;
             }
             
             .enhanced-checkbox {
@@ -862,7 +860,6 @@
                 display: none !important;
             }
             
-            /* הסתר טכנאי נוסף אם לא מסומן */
             #additional-technician-section.print-hide-section {
                 display: none !important;
             }
@@ -872,24 +869,24 @@
                 display: block !important;
                 background: white !important;
                 border: 1px solid #ccc !important;
-                padding: 5px !important;
-                margin-top: 5px !important;
+                padding: 3px !important;
+                margin-top: 3px !important;
             }
             
             #signature-image,
             #signature-image-2 {
-                max-width: 150px !important;
+                max-width: 120px !important;
                 height: auto !important;
                 border: 1px solid #999 !important;
             }
             
             .signature-area h3 {
-                font-size: 11px !important;
-                margin-bottom: 3px !important;
+                font-size: 9px !important;
+                margin-bottom: 2px !important;
             }
             
             .space-y-8 > * + * {
-                margin-top: 6px !important;
+                margin-top: 4px !important;
             }
             
             .space-y-3 > * + * {
@@ -897,35 +894,35 @@
             }
             
             .p-8 {
-                padding: 8px !important;
-            }
-            
-            .p-6 {
-                padding: 6px !important;
-            }
-            
-            .p-4 {
                 padding: 4px !important;
             }
             
-            .p-3 {
+            .p-6 {
                 padding: 3px !important;
             }
             
-            .mb-4 {
-                margin-bottom: 4px !important;
+            .p-4 {
+                padding: 3px !important;
             }
             
-            .mb-3 {
+            .p-3 {
+                padding: 2px !important;
+            }
+            
+            .mb-4 {
                 margin-bottom: 3px !important;
             }
             
+            .mb-3 {
+                margin-bottom: 2px !important;
+            }
+            
             .gap-4 {
-                gap: 4px !important;
+                gap: 3px !important;
             }
             
             .gap-3 {
-                gap: 3px !important;
+                gap: 2px !important;
             }
             
             .grid-cols-4 {
@@ -942,40 +939,52 @@
                 color-adjust: exact !important;
             }
             
-            /* התאמה למכשירים ניידים בהדפסה */
+            /* תיקון להדפסה מנייד - גופנים גדולים יותר וריווחים קטנים יותר */
             @media print and (max-width: 768px) {
+                @page {
+                    margin: 8mm 10mm;
+                }
+                
                 body {
-                    font-size: 8px !important;
+                    font-size: 9.5px !important;
+                }
+                
+                .clalit-header {
+                    padding: 3mm !important;
                 }
                 
                 .clalit-header h1 {
-                    font-size: 12px !important;
+                    font-size: 13px !important;
                 }
                 
                 .clalit-header p {
-                    font-size: 8px !important;
+                    font-size: 9px !important;
+                }
+                
+                .logo-container {
+                    padding: 4px !important;
                 }
                 
                 .logo-container img {
-                    height: 30px !important;
+                    height: 35px !important;
                 }
                 
                 .enhanced-table table {
-                    font-size: 7px !important;
+                    font-size: 8px !important;
                 }
                 
                 .enhanced-table th,
                 .enhanced-table td {
-                    padding: 2px !important;
+                    padding: 1.5px !important;
                 }
                 
                 .clalit-input {
-                    font-size: 7px !important;
+                    font-size: 8px !important;
                     padding: 1px 2px !important;
                 }
                 
                 label {
-                    font-size: 7px !important;
+                    font-size: 8px !important;
                 }
                 
                 .section-title {
@@ -983,28 +992,34 @@
                 }
                 
                 .p-8 {
-                    padding: 4px !important;
+                    padding: 3px !important;
                 }
                 
                 .space-y-8 > * + * {
-                    margin-top: 4px !important;
+                    margin-top: 3px !important;
                 }
                 
                 .info-card {
-                    padding: 4px !important;
-                    margin-bottom: 4px !important;
+                    padding: 3px !important;
+                    margin-bottom: 3px !important;
                 }
                 
                 .clalit-header:last-of-type {
-                    font-size: 8px !important;
+                    font-size: 9px !important;
+                    padding: 2mm !important;
                 }
                 
                 .clalit-header:last-of-type p {
-                    font-size: 8px !important;
+                    font-size: 8.5px !important;
                 }
                 
                 .clalit-header:last-of-type .text-lg {
-                    font-size: 9px !important;
+                    font-size: 10px !important;
+                }
+                
+                #signature-image,
+                #signature-image-2 {
+                    max-width: 100px !important;
                 }
             }
         }
@@ -1038,7 +1053,6 @@
     </style>
 </head>
 <body class="bg-gradient-to-br from-gray-50 to-gray-100 p-6">
-    <!-- הודעת מצב לנדסקייף -->
     <div id="landscape-warning" class="landscape-warning" style="display: none;">
         <h2>לחווית מיטבית</h2>
         <div class="phone-icon">📱</div>
@@ -1046,7 +1060,6 @@
         <button onclick="dismissLandscapeWarning()">המשך בכל מקרה</button>
     </div>
 
-    <!-- כפתורים ממורכזים למעלה -->
     <div style="position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 1000; display: flex; flex-direction: row; gap: 15px; align-items: center;">
         <button onclick="printForm()" title="שלח להדפסה" style="background: linear-gradient(135deg, #00a0d1 0%, #0082a8 100%); color: white; border: none; border-radius: 15px; box-shadow: 0 10px 25px rgba(0, 160, 209, 0.3); transition: all 0.3s ease; animation: float 3s ease-in-out infinite; cursor: pointer; position: relative; margin: 0; padding: 10px; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
             <i data-lucide="printer" style="width: 22px; height: 22px; margin: 0;"></i>
@@ -1062,21 +1075,18 @@
     <div class="max-w-6xl mx-auto main-container">
         <div class="clalit-header text-white p-8">
             <div class="flex items-center justify-between w-full header-grid">
-                <!-- לוגו -->
                 <div class="flex-shrink-0">
                     <div class="logo-container">
                         <img src="https://cbm.org.il/app/uploads/2025/02/cropped-logo-1-222x0-c-default.png" alt="כללית - השירותים הרפואיי" class="h-16">
                     </div>
                 </div>
 
-                <!-- כותרת מרכזית -->
                 <div class="flex-grow text-center mx-8">
                     <h1 class="text-4xl font-bold mb-3 header-title">טופס בדיקת צנטריפוגה מקוררת</h1>
                     <p class="text-blue-100 text-lg font-medium">טופס מס' 9245-0 - רשימת תיוג מח' שירות</p>
                     <div class="mt-2 status-indicator glow-effect"></div>
                 </div>
 
-                <!-- פרטי הטופס -->
                 <div class="flex-shrink-0 text-left">
                     <div class="space-y-2 text-sm bg-white/10 backdrop-blur-sm rounded-lg p-4">
                         <div class="flex items-center gap-2">
@@ -1105,7 +1115,6 @@
         </div>
 
         <div class="p-8 space-y-8">
-            <!-- פרטי המכשיר -->
             <div class="info-card fade-in">
                 <h2 class="section-title flex items-center">
                     <i data-lucide="info" class="w-6 h-6 ml-2 floating-icon"></i>
@@ -1131,7 +1140,6 @@
                 </div>
             </div>
 
-            <!-- ציוד נדרש לביקורת -->
             <div class="bounce-in">
                 <h2 class="section-title">1. ציוד נדרש לביקורת</h2>
                 
@@ -1200,7 +1208,6 @@
                 </div>
             </div>
 
-            <!-- ניקוי המכשיר -->
             <div class="fade-in">
                 <div class="flex items-center justify-start flex-wrap gap-4">
                     <h2 class="section-title mb-0">2. ניקוי המכשיר</h2>
@@ -1217,7 +1224,6 @@
                 </div>
             </div>
 
-            <!-- בדיקה תקינות ויזואלית וטיפול -->
             <div class="bounce-in">
                 <h2 class="section-title">3. בדיקה תקינות ויזואלית וטיפול</h2>
                 
@@ -1234,13 +1240,11 @@
                             </tr>
                         </thead>
                         <tbody id="visual-checks-table">
-                            <!-- יתווסף ב-JavaScript -->
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- בדיקה פונקציונלית -->
             <div class="fade-in">
                 <h2 class="section-title">4. בדיקה פונקציונלית</h2>
                 <div class="table-scroll enhanced-table">
@@ -1257,13 +1261,11 @@
                             </tr>
                         </thead>
                         <tbody id="functional-tests">
-                            <!-- יתווסף ב-JavaScript -->
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- סטטוס סופי -->
             <div class="info-card">
                 <div class="flex items-center justify-start flex-wrap gap-6 mb-4">
                     <h2 class="section-title mb-0">6. הערות כלליות</h2>
@@ -1283,7 +1285,6 @@
                 <textarea id="final-notes" placeholder="הערות נוספות..." class="w-full clalit-input h-24"></textarea>
             </div>
 
-            <!-- פרטי מבצע -->
             <div class="bounce-in">
                 <h2 class="section-title">7. פרטי מבצע ראשי</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -1292,7 +1293,6 @@
                     <input type="date" id="technician-date" class="clalit-input">
                 </div>
                 
-                <!-- חתימה דיגיטלית עם fallback -->
                 <div class="signature-area">
                     <h3 class="text-lg font-medium mb-4 flex items-center">
                         <i data-lucide="pen-tool" class="w-5 h-5 ml-2 floating-icon"></i>
@@ -1357,7 +1357,6 @@
                 </div>
             </div>
 
-            <!-- טכנאי נוסף -->
             <div class="fade-in" id="add-technician-wrapper">
                 <label class="flex items-center gap-3 cursor-pointer p-4 rounded-lg hover:bg-blue-50 transition-all border-2 border-dashed border-gray-300">
                     <input type="checkbox" id="additional-technician-checkbox" class="enhanced-checkbox" onchange="toggleAdditionalTechnician()">
@@ -1366,7 +1365,6 @@
                 </label>
             </div>
 
-            <!-- פרטי טכנאי נוסף - מוסתר בהתחלה -->
             <div id="additional-technician-section" class="hidden bounce-in">
                 <h2 class="section-title">8. פרטי טכנאי נוסף</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -1375,7 +1373,6 @@
                     <input type="date" id="technician-date-2" class="clalit-input">
                 </div>
                 
-                <!-- חתימה דיגיטלית טכנאי נוסף -->
                 <div class="signature-area">
                     <h3 class="text-lg font-medium mb-4 flex items-center">
                         <i data-lucide="pen-tool" class="w-5 h-5 ml-2 floating-icon"></i>
@@ -1441,19 +1438,16 @@
             </div>
         </div>
 
-        <!-- Footer -->
         <div class="clalit-header text-white p-8 mt-6">
             <div class="flex items-center justify-between w-full flex-wrap gap-6">
-                <!-- כתובת -->
                 <div class="flex-1 text-right min-w-[200px]">
                     <div class="text-base">
-                        <p class="font-bold text-lg mb-1">רח' חיי נתניהו 47, מבנה מס' 4</p>
+                        <p class="font-bold text-lg mb-1">רחוב יוני נתניהו ג'1 מבנה מספר 4</p>
                         <p class="font-semibold">אור יהודה 60200</p>
-                        <p class="mt-2"><span class="font-semibold">מזכון למכתבי:</span> ת.ד .730, אור יהודה</p>
+                        <p class="mt-2"><span class="font-semibold">מזכון למכתבים:</span> ת.ד .730, אור יהודה</p>
                     </div>
                 </div>
 
-                <!-- פרטי התקשרות -->
                 <div class="flex-1 text-center min-w-[250px]">
                     <div class="space-y-2 text-base">
                         <p class="text-xl font-bold">*5515 מוקד שרות ארצי</p>
@@ -1462,11 +1456,10 @@
                     </div>
                 </div>
 
-                <!-- אתר -->
                 <div class="flex-1 text-left min-w-[200px]">
                     <div class="text-base space-y-2">
                         <p class="font-bold text-2xl">כללית</p>
-                        <p class="font-bold text-lg">השירותים הרפואיים</p>
+                        <p class="font-bold text-lg">ההנדסה הרפואית</p>
                         <p class="font-semibold text-lg mt-2">www.cbm.org.il</p>
                     </div>
                 </div>
@@ -1475,7 +1468,6 @@
     </div>
 
     <script>
-        // משתני נתונים
         let deviceInfo = {
             inventoryNumber: "",
             institution: "",
@@ -1486,30 +1478,27 @@
         let visualChecks = [
             "תקע כוח", "כבל חשמל", "ברגי פילטר", "פיוזים", "גוף מרכיב",
             "מפסקים / אמצעי בקרה", "מנוע, רוטור, מעצור", "משאבה (רק בצנטריפוגה שוטפת)",
-            "בדיקת התראות", "סימנים קוליים", "מדבקות", "אביזרים",
+            "בדיקת התרעות", "סימנים קוליים", "מדבקות", "אביזרים",
             "תקינות מנגנון נעילה ופתיחה", "סוללת גיבוי", "תצוגה",
-            "שימון לפי הבדרות היצרן", "הוחלפו פחמים, מעצורים, אטמים לפי הצורך"
+            "שימון לפי הגדרות היצרן", "הוחלפו פחמים, מעצורים, אטמים לפי הצורך"
         ];
 
         let functionalTests = [
-            { test: "התנגדות ארקה", unit: "Ω", min: "0", max: "0.3", notes: "גדול ם 0" },
+            { test: "התנגדות ארקה", unit: "Ω", min: "0", max: "0.3", notes: "גדול מ 0" },
             { test: "זרם זליגה לגוף", unit: "µA", min: "0", max: "3500", notes: "גדול במיקרו אמפר" },
             { test: "דיוק בזמן", unit: "S", min: "-30", max: "+30", notes: "באמצעות טיימר טלפון סלולרי" },
             { test: "דיוק במהירות", unit: "סל\"ד", min: "-100", max: "+100", notes: "±10 סל\"ד" },
             { test: "דיוק בטמפרטורה", unit: "°C", min: "-3", max: "+3", notes: " באמצעות FLUKE" }
         ];
 
-        // משתני חתימה
         let canvas, ctx;
         let isDrawing = false;
         let hasSignature = false;
         
-        // משתני חתימה - טכנאי נוסף
         let canvas2, ctx2;
         let isDrawing2 = false;
         let hasSignature2 = false;
 
-        // אתחול דף עם debug
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM טעון');
             lucide.createIcons();
@@ -1518,18 +1507,15 @@
             initializeEventListeners();
             addAnimations();
             
-            // בדיקה מיידית של orientation עם delay
             setTimeout(function() {
                 console.log('בודק orientation...');
                 checkOrientation();
             }, 1000);
         });
 
-        // בדיקת מצב מסך עם debug נרחב
         function checkOrientation() {
             console.log('checkOrientation הופעלה');
             
-            // זיהוי מכשיר נייד עם debug
             const userAgent = navigator.userAgent;
             const isMobileUA = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
             const isAppleDevice = /iPad|iPhone|iPod/.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -1555,7 +1541,6 @@
             
             const warning = document.getElementById('landscape-warning');
             
-            // תנאי להצגת הודעה
             if (isMobile && isPortrait && isNarrowScreen && !dismissed) {
                 console.log('מציג הודעת לנדסקייף');
                 warning.style.display = 'flex';
@@ -1568,7 +1553,6 @@
             }
         }
 
-        // הסתרת הודעת לנדסקייף עם debug
         function dismissLandscapeWarning() {
             console.log('dismissLandscapeWarning הופעלה');
             const warning = document.getElementById('landscape-warning');
@@ -1583,22 +1567,19 @@
             }
         }
 
-        // מאזין לשינוי כיוון המסך - משופר ל-iOS
         window.addEventListener('orientationchange', function() {
             setTimeout(function() {
                 checkOrientation();
-            }, 300); // השהיה ארוכה יותר ל-iOS
+            }, 300);
         });
 
         window.addEventListener('resize', function() {
-            // בדיקה אם המשתמש עדיין לא סירב להודעה
             const dismissed = sessionStorage.getItem('landscape-warning-dismissed') || window.landscapeWarningDismissed;
             if (!dismissed) {
                 setTimeout(checkOrientation, 100);
             }
         });
 
-        // פונקציה לזיהוי מכשיר נייד
         function isMobileDevice() {
             return /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
                    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
@@ -1607,7 +1588,6 @@
         }
 
         function addAnimations() {
-            // הוספת אנימציות לאלמנטים בעת גלילה
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -1683,10 +1663,8 @@
         }
 
         function initializeEventListeners() {
-            // מאזינים לאירועי
         }
 
-        // פונקציות חתימה - טכנאי ראשי
         function showSignaturePad() {
             document.getElementById('signature-button').classList.add('hidden');
             document.getElementById('signature-display').classList.add('hidden');
@@ -1704,13 +1682,11 @@
             hasSignature = false;
             updateSaveButton();
             
-            // אירועי עכבר
             canvas.addEventListener('mousedown', startDrawing);
             canvas.addEventListener('mousemove', draw);
             canvas.addEventListener('mouseup', stopDrawing);
             canvas.addEventListener('mouseout', stopDrawing);
             
-            // אירועי מגע
             canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
             canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
             canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
@@ -1837,7 +1813,6 @@
             }
         }
 
-        // פונקציות טכנאי נוסף
         function toggleAdditionalTechnician() {
             const checkbox = document.getElementById('additional-technician-checkbox');
             const section = document.getElementById('additional-technician-section');
@@ -1847,7 +1822,6 @@
                 lucide.createIcons();
             } else {
                 section.classList.add('hidden');
-                // ניקוי השדות כשמסירים את הטכנאי הנוסף
                 document.getElementById('employee-id-2').value = '';
                 document.getElementById('technician-name-2').value = '';
                 document.getElementById('technician-date-2').value = '';
@@ -1872,13 +1846,11 @@
             hasSignature2 = false;
             updateSaveButton2();
             
-            // אירועי עכבר
             canvas2.addEventListener('mousedown', startDrawing2);
             canvas2.addEventListener('mousemove', draw2);
             canvas2.addEventListener('mouseup', stopDrawing2);
             canvas2.addEventListener('mouseout', stopDrawing2);
             
-            // אירועי מגע
             canvas2.addEventListener('touchstart', handleTouchStart2, { passive: false });
             canvas2.addEventListener('touchmove', handleTouchMove2, { passive: false });
             canvas2.addEventListener('touchend', handleTouchEnd2, { passive: false });
@@ -2005,36 +1977,28 @@
             }
         }
 
-        // פונקציות שמירה וטעינת טיוטה
         function saveDraft() {
             try {
                 const draftData = {
-                    // פרטי המכשיר
                     inventoryNumber: document.getElementById('inventory-number').value,
                     institution: document.getElementById('institution').value,
                     department: document.getElementById('department').value,
                     deviceModel: document.getElementById('device-model').value,
                     
-                    // ציוד נדרש לביקורת
                     equipment: [],
                     
-                    // ניקוי המכשיר
                     cleaning: {
                         external: false,
                         internal: false
                     },
                     
-                    // בדיקה ויזואלית
                     visualChecks: [],
                     
-                    // בדיקה פונקציונלית
                     functionalTests: [],
                     
-                    // סטטוס סופי
                     deviceStatus: null,
                     finalNotes: document.getElementById('final-notes').value,
                     
-                    // פרטי מבצע ראשי
                     technician: {
                         employeeId: document.getElementById('employee-id').value,
                         name: document.getElementById('technician-name').value,
@@ -2042,7 +2006,6 @@
                         signature: document.getElementById('signature-image').src
                     },
                     
-                    // טכנאי נוסף
                     additionalTechnician: {
                         enabled: document.getElementById('additional-technician-checkbox').checked,
                         employeeId: document.getElementById('employee-id-2').value,
@@ -2052,7 +2015,6 @@
                     }
                 };
                 
-                // ציוד נדרש לביקורת
                 const equipmentChecks = document.querySelectorAll('table tbody tr input[type="checkbox"]');
                 const equipmentInputs = document.querySelectorAll('table tbody tr input[type="text"][placeholder*="12345"]');
                 const equipmentDates = document.querySelectorAll('table tbody tr input[type="date"]');
@@ -2065,12 +2027,10 @@
                     });
                 }
                 
-                // ניקוי המכשיר
                 const cleaningChecks = document.querySelectorAll('input[type="checkbox"][data-id]');
                 draftData.cleaning.external = cleaningChecks[3]?.checked || false;
                 draftData.cleaning.internal = cleaningChecks[4]?.checked || false;
                 
-                // בדיקה ויזואלית
                 const visualCheckboxes = document.querySelectorAll('#visual-checks-table input[type="checkbox"]');
                 const visualInputs = document.querySelectorAll('#visual-checks-table input[type="text"]');
                 
@@ -2081,7 +2041,6 @@
                     });
                 });
                 
-                // בדיקה פונקציונלית
                 const functionalInputs = document.querySelectorAll('#functional-tests input[type="text"]');
                 
                 for (let i = 0; i < functionalInputs.length; i += 2) {
@@ -2091,14 +2050,11 @@
                     });
                 }
                 
-                // סטטוס סופי
                 const statusRadio = document.querySelector('input[name="deviceStatus"]:checked');
                 draftData.deviceStatus = statusRadio?.value || null;
                 
-                // שמירה ב-localStorage
                 localStorage.setItem('centrifuge-draft', JSON.stringify(draftData));
                 
-                // הודעת הצלחה
                 alert('✅ הטיוטה נשמרה בהצלחה!');
                 
             } catch (error) {
@@ -2118,13 +2074,11 @@
                 
                 const draftData = JSON.parse(savedDraft);
                 
-                // טעינת פרטי המכשיר
                 document.getElementById('inventory-number').value = draftData.inventoryNumber || '';
                 document.getElementById('institution').value = draftData.institution || '';
                 document.getElementById('department').value = draftData.department || '';
                 document.getElementById('device-model').value = draftData.deviceModel || '';
                 
-                // טעינת ציוד נדרש לביקורת
                 const equipmentChecks = document.querySelectorAll('table tbody tr input[type="checkbox"]');
                 const equipmentInputs = document.querySelectorAll('table tbody tr input[type="text"][placeholder*="12345"]');
                 const equipmentDates = document.querySelectorAll('table tbody tr input[type="date"]');
@@ -2135,12 +2089,10 @@
                     if (equipmentDates[index]) equipmentDates[index].value = item.date;
                 });
                 
-                // טעינת ניקוי המכשיר
                 const cleaningChecks = document.querySelectorAll('input[type="checkbox"][data-id]');
                 if (cleaningChecks[3]) cleaningChecks[3].checked = draftData.cleaning.external;
                 if (cleaningChecks[4]) cleaningChecks[4].checked = draftData.cleaning.internal;
                 
-                // טעינת בדיקה ויזואלית
                 const visualCheckboxes = document.querySelectorAll('#visual-checks-table input[type="checkbox"]');
                 const visualInputs = document.querySelectorAll('#visual-checks-table input[type="text"]');
                 
@@ -2149,7 +2101,6 @@
                     if (visualInputs[index]) visualInputs[index].value = item.notes;
                 });
                 
-                // טעינת בדיקה פונקציונלית
                 const functionalInputs = document.querySelectorAll('#functional-tests input[type="text"]');
                 
                 draftData.functionalTests.forEach((item, index) => {
@@ -2157,14 +2108,12 @@
                     if (functionalInputs[index * 2 + 1]) functionalInputs[index * 2 + 1].value = item.deviation;
                 });
                 
-                // טעינת סטטוס סופי
                 if (draftData.deviceStatus) {
                     const statusRadio = document.querySelector(`input[name="deviceStatus"][value="${draftData.deviceStatus}"]`);
                     if (statusRadio) statusRadio.checked = true;
                 }
                 document.getElementById('final-notes').value = draftData.finalNotes || '';
                 
-                // טעינת פרטי מבצע ראשי
                 document.getElementById('employee-id').value = draftData.technician.employeeId || '';
                 document.getElementById('technician-name').value = draftData.technician.name || '';
                 document.getElementById('technician-date').value = draftData.technician.date || '';
@@ -2175,7 +2124,6 @@
                     document.getElementById('signature-display').classList.remove('hidden');
                 }
                 
-                // טעינת טכנאי נוסף
                 if (draftData.additionalTechnician.enabled) {
                     document.getElementById('additional-technician-checkbox').checked = true;
                     toggleAdditionalTechnician();
@@ -2191,7 +2139,6 @@
                     }
                 }
                 
-                // הודעת הצלחה
                 alert('✅ הטיוטה נטענה בהצלחה!');
                 
             } catch (error) {
@@ -2200,24 +2147,20 @@
             }
         }
 
-        // פונקציית הדפסה עם בדיקת שדות חובה
         function printForm() {
-            // בדוק אם טכנאי נוסף מסומן
             const additionalTechnicianChecked = document.getElementById('additional-technician-checkbox').checked;
             
-            // הוסף spacer בהתאם לכמות התוכן
             const contentDiv = document.querySelector('.main-container > div:nth-child(2)');
             const spacer = document.createElement('div');
             spacer.id = 'print-spacer';
             
-            // בלי טכנאי נוסף - צריך spacer גדול יותר
-            // עם טכנאי נוסף - צריך spacer קטן יותר
-            const spacerHeight = additionalTechnicianChecked ? '69mm' : '139mm';
+            // שני משתנים לכיול המרחק - אפשר לשנות לפי הצורך
+            const spacerHeight = additionalTechnicianChecked ? '85mm' : '145mm';
             spacer.style.cssText = `margin-bottom: ${spacerHeight}; page-break-inside: avoid;`;
             contentDiv.appendChild(spacer);
+            
             const additionalTechnicianSection = document.getElementById('additional-technician-section');
             
-            // אם לא מסומן - הוסף class שיסתיר בהדפסה
             if (!additionalTechnicianChecked) {
                 additionalTechnicianSection.classList.add('print-hide-section');
             } else {
@@ -2226,7 +2169,6 @@
             
             const missingFields = [];
             
-            // בדיקת פרטי המכשיר
             const inventoryNumber = document.getElementById('inventory-number').value.trim();
             const institution = document.getElementById('institution').value.trim();
             const department = document.getElementById('department').value.trim();
@@ -2237,7 +2179,6 @@
             if (!department) missingFields.push('מחלקה');
             if (!deviceModel) missingFields.push('דגם המכשיר');
             
-            // בדיקת ציוד נדרש לביקורת - לפחות אחד צריך להיות מסומן ומלא
             const equipmentChecks = document.querySelectorAll('table tbody tr input[type="checkbox"]');
             const equipmentInputs = document.querySelectorAll('table tbody tr input[type="text"][placeholder*="12345"]');
             const equipmentDates = document.querySelectorAll('table tbody tr input[type="date"]');
@@ -2256,12 +2197,10 @@
             
             if (!hasEquipmentChecked) missingFields.push('יש לבחור לפחות ציוד אחד בסעיף "ציוד נדרש לביקורת"');
             
-            // בדיקת ניקוי המכשיר
             const cleaningChecks = document.querySelectorAll('input[type="checkbox"][data-id="1"], input[type="checkbox"][data-id="2"]');
             const hasCleaningChecked = Array.from(cleaningChecks).slice(3, 5).some(cb => cb.checked);
             if (!hasCleaningChecked) missingFields.push('יש לבחור לפחות סוג ניקוי אחד');
             
-            // בדיקת בדיקות פונקציונליות - ערכים נמדדים
             const functionalInputs = document.querySelectorAll('#functional-tests input[type="text"][placeholder="ערך נמדד"]');
             let hasFunctionalTests = false;
             functionalInputs.forEach((input, index) => {
@@ -2271,25 +2210,21 @@
             });
             if (!hasFunctionalTests) missingFields.push('יש למלא לפחות בדיקה פונקציונלית אחת');
             
-            // בדיקת סטטוס סופי
             const deviceStatus = document.querySelector('input[name="deviceStatus"]:checked');
             if (!deviceStatus) missingFields.push('יש לבחור האם המכשיר תקין או לא תקין');
             
-            // בדיקת פרטי מבצע
             const employeeId = document.getElementById('employee-id').value.trim();
             const technicianName = document.getElementById('technician-name').value.trim();
             const technicianDate = document.getElementById('technician-date').value.trim();
             
             if (!employeeId) missingFields.push('מס\' עובד');
             if (!technicianName) missingFields.push('שם מהנדס שרות');
-            if (!technicianDate) missingFields.push('תאריך ביצוע');
+            if (!technicianDate) missingFields.push('תאריךביצוע');
             
-            // בדיקת חתימה
             const signatureImage = document.getElementById('signature-image');
             const hasSignature = signatureImage.src && signatureImage.src !== window.location.href;
             if (!hasSignature) missingFields.push('חתימה דיגיטלית');
             
-            // בדיקת טכנאי נוסף אם מסומן
             if (additionalTechnicianChecked) {
                 const employeeId2 = document.getElementById('employee-id-2').value.trim();
                 const technicianName2 = document.getElementById('technician-name-2').value.trim();
@@ -2297,15 +2232,13 @@
                 
                 if (!employeeId2) missingFields.push('מס\' עובד - טכנאי נוסף');
                 if (!technicianName2) missingFields.push('שם מהנדס שרות - טכנאי נוסף');
-                if (!technicianDate2) missingFields.push('תאריך ביצוע - טכנאי נוסף');
+                if (!technicianDate2) missingFields.push('תאריךביצוע - טכנאי נוסף');
                 
-                // בדיקת חתימת טכנאי נוסף
                 const signatureImage2 = document.getElementById('signature-image-2');
                 const hasSignature2 = signatureImage2.src && signatureImage2.src !== window.location.href;
                 if (!hasSignature2) missingFields.push('חתימה דיגיטלית - טכנאי נוסף');
             }
             
-            // אם יש שדות חסרים - הצג הודעה
             if (missingFields.length > 0) {
                 let message = '⚠️ חסרים השדות הבאים:\n\n';
                 missingFields.forEach((field, index) => {
@@ -2313,47 +2246,42 @@
                 });
                 message += '\nהאם ברצונך להמשיך להדפסה בכל זאת?';
                 
-                // אם המשתמש לוחץ "ביטול" - עצור את ההדפסה
                 if (!confirm(message)) {
+                    const spacer = document.getElementById('print-spacer');
+                    if (spacer) spacer.remove();
                     return;
                 }
             }
             
-            // אם הכל תקין - המשך להדפסה
             const signatureDisplay = document.getElementById('signature-display');
             signatureDisplay.classList.remove('hidden');
             signatureDisplay.classList.add('print-show');
             
-            // הצג גם חתימת טכנאי נוסף אם קיימת
             if (additionalTechnicianChecked) {
                 const signatureDisplay2 = document.getElementById('signature-display-2');
                 signatureDisplay2.classList.remove('hidden');
                 signatureDisplay2.classList.add('print-show');
             }
             
-            // הסתר אלמנטים שלא נחוצים להדפסה
             const elementsToHide = document.querySelectorAll('.print-hide, #signature-pad, #signature-pad-2, #signature-button, #signature-button-2');
             elementsToHide.forEach(el => {
                 el.style.display = 'none';
             });
             
-            // הצג הודעה לפני ההדפסה
             const printMessage = document.createElement('div');
             printMessage.innerHTML = 'מכין את הטופס להדפסה...';
             printMessage.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:white;padding:20px;border-radius:10px;box-shadow:0 10px 25px rgba(0,0,0,0.3);z-index:9999;font-size:16px;';
             document.body.appendChild(printMessage);
             
-            // המתן קצת ואז הדפס
             setTimeout(() => {
                 document.body.removeChild(printMessage);
                 window.print();
                 
-                // החזר את האלמנטים אחרי ההדפסה
                 setTimeout(() => {
                     elementsToHide.forEach(el => {
                         el.style.display = '';
                     });
-                    // הסר את ה-spacer
+                    // הסר את ה-spacer אחרי ההדפסה
                     const spacer = document.getElementById('print-spacer');
                     if (spacer) spacer.remove();
                 }, 500);
