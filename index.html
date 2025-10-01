@@ -933,6 +933,26 @@
                 grid-template-columns: repeat(3, 1fr) !important;
             }
             
+            /* וידוא שפרטי המכשיר תמיד בשורה אחת */
+            .info-card .grid {
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 2px !important;
+            }
+            
+            .info-card .grid > div {
+                min-width: 0 !important;
+            }
+            
+            .info-card label {
+                font-size: 7px !important;
+                white-space: nowrap !important;
+            }
+            
+            .info-card .clalit-input {
+                font-size: 7px !important;
+                padding: 1px 2px !important;
+            }
+            
             * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
@@ -2155,7 +2175,7 @@
             spacer.id = 'print-spacer';
             
             // שני משתנים לכיול המרחק - אפשר לשנות לפי הצורך
-            const spacerHeight = additionalTechnicianChecked ? '85mm' : '145mm';
+            const spacerHeight = additionalTechnicianChecked ? '130mm' : '195mm';
             spacer.style.cssText = `margin-bottom: ${spacerHeight}; page-break-inside: avoid;`;
             contentDiv.appendChild(spacer);
             
