@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no, viewport-fit=cover">
@@ -242,10 +242,11 @@
         
         .clalit-input {
             border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 12px 16px;
+            border-radius: 8px;
+            padding: 6px 10px;
             transition: all 0.3s ease;
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            font-size: 14px;
         }
         
         .clalit-input:focus {
@@ -395,7 +396,7 @@
             
             .clalit-input {
                 font-size: 16px;
-                padding: 15px 12px;
+                padding: 12px 10px;
                 min-height: 48px;
             }
             
@@ -403,6 +404,11 @@
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
                 border-radius: 10px;
+            }
+            
+            .enhanced-table table[style*="font-size: 10px"] {
+                font-size: 9px;
+                min-width: 100%;
             }
             
             .enhanced-table table {
@@ -442,6 +448,14 @@
                 margin-bottom: 15px;
             }
             
+            .section-title span {
+                font-size: 14px;
+            }
+            
+            .text-sm.text-gray-600 {
+                font-size: 13px;
+            }
+            
             .signature-area {
                 padding: 15px;
             }
@@ -468,6 +482,10 @@
                 flex-direction: column;
                 gap: 5px;
                 text-align: center;
+            }
+            
+            .clalit-header:first-of-type .border-t {
+                font-size: 13px !important;
             }
         }
         
@@ -496,8 +514,31 @@
                 font-size: 10px;
             }
             
+            h3.font-bold {
+                font-size: 13px;
+            }
+            
+            .enhanced-table table[style*="font-size: 10px"] {
+                font-size: 8px;
+            }
+            
+            .enhanced-table table[style*="font-size: 10px"] td {
+                padding: 2px 1px;
+                font-size: 8px;
+            }
+            
+            .enhanced-table table[style*="font-size: 10px"] td {
+                padding: 3px 2px;
+                font-size: 9px;
+            }
+            
             .section-title {
                 font-size: 16px;
+            }
+            
+            .section-title span {
+                font-size: 12px;
+                display: inline-block;
             }
             
             .clalit-input {
@@ -536,6 +577,15 @@
             div[style*="right: 20px"] button i {
                 width: 14px !important;
                 height: 14px !important;
+            }
+            
+            .clalit-header:first-of-type .border-t {
+                font-size: 11px !important;
+            }
+            
+            .clalit-header:first-of-type .border-t span {
+                display: block;
+                margin-top: 4px;
             }
         }
         
@@ -699,6 +749,18 @@
                 page-break-inside: avoid;
             }
             
+            .bounce-in .enhanced-table {
+                margin-bottom: 4px !important;
+            }
+            
+            .bounce-in .mt-6 {
+                margin-top: 3mm !important;
+            }
+            
+            .bounce-in.mt-8 {
+                margin-top: 4mm !important;
+            }
+            
             .clalit-header {
                 background: linear-gradient(135deg, var(--clalit-blue) 0%, var(--clalit-green) 100%) !important;
                 -webkit-print-color-adjust: exact !important;
@@ -713,9 +775,30 @@
                 line-height: 1.15 !important;
             }
             
+            .clalit-header:first-of-type .border-t {
+                border-top: 1px solid rgba(255, 255, 255, 0.3) !important;
+                padding-top: 2mm !important;
+                margin-top: 2mm !important;
+            }
+            
+            .clalit-header:first-of-type .border-t span {
+                font-size: 9px !important;
+            }
+            
             .clalit-header p {
                 font-size: 10px !important;
                 margin: 0 !important;
+            }
+            
+            .clalit-header:first-of-type .border-t {
+                border-color: rgba(255, 255, 255, 0.3) !important;
+                margin-top: 1.5mm !important;
+                padding-top: 1.5mm !important;
+            }
+            
+            .clalit-header:first-of-type .border-t .font-semibold,
+            .clalit-header:first-of-type .border-t .font-medium {
+                font-size: 9px !important;
             }
             
             .header-grid {
@@ -800,6 +883,32 @@
                 margin-bottom: 3px !important;
             }
             
+            .section-title span {
+                color: #555 !important;
+                font-weight: normal !important;
+            }
+            
+            .section-title span.text-sm {
+                font-size: 9px !important;
+            }
+            
+            .text-sm.text-gray-600 {
+                font-size: 8px !important;
+                margin-bottom: 2px !important;
+                color: #555 !important;
+            }
+            
+            .section-title span.text-sm {
+                font-size: 9px !important;
+                color: #555 !important;
+            }
+            
+            h3.font-bold {
+                font-size: 9px !important;
+                margin-bottom: 2px !important;
+                color: var(--clalit-blue) !important;
+            }
+            
             .enhanced-table {
                 box-shadow: none !important;
                 border-radius: 0 !important;
@@ -812,10 +921,22 @@
                 border-collapse: collapse !important;
             }
             
+            .enhanced-table table[style*="font-size: 10px"] {
+                font-size: 7px !important;
+            }
+            
+            .enhanced-table table[style*="font-size: 10px"] td {
+                padding: 0.5px 1px !important;
+            }
+            
             .enhanced-table th,
             .enhanced-table td {
                 padding: 2px !important;
                 border: 1px solid #666 !important;
+            }
+            
+            .enhanced-table th {
+                text-align: right !important;
             }
             
             .enhanced-table thead tr {
@@ -909,6 +1030,10 @@
                 padding: 2px !important;
             }
             
+            .p-2 {
+                padding: 1.5px !important;
+            }
+            
             .mb-4 {
                 margin-bottom: 3px !important;
             }
@@ -959,7 +1084,7 @@
                 color-adjust: exact !important;
             }
             
-            /* תיקון להדפסה מנייד - גופנים גדולים יותר וריווחים קטנים יותר */
+            /* תיקון להדפסה מנייד - גופנים גדולים יותר ורווחים קטנים יותר */
             @media print and (max-width: 768px) {
                 @page {
                     margin: 8mm 10mm;
@@ -979,6 +1104,11 @@
                 
                 .clalit-header p {
                     font-size: 9px !important;
+                }
+                
+                .clalit-header:first-of-type .border-t .font-semibold,
+                .clalit-header:first-of-type .border-t .font-medium {
+                    font-size: 8px !important;
                 }
                 
                 .logo-container {
@@ -1011,6 +1141,28 @@
                     font-size: 10px !important;
                 }
                 
+                .text-sm.text-gray-600 {
+                    font-size: 7px !important;
+                    margin-bottom: 2px !important;
+                }
+                
+                .section-title span.text-sm {
+                    font-size: 8px !important;
+                }
+                
+                h3.font-bold {
+                    font-size: 8px !important;
+                    margin-bottom: 1.5px !important;
+                }
+                
+                .enhanced-table table[style*="font-size: 10px"] {
+                    font-size: 6px !important;
+                }
+                
+                .enhanced-table table[style*="font-size: 10px"] td {
+                    padding: 0.3px 0.5px !important;
+                }
+                
                 .p-8 {
                     padding: 3px !important;
                 }
@@ -1035,6 +1187,15 @@
                 
                 .clalit-header:last-of-type .text-lg {
                     font-size: 10px !important;
+                }
+                
+                .clalit-header:first-of-type .border-t {
+                    margin-top: 1.5mm !important;
+                    padding-top: 1.5mm !important;
+                }
+                
+                .clalit-header:first-of-type .border-t span {
+                    font-size: 8px !important;
                 }
                 
                 #signature-image,
@@ -1103,8 +1264,14 @@
 
                 <div class="flex-grow text-center mx-8">
                     <h1 class="text-4xl font-bold mb-3 header-title">טופס בדיקת צנטריפוגה מקוררת</h1>
-                    <p class="text-blue-100 text-lg font-medium">טופס מס' 9245-0 - רשימת תיוג מח' שירות</p>
-                    <div class="mt-2 status-indicator glow-effect"></div>
+                    <p class="text-blue-100 text-lg font-medium mb-2">טופס מס' 9245-0 - רשימת תיוג מח' שירות</p>
+                    <div class="mt-3 pt-3 border-t border-white/30">
+                        <div class="flex items-center justify-center gap-2">
+                            <i data-lucide="package" class="w-4 h-4"></i>
+                            <span class="font-semibold">משפחת מוצר:</span>
+                            <span class="font-medium">9242, 9241 | 9245, 9149 | 9243</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="flex-shrink-0 text-left">
@@ -1143,19 +1310,19 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div>
                         <label class="block text-sm font-semibold mb-2 text-gray-700">מס. אינוונטר</label>
-                        <input type="text" id="inventory-number" placeholder="מס. אינוונטר" class="clalit-input">
+                        <input type="text" id="inventory-number" placeholder="מס. אינוונטר" class="clalit-input w-full">
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-2 text-gray-700">מוסד</label>
-                        <input type="text" id="institution" placeholder="מוסד" class="clalit-input">
+                        <input type="text" id="institution" placeholder="מוסד" class="clalit-input w-full">
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-2 text-gray-700">מחלקה</label>
-                        <input type="text" id="department" placeholder="מחלקה" class="clalit-input">
+                        <input type="text" id="department" placeholder="מחלקה" class="clalit-input w-full">
                     </div>
                     <div>
                         <label class="block text-sm font-semibold mb-2 text-gray-700">דגם המכשיר</label>
-                        <input type="text" id="device-model" placeholder="דגם המכשיר" class="clalit-input">
+                        <input type="text" id="device-model" placeholder="דגם המכשיר" class="clalit-input w-full">
                     </div>
                 </div>
             </div>
@@ -1167,60 +1334,60 @@
                     <table class="w-full">
                         <thead>
                             <tr>
-                                <th class="p-4 text-center">בוצע</th>
-                                <th class="p-4">מכשיר</th>
-                                <th class="p-4">דגם</th>
-                                <th class="p-4">מספר המכשיר</th>
-                                <th class="p-4">תוקף הכיול</th>
+                                <th class="p-2 text-center">בוצע</th>
+                                <th class="p-2">מכשיר</th>
+                                <th class="p-2">דגם</th>
+                                <th class="p-2">מספר המכשיר</th>
+                                <th class="p-2">תוקף הכיול</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="p-4 text-center">
+                                <td class="p-2 text-center">
                                     <input type="checkbox" class="enhanced-checkbox" data-id="1">
                                 </td>
-                                <td class="p-4 font-medium">מד סל"ד</td>
-                                <td class="p-4">TACHOMETER DT-2236</td>
-                                <td class="p-4">
+                                <td class="p-2 font-medium">מד סל"ד</td>
+                                <td class="p-2">TACHOMETER DT-2236</td>
+                                <td class="p-2">
                                     <div class="flex items-center gap-2">
                                         <input type="text" placeholder="12345" class="clalit-input w-20 text-center" data-id="1">
                                         <span class="font-bold text-gray-700">HR</span>
                                     </div>
                                 </td>
-                                <td class="p-4">
-                                    <input type="date" class="clalit-input w-full" data-id="1">
+                                <td class="p-2">
+                                    <input type="date" class="clalit-input w-full" data-id="1" style="text-align: right;">
                                 </td>
                             </tr>
                             <tr>
-                                <td class="p-4 text-center">
+                                <td class="p-2 text-center">
                                     <input type="checkbox" class="enhanced-checkbox" data-id="2">
                                 </td>
-                                <td class="p-4 font-medium">מכשיר (מולטי) לבדיקת מערכת חשמל</td>
-                                <td class="p-4">Rigel Safetest 60</td>
-                                <td class="p-4">
+                                <td class="p-2 font-medium">מכשיר (מולטי) לבדיקת מערכת חשמל</td>
+                                <td class="p-2">Rigel Safetest 60</td>
+                                <td class="p-2">
                                     <div class="flex items-center gap-2">
                                         <input type="text" placeholder="12345" class="clalit-input w-20 text-center" data-id="2">
                                         <span class="font-bold text-gray-700">HR</span>
                                     </div>
                                 </td>
-                                <td class="p-4">
-                                    <input type="date" class="clalit-input w-full" data-id="2">
+                                <td class="p-2">
+                                    <input type="date" class="clalit-input w-full" data-id="2" style="text-align: right;">
                                 </td>
                             </tr>
                             <tr>
-                                <td class="p-4 text-center">
+                                <td class="p-2 text-center">
                                     <input type="checkbox" class="enhanced-checkbox" data-id="3">
                                 </td>
-                                <td class="p-4 font-medium">מד טמפרטורה</td>
-                                <td class="p-4">FLUKE</td>
-                                <td class="p-4">
+                                <td class="p-2 font-medium">מד טמפרטורה</td>
+                                <td class="p-2">FLUKE</td>
+                                <td class="p-2">
                                     <div class="flex items-center gap-2">
                                         <input type="text" placeholder="12345" class="clalit-input w-20 text-center" data-id="3">
                                         <span class="font-bold text-gray-700">HR</span>
                                     </div>
                                 </td>
-                                <td class="p-4">
-                                    <input type="date" class="clalit-input w-full" data-id="3">
+                                <td class="p-2">
+                                    <input type="date" class="clalit-input w-full" data-id="3" style="text-align: right;">
                                 </td>
                             </tr>
                         </tbody>
@@ -1251,12 +1418,12 @@
                     <table class="w-full">
                         <thead>
                             <tr>
-                                <th class="p-3">פריט</th>
-                                <th class="p-3">תקין</th>
-                                <th class="p-3">הערות</th>
-                                <th class="p-3">פריט</th>
-                                <th class="p-3">תקין</th>
-                                <th class="p-3">הערות</th>
+                                <th class="p-2">פריט</th>
+                                <th class="p-2">תקין</th>
+                                <th class="p-2">הערות</th>
+                                <th class="p-2">פריט</th>
+                                <th class="p-2">תקין</th>
+                                <th class="p-2">הערות</th>
                             </tr>
                         </thead>
                         <tbody id="visual-checks-table">
@@ -1271,16 +1438,40 @@
                     <table class="w-full">
                         <thead>
                             <tr>
-                                <th class="p-3">ערך נבדק</th>
-                                <th class="p-3">יחידה</th>
-                                <th class="p-3">MIN</th>
-                                <th class="p-3">MAX</th>
-                                <th class="p-3">ערך נצפה</th>
-                                <th class="p-3">סטייה</th>
-                                <th class="p-3">הערות</th>
+                                <th class="p-2">ערך נבדק</th>
+                                <th class="p-2">יחידה</th>
+                                <th class="p-2">MIN</th>
+                                <th class="p-2">MAX</th>
+                                <th class="p-2">ערך נצפה</th>
+                                <th class="p-2">סטייה</th>
+                                <th class="p-2">הערות</th>
                             </tr>
                         </thead>
                         <tbody id="functional-tests">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bounce-in">
+                <h2 class="section-title mb-3">
+                    5. רשימת חלקי חילוף לטיפולים:&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="text-sm font-normal" style="color: #555;">צנטריפוגות רגילות – אין.</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="text-sm font-semibold" style="color: #555;">צנטריפוגה שוטפת:</span>
+                </h2>
+                <div class="table-scroll enhanced-table">
+                    <table class="w-full">
+                        <thead>
+                            <tr>
+                                <th class="p-2 text-right">שם הפריט</th>
+                                <th class="p-2 text-right">מקט כללית</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="p-2">מסנן + צנרת</td>
+                                <td class="p-2">לפי היצרן</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -1304,13 +1495,18 @@
                 </div>
                 <textarea id="final-notes" placeholder="הערות נוספות..." class="w-full clalit-input h-24"></textarea>
             </div>
+			
+ <div class="info-card fade-in">
+                <h3 class="text-center font-bold text-base mb-2" style="color: var(--clalit-blue);">צ'ק ליסט תואם לספר שירות</h3>
+                <p class="text-center font-semibold text-sm mb-3" style="color: var(--clalit-green);">62022 מהדורת CENTRIFUGE 5804/5804 R 5810/5810 R</p>
+            </div>
 
             <div class="bounce-in">
                 <h2 class="section-title">7. פרטי מבצע ראשי</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <input type="text" id="employee-id" placeholder="מס' עובד" class="clalit-input">
-                    <input type="text" id="technician-name" placeholder="שם מהנדס שרות" class="clalit-input">
-                    <input type="date" id="technician-date" class="clalit-input">
+                    <input type="text" id="employee-id" placeholder="מס' עובד" class="clalit-input w-full">
+                    <input type="text" id="technician-name" placeholder="שם מהנדס שרות" class="clalit-input w-full">
+                    <input type="date" id="technician-date" class="clalit-input w-full">
                 </div>
                 
                 <div class="signature-area">
@@ -1388,9 +1584,9 @@
             <div id="additional-technician-section" class="hidden bounce-in">
                 <h2 class="section-title">8. פרטי טכנאי נוסף</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <input type="text" id="employee-id-2" placeholder="מס' עובד" class="clalit-input">
-                    <input type="text" id="technician-name-2" placeholder="שם מהנדס שרות" class="clalit-input">
-                    <input type="date" id="technician-date-2" class="clalit-input">
+                    <input type="text" id="employee-id-2" placeholder="מס' עובד" class="clalit-input w-full">
+                    <input type="text" id="technician-name-2" placeholder="שם מהנדס שרות" class="clalit-input w-full">
+                    <input type="date" id="technician-date-2" class="clalit-input w-full" style="text-align: right;">
                 </div>
                 
                 <div class="signature-area">
@@ -1456,15 +1652,319 @@
                     </div>
                 </div>
             </div>
+
+            <div class="bounce-in mt-8">
+                <h3 class="text-center font-bold text-base mb-3" style="color: var(--clalit-blue);">מספרי המק"טים הרלוונטיים</h3>
+                <div class="table-scroll enhanced-table">
+                    <table class="w-full" style="font-size: 10px;">
+                        <tbody>
+                            <tr>
+                                <td class="p-1 text-center font-bold">9149</td>
+                                <td class="p-1 text-center font-bold">9242</td>
+                                <td class="p-1 text-center font-bold">9244</td>
+                                <td class="p-1 text-center">1690019518</td>
+                                <td class="p-1 text-center">1690213284</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center">1000005180</td>
+                                <td class="p-1 text-center">9032004</td>
+                                <td class="p-1 text-center">992264555</td>
+                                <td class="p-1 text-center">1690018882</td>
+                                <td class="p-1 text-center">1690218324</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center">1000076302</td>
+                                <td class="p-1 text-center">1000002274</td>
+                                <td class="p-1 text-center">992603322</td>
+                                <td class="p-1 text-center">1690018890</td>
+                                <td class="p-1 text-center">1690218575</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center">1000202551</td>
+                                <td class="p-1 text-center">1000017036</td>
+                                <td class="p-1 text-center">993023557</td>
+                                <td class="p-1 text-center">1690100016</td>
+                                <td class="p-1 text-center">1690219401</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center">1000027895</td>
+                                <td class="p-1 text-center">1000038778</td>
+                                <td class="p-1 text-center">996283064</td>
+                                <td class="p-1 text-center">1691000671</td>
+                                <td class="p-1 text-center">1690221074</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center">1000057745</td>
+                                <td class="p-1 text-center">1000144536</td>
+                                <td class="p-1 text-center">1000002360</td>
+                                <td class="p-1 text-center">1691000680</td>
+                                <td class="p-1 text-center">1690225516</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center">1000070801</td>
+                                <td class="p-1 text-center font-bold">9243</td>
+                                <td class="p-1 text-center">1000010741</td>
+                                <td class="p-1 text-center">1691000688</td>
+                                <td class="p-1 text-center">1690230642</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center">1000092393</td>
+                                <td class="p-1 text-center">1000148436</td>
+                                <td class="p-1 text-center">1000010930</td>
+                                <td class="p-1 text-center">1691000701</td>
+                                <td class="p-1 text-center">1690231770</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center">1000108118</td>
+                                <td class="p-1 text-center">1000103786</td>
+                                <td class="p-1 text-center">1000010933</td>
+                                <td class="p-1 text-center">1691000710</td>
+                                <td class="p-1 text-center">1690234524</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center">1000134359</td>
+                                <td class="p-1 text-center font-bold">9246</td>
+                                <td class="p-1 text-center">1000024816</td>
+                                <td class="p-1 text-center">1691000974</td>
+                                <td class="p-1 text-center">1690234890</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center">1000148304</td>
+                                <td class="p-1 text-center">1000011318</td>
+                                <td class="p-1 text-center">1000028290</td>
+                                <td class="p-1 text-center">1691002712</td>
+                                <td class="p-1 text-center">1690251070</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center">1000171031</td>
+                                <td class="p-1 text-center">1000032371</td>
+                                <td class="p-1 text-center">1000026894</td>
+                                <td class="p-1 text-center">1691002720</td>
+                                <td class="p-1 text-center">1690253189</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center">1000171955</td>
+                                <td class="p-1 text-center">1000095973</td>
+                                <td class="p-1 text-center">1000030482</td>
+                                <td class="p-1 text-center">1691002739</td>
+                                <td class="p-1 text-center">1690257184</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center">1000178982</td>
+                                <td class="p-1 text-center">1000095679</td>
+                                <td class="p-1 text-center">1000030606</td>
+                                <td class="p-1 text-center">1691002747</td>
+                                <td class="p-1 text-center">1690259614</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center">1691004227</td>
+                                <td class="p-1 text-center">1000095976</td>
+                                <td class="p-1 text-center">1000031204</td>
+                                <td class="p-1 text-center">1691003987</td>
+                                <td class="p-1 text-center">1690274127</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1000073814</td>
+                                <td class="p-1 text-center">1000032492</td>
+                                <td class="p-1 text-center">FRT0288</td>
+                                <td class="p-1 text-center">FRT0288</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1000102361</td>
+                                <td class="p-1 text-center">1000032563</td>
+                                <td class="p-1 text-center">1691003891</td>
+                                <td class="p-1 text-center">PRT0428</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1000102383</td>
+                                <td class="p-1 text-center">1000032590</td>
+                                <td class="p-1 text-center">1691004187</td>
+                                <td class="p-1 text-center">PRT0428</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1000107747</td>
+                                <td class="p-1 text-center">1000066972</td>
+                                <td class="p-1 text-center">1691004200</td>
+                                <td class="p-1 text-center">PRT0710</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1000152595</td>
+                                <td class="p-1 text-center">1000065978</td>
+                                <td class="p-1 text-center">1691004219</td>
+                                <td class="p-1 text-center">PRT0712</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1000152601</td>
+                                <td class="p-1 text-center">1000073870</td>
+                                <td class="p-1 text-center">1691004235</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1000180336</td>
+                                <td class="p-1 text-center">1000073811</td>
+                                <td class="p-1 text-center">1691004243</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1000186871</td>
+                                <td class="p-1 text-center">1000073813</td>
+                                <td class="p-1 text-center">1691004251</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1000177902</td>
+                                <td class="p-1 text-center">1000002244</td>
+                                <td class="p-1 text-center">1691005901</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1000187606</td>
+                                <td class="p-1 text-center">1000004378</td>
+                                <td class="p-1 text-center">1691006505</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1000195457</td>
+                                <td class="p-1 text-center">1000102362</td>
+                                <td class="p-1 text-center">1691006513</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1000196090</td>
+                                <td class="p-1 text-center">1000012516</td>
+                                <td class="p-1 text-center">1691006505</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1000205782</td>
+                                <td class="p-1 text-center">1000112517</td>
+                                <td class="p-1 text-center">1691006554</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1000214545</td>
+                                <td class="p-1 text-center">1000126091</td>
+                                <td class="p-1 text-center">1691006572</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1691030775</td>
+                                <td class="p-1 text-center">1000135637</td>
+                                <td class="p-1 text-center">1691006580</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1691033883</td>
+                                <td class="p-1 text-center">1000148393</td>
+                                <td class="p-1 text-center">1691006599</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1691037125</td>
+                                <td class="p-1 text-center">1000150656</td>
+                                <td class="p-1 text-center">1691006602</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1690057803</td>
+                                <td class="p-1 text-center">1000158882</td>
+                                <td class="p-1 text-center">1691006610</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1690091700</td>
+                                <td class="p-1 text-center">1000180784</td>
+                                <td class="p-1 text-center">1691006645</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1690061751</td>
+                                <td class="p-1 text-center">1000181525</td>
+                                <td class="p-1 text-center">1691006661</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1690070098</td>
+                                <td class="p-1 text-center">1000195612</td>
+                                <td class="p-1 text-center">1691006670</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1690071746</td>
+                                <td class="p-1 text-center">1000183807</td>
+                                <td class="p-1 text-center">1691006688</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1690107716</td>
+                                <td class="p-1 text-center">1000211118</td>
+                                <td class="p-1 text-center">1691006700</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1690230197</td>
+                                <td class="p-1 text-center">1000214808</td>
+                                <td class="p-1 text-center">1691006718</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1690234796</td>
+                                <td class="p-1 text-center">1690017333</td>
+                                <td class="p-1 text-center">1691006726</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1690259322</td>
+                                <td class="p-1 text-center">1690017473</td>
+                                <td class="p-1 text-center">1691006742</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center"></td>
+                                <td class="p-1 text-center">1690018003</td>
+                                <td class="p-1 text-center">1691006750</td>
+                                <td class="p-1 text-center"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <div class="clalit-header text-white p-8 mt-6">
             <div class="flex items-center justify-between w-full flex-wrap gap-6">
                 <div class="flex-1 text-right min-w-[200px]">
                     <div class="text-base">
-                        <p class="font-bold text-lg mb-1">רחוב יוני נתניהו ג'1 מבנה מספר 4</p>
+                        <p class="font-bold text-lg mb-1">רחוב יוני נתניהו ג'1 מגנה מספר 4</p>
                         <p class="font-semibold">אור יהודה 60200</p>
-                        <p class="mt-2"><span class="font-semibold">מזכון למכתבים:</span> ת.ד .730, אור יהודה</p>
+                        <p class="mt-2"><span class="font-semibold">מזכון למכתבי:</span> ת.ד .730, אור יהודה</p>
                     </div>
                 </div>
 
@@ -1496,7 +1996,7 @@
         };
 
         let visualChecks = [
-            "תקע כוח", "כבל חשמל", "ברגי פילטר", "פיוזים", "גוף מרכיב",
+            "תקע כוח", "כבל חשמל", "גרבי פילטר", "פיוזים", "גוף מרכיב",
             "מפסקים / אמצעי בקרה", "מנוע, רוטור, מעצור", "משאבה (רק בצנטריפוגה שוטפת)",
             "בדיקת התרעות", "סימנים קוליים", "מדבקות", "אביזרים",
             "תקינות מנגנון נעילה ופתיחה", "סוללת גיבוי", "תצוגה",
@@ -1526,6 +2026,18 @@
             generateFunctionalTests();
             initializeEventListeners();
             addAnimations();
+            
+            // הפיכת פורמט תאריכים ל-MM/DD/YYYY
+            const dateInputs = document.querySelectorAll('input[type="date"]');
+            dateInputs.forEach(input => {
+                input.addEventListener('change', function(e) {
+                    const value = e.target.value;
+                    if (value) {
+                        const parts = value.split('-');
+                        console.log('תאריך נבחר:', parts[2] + '/' + parts[1] + '/' + parts[0]);
+                    }
+                });
+            });
             
             setTimeout(function() {
                 console.log('בודק orientation...');
@@ -1629,11 +2141,11 @@
                 
                 const check1 = visualChecks[i];
                 tr.innerHTML += `
-                    <td class="p-3 font-medium">${check1}</td>
-                    <td class="p-3 text-center">
+                    <td class="p-2 font-medium">${check1}</td>
+                    <td class="p-2 text-center">
                         <input type="checkbox" class="enhanced-checkbox" data-index="${i}">
                     </td>
-                    <td class="p-3">
+                    <td class="p-2">
                         <input type="text" class="clalit-input w-full" data-index="${i}" placeholder="הערות...">
                     </td>
                 `;
@@ -1641,19 +2153,19 @@
                 if (i + 1 < visualChecks.length) {
                     const check2 = visualChecks[i + 1];
                     tr.innerHTML += `
-                        <td class="p-3 font-medium">${check2}</td>
-                        <td class="p-3 text-center">
+                        <td class="p-2 font-medium">${check2}</td>
+                        <td class="p-2 text-center">
                             <input type="checkbox" class="enhanced-checkbox" data-index="${i + 1}">
                         </td>
-                        <td class="p-3">
+                        <td class="p-2">
                             <input type="text" class="clalit-input w-full" data-index="${i + 1}" placeholder="הערות...">
                         </td>
                     `;
                 } else {
                     tr.innerHTML += `
-                        <td class="p-3"></td>
-                        <td class="p-3"></td>
-                        <td class="p-3"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
+                        <td class="p-2"></td>
                     `;
                 }
                 
@@ -1666,17 +2178,17 @@
             functionalTests.forEach((test, index) => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td class="p-3 font-medium">${test.test}</td>
-                    <td class="p-3 text-center font-bold">${test.unit}</td>
-                    <td class="p-3 text-center">${test.min}</td>
-                    <td class="p-3 text-center">${test.max}</td>
-                    <td class="p-3">
+                    <td class="p-2 font-medium">${test.test}</td>
+                    <td class="p-2 text-center font-bold">${test.unit}</td>
+                    <td class="p-2 text-center">${test.min}</td>
+                    <td class="p-2 text-center">${test.max}</td>
+                    <td class="p-2">
                         <input type="text" class="clalit-input w-full" data-index="${index}" placeholder="ערך נמדד">
                     </td>
-                    <td class="p-3">
+                    <td class="p-2">
                         <input type="text" class="clalit-input w-full" data-index="${index}" placeholder="סטייה">
                     </td>
-                    <td class="p-3 text-sm text-gray-600">${test.notes}</td>
+                    <td class="p-2 text-sm text-gray-600">${test.notes}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -2174,7 +2686,6 @@
             const spacer = document.createElement('div');
             spacer.id = 'print-spacer';
             
-            // שני משתנים לכיול המרחק - אפשר לשנות לפי הצורך
             const spacerHeight = additionalTechnicianChecked ? '130mm' : '195mm';
             spacer.style.cssText = `margin-bottom: ${spacerHeight}; page-break-inside: avoid;`;
             contentDiv.appendChild(spacer);
@@ -2239,7 +2750,7 @@
             
             if (!employeeId) missingFields.push('מס\' עובד');
             if (!technicianName) missingFields.push('שם מהנדס שרות');
-            if (!technicianDate) missingFields.push('תאריךביצוע');
+            if (!technicianDate) missingFields.push('תאריך ביצוע');
             
             const signatureImage = document.getElementById('signature-image');
             const hasSignature = signatureImage.src && signatureImage.src !== window.location.href;
@@ -2252,7 +2763,7 @@
                 
                 if (!employeeId2) missingFields.push('מס\' עובד - טכנאי נוסף');
                 if (!technicianName2) missingFields.push('שם מהנדס שרות - טכנאי נוסף');
-                if (!technicianDate2) missingFields.push('תאריךביצוע - טכנאי נוסף');
+                if (!technicianDate2) missingFields.push('תאריך ביצוע - טכנאי נוסף');
                 
                 const signatureImage2 = document.getElementById('signature-image-2');
                 const hasSignature2 = signatureImage2.src && signatureImage2.src !== window.location.href;
@@ -2301,7 +2812,6 @@
                     elementsToHide.forEach(el => {
                         el.style.display = '';
                     });
-                    // הסר את ה-spacer אחרי ההדפסה
                     const spacer = document.getElementById('print-spacer');
                     if (spacer) spacer.remove();
                 }, 500);
