@@ -977,7 +977,10 @@
             #additional-technician-checkbox,
             label[for="additional-technician-checkbox"],
             .print-button,
-            .fade-in:has(#additional-technician-checkbox) {
+            .fade-in:has(#additional-technician-checkbox),
+            button[onclick*="removeSparePartRow"],
+            button[onclick*="addSparePartRow"],
+            td[style*="width: 80px"] {
                 display: none !important;
             }
             
@@ -1084,7 +1087,7 @@
                 color-adjust: exact !important;
             }
             
-            /* תיקון להדפסה מנייד - גופנים גדולים יותר ורווחים קטנים יותר */
+            /* תיקון להדפסה מנייד - פרטי מבצע ראשי בשורה אחת */
             @media print and (max-width: 768px) {
                 @page {
                     margin: 8mm 10mm;
@@ -1202,6 +1205,20 @@
                 #signature-image-2 {
                     max-width: 100px !important;
                 }
+                
+                /* תיקון פרטי מבצע - תמיד 3 עמודות בשורה אחת */
+                .bounce-in .grid-cols-3,
+                .bounce-in .grid.grid-cols-1.md\\:grid-cols-3 {
+                    display: grid !important;
+                    grid-template-columns: repeat(3, 1fr) !important;
+                    gap: 2px !important;
+                }
+                
+                .bounce-in .grid-cols-3 input,
+                .bounce-in .grid.grid-cols-1.md\\:grid-cols-3 input {
+                    font-size: 7px !important;
+                    padding: 1px 2px !important;
+                }
             }
         }
         
@@ -1264,7 +1281,7 @@
 
                 <div class="flex-grow text-center mx-8">
                     <h1 class="text-4xl font-bold mb-3 header-title">טופס בדיקת צנטריפוגה מקוררת</h1>
-                    <p class="text-blue-100 text-lg font-medium mb-2">טופס מס' 9245-0 - רשימת תיוג מח' שירות</p>
+                    <p class="text-blue-100 text-lg font-medium mb-2">טופס מספ' 9245-0 - רשימת תיוג מח' שירות</p>
                     <div class="mt-3 pt-3 border-t border-white/30">
                         <div class="flex items-center justify-center gap-2">
                             <i data-lucide="package" class="w-4 h-4"></i>
@@ -1465,16 +1482,30 @@
                             <tr>
                                 <th class="p-2 text-right">שם הפריט</th>
                                 <th class="p-2 text-right">מקט כללית</th>
+                                <th class="p-2 text-center print-hide" style="width: 80px;">פעולות</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="spare-parts-table">
                             <tr>
-                                <td class="p-2">מסנן + צנרת</td>
-                                <td class="p-2">לפי היצרן</td>
+                                <td class="p-2">
+                                    <input type="text" class="clalit-input w-full" placeholder="שם הפריט" value="מסנן + צנרת">
+                                </td>
+                                <td class="p-2">
+                                    <input type="text" class="clalit-input w-full" placeholder="מקט כללית" value="לפי היצרן">
+                                </td>
+                                <td class="p-2 text-center print-hide">
+                                    <button onclick="removeSparePartRow(this)" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition-all text-sm">
+                                        מחק
+                                    </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                <button onclick="addSparePartRow()" class="btn-clalit-green mt-3 flex items-center gap-2 print-hide">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                    הוסף שורה
+                </button>
             </div>
 
             <div class="info-card">
@@ -1496,8 +1527,8 @@
                 <textarea id="final-notes" placeholder="הערות נוספות..." class="w-full clalit-input h-24"></textarea>
             </div>
 			
- <div class="info-card fade-in">
-                <h3 class="text-center font-bold text-base mb-2" style="color: var(--clalit-blue);">צ'ק ליסט תואם לספר שירות</h3>
+            <div class="info-card fade-in">
+                <h3 class="text-center font-bold text-base mb-2" style="color: var(--clalit-blue);">צ'ק ליסט תוכן לספר שירות</h3>
                 <p class="text-center font-semibold text-sm mb-3" style="color: var(--clalit-green);">62022 מהדורת CENTRIFUGE 5804/5804 R 5810/5810 R</p>
             </div>
 
@@ -1652,312 +1683,763 @@
                     </div>
                 </div>
             </div>
+			
+			<div class="info-card fade-in">
+    <p class="text-right font-semibold text-base" style="color: var(--clalit-blue);"><sup>*</sup>המכשירים כוילו כנדרש בעקיבות למעבדות מוסמכות למדיד אב</p>
+</div>
 
-            <div class="bounce-in mt-8">
-                <h3 class="text-center font-bold text-base mb-3" style="color: var(--clalit-blue);">מספרי המק"טים הרלוונטיים</h3>
-                <div class="table-scroll enhanced-table">
-                    <table class="w-full" style="font-size: 10px;">
-                        <tbody>
-                            <tr>
-                                <td class="p-1 text-center font-bold">9149</td>
-                                <td class="p-1 text-center font-bold">9242</td>
-                                <td class="p-1 text-center font-bold">9244</td>
-                                <td class="p-1 text-center">1690019518</td>
-                                <td class="p-1 text-center">1690213284</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center">1000005180</td>
-                                <td class="p-1 text-center">9032004</td>
-                                <td class="p-1 text-center">992264555</td>
-                                <td class="p-1 text-center">1690018882</td>
-                                <td class="p-1 text-center">1690218324</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center">1000076302</td>
-                                <td class="p-1 text-center">1000002274</td>
-                                <td class="p-1 text-center">992603322</td>
-                                <td class="p-1 text-center">1690018890</td>
-                                <td class="p-1 text-center">1690218575</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center">1000202551</td>
-                                <td class="p-1 text-center">1000017036</td>
-                                <td class="p-1 text-center">993023557</td>
-                                <td class="p-1 text-center">1690100016</td>
-                                <td class="p-1 text-center">1690219401</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center">1000027895</td>
-                                <td class="p-1 text-center">1000038778</td>
-                                <td class="p-1 text-center">996283064</td>
-                                <td class="p-1 text-center">1691000671</td>
-                                <td class="p-1 text-center">1690221074</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center">1000057745</td>
-                                <td class="p-1 text-center">1000144536</td>
-                                <td class="p-1 text-center">1000002360</td>
-                                <td class="p-1 text-center">1691000680</td>
-                                <td class="p-1 text-center">1690225516</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center">1000070801</td>
-                                <td class="p-1 text-center font-bold">9243</td>
-                                <td class="p-1 text-center">1000010741</td>
-                                <td class="p-1 text-center">1691000688</td>
-                                <td class="p-1 text-center">1690230642</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center">1000092393</td>
-                                <td class="p-1 text-center">1000148436</td>
-                                <td class="p-1 text-center">1000010930</td>
-                                <td class="p-1 text-center">1691000701</td>
-                                <td class="p-1 text-center">1690231770</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center">1000108118</td>
-                                <td class="p-1 text-center">1000103786</td>
-                                <td class="p-1 text-center">1000010933</td>
-                                <td class="p-1 text-center">1691000710</td>
-                                <td class="p-1 text-center">1690234524</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center">1000134359</td>
-                                <td class="p-1 text-center font-bold">9246</td>
-                                <td class="p-1 text-center">1000024816</td>
-                                <td class="p-1 text-center">1691000974</td>
-                                <td class="p-1 text-center">1690234890</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center">1000148304</td>
-                                <td class="p-1 text-center">1000011318</td>
-                                <td class="p-1 text-center">1000028290</td>
-                                <td class="p-1 text-center">1691002712</td>
-                                <td class="p-1 text-center">1690251070</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center">1000171031</td>
-                                <td class="p-1 text-center">1000032371</td>
-                                <td class="p-1 text-center">1000026894</td>
-                                <td class="p-1 text-center">1691002720</td>
-                                <td class="p-1 text-center">1690253189</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center">1000171955</td>
-                                <td class="p-1 text-center">1000095973</td>
-                                <td class="p-1 text-center">1000030482</td>
-                                <td class="p-1 text-center">1691002739</td>
-                                <td class="p-1 text-center">1690257184</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center">1000178982</td>
-                                <td class="p-1 text-center">1000095679</td>
-                                <td class="p-1 text-center">1000030606</td>
-                                <td class="p-1 text-center">1691002747</td>
-                                <td class="p-1 text-center">1690259614</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center">1691004227</td>
-                                <td class="p-1 text-center">1000095976</td>
-                                <td class="p-1 text-center">1000031204</td>
-                                <td class="p-1 text-center">1691003987</td>
-                                <td class="p-1 text-center">1690274127</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1000073814</td>
-                                <td class="p-1 text-center">1000032492</td>
-                                <td class="p-1 text-center">FRT0288</td>
-                                <td class="p-1 text-center">FRT0288</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1000102361</td>
-                                <td class="p-1 text-center">1000032563</td>
-                                <td class="p-1 text-center">1691003891</td>
-                                <td class="p-1 text-center">PRT0428</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1000102383</td>
-                                <td class="p-1 text-center">1000032590</td>
-                                <td class="p-1 text-center">1691004187</td>
-                                <td class="p-1 text-center">PRT0428</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1000107747</td>
-                                <td class="p-1 text-center">1000066972</td>
-                                <td class="p-1 text-center">1691004200</td>
-                                <td class="p-1 text-center">PRT0710</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1000152595</td>
-                                <td class="p-1 text-center">1000065978</td>
-                                <td class="p-1 text-center">1691004219</td>
-                                <td class="p-1 text-center">PRT0712</td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1000152601</td>
-                                <td class="p-1 text-center">1000073870</td>
-                                <td class="p-1 text-center">1691004235</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1000180336</td>
-                                <td class="p-1 text-center">1000073811</td>
-                                <td class="p-1 text-center">1691004243</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1000186871</td>
-                                <td class="p-1 text-center">1000073813</td>
-                                <td class="p-1 text-center">1691004251</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1000177902</td>
-                                <td class="p-1 text-center">1000002244</td>
-                                <td class="p-1 text-center">1691005901</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1000187606</td>
-                                <td class="p-1 text-center">1000004378</td>
-                                <td class="p-1 text-center">1691006505</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1000195457</td>
-                                <td class="p-1 text-center">1000102362</td>
-                                <td class="p-1 text-center">1691006513</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1000196090</td>
-                                <td class="p-1 text-center">1000012516</td>
-                                <td class="p-1 text-center">1691006505</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1000205782</td>
-                                <td class="p-1 text-center">1000112517</td>
-                                <td class="p-1 text-center">1691006554</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1000214545</td>
-                                <td class="p-1 text-center">1000126091</td>
-                                <td class="p-1 text-center">1691006572</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1691030775</td>
-                                <td class="p-1 text-center">1000135637</td>
-                                <td class="p-1 text-center">1691006580</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1691033883</td>
-                                <td class="p-1 text-center">1000148393</td>
-                                <td class="p-1 text-center">1691006599</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1691037125</td>
-                                <td class="p-1 text-center">1000150656</td>
-                                <td class="p-1 text-center">1691006602</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1690057803</td>
-                                <td class="p-1 text-center">1000158882</td>
-                                <td class="p-1 text-center">1691006610</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1690091700</td>
-                                <td class="p-1 text-center">1000180784</td>
-                                <td class="p-1 text-center">1691006645</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1690061751</td>
-                                <td class="p-1 text-center">1000181525</td>
-                                <td class="p-1 text-center">1691006661</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1690070098</td>
-                                <td class="p-1 text-center">1000195612</td>
-                                <td class="p-1 text-center">1691006670</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1690071746</td>
-                                <td class="p-1 text-center">1000183807</td>
-                                <td class="p-1 text-center">1691006688</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1690107716</td>
-                                <td class="p-1 text-center">1000211118</td>
-                                <td class="p-1 text-center">1691006700</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1690230197</td>
-                                <td class="p-1 text-center">1000214808</td>
-                                <td class="p-1 text-center">1691006718</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1690234796</td>
-                                <td class="p-1 text-center">1690017333</td>
-                                <td class="p-1 text-center">1691006726</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1690259322</td>
-                                <td class="p-1 text-center">1690017473</td>
-                                <td class="p-1 text-center">1691006742</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                            <tr>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center"></td>
-                                <td class="p-1 text-center">1690018003</td>
-                                <td class="p-1 text-center">1691006750</td>
-                                <td class="p-1 text-center"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+
+<div class="bounce-in mt-8">
+    <h2 class="section-title" style="text-align: right;">8. מספרי המקטים הרלוונטיים</h2>
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
+        <!-- טבלה 1 -->
+        <div class="table-scroll enhanced-table">
+            <table class="w-full" style="font-size: 10px;">
+                <tbody>
+                    <tr>
+                        <td class="p-1 text-center font-bold">9149</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 text-center">1000005180</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 text-center">1000010932</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 text-center">1000026551</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 text-center">1000027855</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 text-center">1000067745</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 text-center">1000070601</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 text-center">1000092353</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 text-center">1000108118</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 text-center">1000134359</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 text-center">1000148304</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 text-center">1000171031</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 text-center">1000171955</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 text-center">1000178962</td>
+                    </tr>
+                    <tr>
+                        <td class="p-1 text-center">1691004227</td>
+                    </tr>
+					<tr>
+                        <td class="p-1 text-center font-bold">9242</td>
+                    </tr>
+					<tr>
+                        <td class="p-1 text-center">962600140</td>
+                    </tr>
+					<tr>
+                        <td class="p-1 text-center">1000002274</td>
+                    </tr>
+					<tr>
+                        <td class="p-1 text-center">1000010380</td>
+                    </tr>
+					<tr>
+                        <td class="p-1 text-center">1000038778</td>
+                    </tr>
+					<tr>
+                        <td class="p-1 text-center">1000148346</td>
+                    </tr>
+					<tr>
+                        <td class="p-1 text-center font-bold">9243</td>
+                    </tr>
+					<tr>
+                        <td class="p-1 text-center">1000103784</td>
+                    </tr>
+					<tr>
+                        <td class="p-1 text-center">1000103786</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
+                    <!-- טבלה 2 -->
+<div class="table-scroll enhanced-table">
+    <table class="w-full" style="font-size: 10px;">
+        <tbody>
+            <tr>
+                <td class="p-1 text-center font-bold">9245</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000011318</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000032871</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000065973</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000065976</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000065979</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000073814</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000102361</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000102363</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000107747</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000152565</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000152601</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000160839</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000166871</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000177902</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000187609</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000195457</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000199990</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000205782</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000214545</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691030775</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691032883</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691037125</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890007803</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890061700</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890061751</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890070998</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890071749</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890107719</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890230197</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890234796</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890259322</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+<!-- טבלה 3 -->
+<div class="table-scroll enhanced-table">
+    <table class="w-full" style="font-size: 10px;">
+        <tbody>
+            <tr>
+                <td class="p-1 text-center font-bold">9241</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">962264855</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">962623522</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">962623557</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">962623964</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000005360</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000010741</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000010930</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000010933</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000024815</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000026260</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000026894</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000030482</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000030656</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000031204</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000032552</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000032553</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000032580</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000065972</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000065978</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000072870</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000073811</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000073813</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000093244</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000094378</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000102362</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000112516</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000112517</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000126691</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000135637</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000148303</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000150656</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000158682</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000180764</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000181525</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000185612</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000193807</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000211118</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1000214805</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1690017333</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1690017473</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1690018003</td>
+            </tr>
+			<tr>
+                <td class="p-1 text-center">1890227315</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890230642</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- טבלה 4 -->
+<div class="table-scroll enhanced-table">
+    <table class="w-full" style="font-size: 10px;">
+        <tbody>
+            <tr>
+                <td class="p-1 text-center">1690018518</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1690018682</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1690018950</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691000116</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691000671</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691000680</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691000698</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691000701</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691000710</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691002674</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691002712</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691002720</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691002739</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691002747</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691003867</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691003883</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691003891</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691004197</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691004200</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691004219</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691004235</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691004243</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691004251</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691005991</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006505</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006513</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006556</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006564</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006572</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006580</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006599</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006602</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006610</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006645</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006661</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006670</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006688</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006700</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006718</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006726</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006742</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006750</td>
+            </tr>
+			<tr>
+                <td class="p-1 text-center">1890231770</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890234524</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- טבלה 5 -->
+<div class="table-scroll enhanced-table">
+    <table class="w-full" style="font-size: 10px;">
+        <tbody>
+            <tr>
+                <td class="p-1 text-center">1691006793</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006815</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006823</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006831</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006840</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006858</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006874</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006882</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006904</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006912</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691006920</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007404</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007412</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007420</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007447</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007455</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007463</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007471</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007480</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007498</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007501</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007510</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007528</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007552</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007560</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007579</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007587</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007595</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007609</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007625</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007633</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007722</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691007730</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691009539</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691009555</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691009580</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691009598</td>
+            </tr>
+			 <tr>
+                <td class="p-1 text-center">1890213284</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890218324</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890218375</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890219401</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890221074</td>
+            </tr>
+			 <tr>
+                <td class="p-1 text-center">1890234869</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890251070</td>
+            </tr>
+			 </tbody>
+    </table>
+</div>
+
+
+			<!-- 6טבלה -->
+			<div class="table-scroll enhanced-table">
+    <table class="w-full" style="font-size: 10px;">
+        <tbody>			
+            <tr>
+                <td class="p-1 text-center">1691009628</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691009636</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691009644</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691009652</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691009679</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691009830</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691010260</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691010545</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691010561</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691012556</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691013447</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691013455</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691013471</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691013480</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691014451</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691014460</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691015555</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691015601</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691016756</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691016780</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691016799</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691019119</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691019127</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691021121</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691021814</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691023205</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691023213</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691023230</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691023248</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691023256</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691023264</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691023272</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691023280</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1691023299</td>
+            </tr>
+			 <tr>
+                <td class="p-1 text-center">1890253189</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890257184</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890269514</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">1890274127</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">PRT0288</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">PRT0428</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">PRT0429</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">PRT0519</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">PRT0710</td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center">PRT0712</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+        </div>
+    </div>
+</div>
         <div class="clalit-header text-white p-8 mt-6">
             <div class="flex items-center justify-between w-full flex-wrap gap-6">
                 <div class="flex-1 text-right min-w-[200px]">
@@ -1996,12 +2478,12 @@
         };
 
         let visualChecks = [
-            "תקע כוח", "כבל חשמל", "גרבי פילטר", "פיוזים", "גוף מרכיב",
-            "מפסקים / אמצעי בקרה", "מנוע, רוטור, מעצור", "משאבה (רק בצנטריפוגה שוטפת)",
-            "בדיקת התרעות", "סימנים קוליים", "מדבקות", "אביזרים",
-            "תקינות מנגנון נעילה ופתיחה", "סוללת גיבוי", "תצוגה",
-            "שימון לפי הגדרות היצרן", "הוחלפו פחמים, מעצורים, אטמים לפי הצורך"
-        ];
+            " תקע כוח ", " כבל חשמל ", " ברגי מסנן "," ניקוי מסנן (מקוררת) ", " גוף מרכב ",
+			"מפסקים / אמצעי בקרה", "מנוע / רוטור ", " גירוז לפי הוראות יצרן ",
+            "משאבה (רק בצנטריפוגה שוטפת)", "בדיקת התראות IN BALANCE",
+            "סימנים קוליים בזמן סירכוז", "מדבקות", "אביזרים",
+            "תקינות מנגנון נעילה ופתיחה",  "תצוגה", 
+            ];
 
         let functionalTests = [
             { test: "התנגדות ארקה", unit: "Ω", min: "0", max: "0.3", notes: "גדול מ 0" },
@@ -2027,7 +2509,6 @@
             initializeEventListeners();
             addAnimations();
             
-            // הפיכת פורמט תאריכים ל-MM/DD/YYYY
             const dateInputs = document.querySelectorAll('input[type="date"]');
             dateInputs.forEach(input => {
                 input.addEventListener('change', function(e) {
@@ -2509,6 +2990,34 @@
             }
         }
 
+        function addSparePartRow() {
+            const tbody = document.getElementById('spare-parts-table');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="p-2">
+                    <input type="text" class="clalit-input w-full" placeholder="שם הפריט">
+                </td>
+                <td class="p-2">
+                    <input type="text" class="clalit-input w-full" placeholder="מקט כללית">
+                </td>
+                <td class="p-2 text-center print-hide">
+                    <button onclick="removeSparePartRow(this)" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition-all text-sm">
+                        מחק
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        }
+
+        function removeSparePartRow(button) {
+            const tbody = document.getElementById('spare-parts-table');
+            if (tbody.children.length > 1) {
+                button.closest('tr').remove();
+            } else {
+                alert('חייבת להישאר לפחות שורה אחת');
+            }
+        }
+
         function saveDraft() {
             try {
                 const draftData = {
@@ -2585,6 +3094,18 @@
                 const statusRadio = document.querySelector('input[name="deviceStatus"]:checked');
                 draftData.deviceStatus = statusRadio?.value || null;
                 
+                const sparePartsInputs = document.querySelectorAll('#spare-parts-table tr');
+                draftData.spareParts = [];
+                sparePartsInputs.forEach(row => {
+                    const inputs = row.querySelectorAll('input[type="text"]');
+                    if (inputs.length >= 2) {
+                        draftData.spareParts.push({
+                            name: inputs[0].value || '',
+                            catalog: inputs[1].value || ''
+                        });
+                    }
+                });
+                
                 localStorage.setItem('centrifuge-draft', JSON.stringify(draftData));
                 
                 alert('✅ הטיוטה נשמרה בהצלחה!');
@@ -2645,6 +3166,29 @@
                     if (statusRadio) statusRadio.checked = true;
                 }
                 document.getElementById('final-notes').value = draftData.finalNotes || '';
+                
+                if (draftData.spareParts && draftData.spareParts.length > 0) {
+                    const tbody = document.getElementById('spare-parts-table');
+                    tbody.innerHTML = '';
+                    
+                    draftData.spareParts.forEach(part => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td class="p-2">
+                                <input type="text" class="clalit-input w-full" placeholder="שם הפריט" value="${part.name}">
+                            </td>
+                            <td class="p-2">
+                                <input type="text" class="clalit-input w-full" placeholder="מקט כללית" value="${part.catalog}">
+                            </td>
+                            <td class="p-2 text-center print-hide">
+                                <button onclick="removeSparePartRow(this)" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition-all text-sm">
+                                    מחק
+                                </button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
                 
                 document.getElementById('employee-id').value = draftData.technician.employeeId || '';
                 document.getElementById('technician-name').value = draftData.technician.name || '';
