@@ -817,12 +817,7 @@
     .clalit-header:first-of-type {
         counter-increment: header-count;
     }
-    
-    #print-device-info::after {
-        content: " • עמוד " counter(header-count);
-        color: #FFEB3B;
-        font-weight: 700;
-    }
+   
     
     .clalit-header:last-of-type {
                 display: table-footer-group;
@@ -3278,7 +3273,7 @@ function printForm() {
             const spacer = document.createElement('div');
             spacer.id = 'print-spacer';
             
-            const spacerHeight = additionalTechnicianChecked ? '100mm' : '150mm';
+            const spacerHeight = additionalTechnicianChecked ? '50mm' : '80mm';
             spacer.style.cssText = `margin-bottom: ${spacerHeight}; page-break-inside: avoid;`;
             contentDiv.appendChild(spacer);
             
