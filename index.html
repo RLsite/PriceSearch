@@ -910,7 +910,7 @@
     
     .clalit-header:last-of-type {
         font-size: 9px !important;
-        padding: 3mm !important;
+        padding: 2mm !important;
     }
     
     .clalit-header:last-of-type .flex {
@@ -3396,14 +3396,15 @@ function printForm() {
                 window.print();
                 
                 setTimeout(() => {
-                    elementsToHide.forEach(el => {
-                        el.style.display = '';
-                    });
-                    const spacer = document.getElementById('print-spacer');
-                    if (spacer) spacer.remove();
-                }, 500);
+    elementsToHide.forEach(el => {
+        el.style.display = '';
+    });
+    // const spacer = document.getElementById('print-spacer');
+    // if (spacer) spacer.remove();  ← בהערה
+}, 500);
             }, 500);
         }
     </script>
 </body>
 </html>
+
