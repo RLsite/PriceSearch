@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en" dir="rtl">
 <head>
@@ -1284,39 +1285,6 @@
         .bounce-in .grid.grid-cols-1.md\\:grid-cols-3 input {
             font-size: 7px !important;
             padding: 1px 2px !important;
-			
-			/* תיקון לסעיף 8 - מספרי מקטים */
-.bounce-in:has(.grid.grid-cols-1.md\\:grid-cols-6) {
-    page-break-inside: auto !important;
-}
-
-/* וידוא שהטבלאות נשארות בפורמט 6 עמודות בהדפסה */
-.bounce-in .grid.grid-cols-1.md\\:grid-cols-6 {
-    display: grid !important;
-    grid-template-columns: repeat(6, 1fr) !important;
-    gap: 2px !important;
-    page-break-inside: auto !important;
-}
-
-/* הקטנת גופן וריווחים בטבלאות המק"טים */
-.bounce-in .grid.grid-cols-1.md\\:grid-cols-6 .enhanced-table {
-    margin-bottom: 0 !important;
-}
-
-.bounce-in .grid.grid-cols-1.md\\:grid-cols-6 .enhanced-table table {
-    font-size: 6px !important;
-}
-
-.bounce-in .grid.grid-cols-1.md\\:grid-cols-6 .enhanced-table td {
-    padding: 0.5px 1px !important;
-    line-height: 1.1 !important;
-}
-
-/* טבלאות מק"טים - מקסימום גובה לעמוד */
-.bounce-in .grid.grid-cols-1.md\\:grid-cols-6 .table-scroll {
-    max-height: none !important;
-    overflow: visible !important;
-}
         }
     }
 }
@@ -1764,7 +1732,7 @@
 
 <div class="bounce-in mt-8">
     <h2 class="section-title" style="text-align: right;">8. מספרי המקטים הרלוונטיים</h2>
-    <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
+    <div class="grid grid-cols-6 gap-4">
         <!-- טבלה 1 -->
         <div class="table-scroll enhanced-table">
             <table class="w-full" style="font-size: 10px;">
